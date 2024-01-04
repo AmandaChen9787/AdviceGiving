@@ -33,7 +33,18 @@ count <- apply(answer, 1, function(x) {
 count <- as.data.frame(count)
 Advisee <- cbind(Advisee,count)
 
-saveRDS(Advisee, file = here::here("Data/Study1_time1.Rds"))
+saveRDS(Advisee, file = here::here("Data/Study1_time1All.Rds"))
+Advisee %>% write.csv("Data/Cleaned Data/S1_time1All_clean.csv")
 
-Advisee %>% write.csv("Data/Cleaned Data/S1_time1_clean.csv")
+#create a gander-balance sample
+females <- Advisee %>% dplyr::filter(Gender == "Female")
+males <- Advisee %>% dplyr::filter(Gender == "Male")
+males <- males[1:500,]
+
+Advisee1000 <- rbind(females, males)
+
+saveRDS(Advisee1000, file = here::here("Data/Study1_time1.Rds"))
+Advisee1000 %>% write.csv("Data/Cleaned Data/S1_time1_clean.csv")
+
+
 
