@@ -13,3 +13,11 @@ targets <- data.table::fread(here::here("Data/Raw Data/S2_time1.csv"),
 
 saveRDS(targets, file = here::here("Data/Study2_time1.Rds"))
 targets %>% write.csv("Data/Cleaned Data/S2_time1_clean.csv")
+
+females <- targets %>% dplyr::filter(gender == 'Female')
+males <- targets %>% dplyr::filter(gender == 'Male')
+females <- females[1:100,]
+targets200 <- rbind(females, males)
+
+saveRDS(targets200, file = here::here("Data/Study2_time1_200.Rds"))
+targets200 %>% write.csv("Data/Cleaned Data/S2_time1_200_clean.csv")

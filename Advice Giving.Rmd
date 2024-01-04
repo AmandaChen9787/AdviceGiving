@@ -114,7 +114,7 @@ HP_upper <- sortedScore[1]
 
 We first recruited a sample of `r scales::comma(dim(study1_math50)[1])` participants from Prolific to complete a 10-question multiple choice mathematics quiz. The questions were taken from a paper-version of the ASVAB standardized exam, such that answers were not available online. Participants had 5 minutes to answer the quiz and were paid 10 cents for each correctly answered question. We define the top 20 scorers as the “High Performers” and the bottom 20 scorers as the “Low Performers.” On average, participants answered `r round(mean(study1_math50$Score),2)` questions correctly, High Performers scored between `r HP_lower` and `r HP_upper`, and Low Performers scored between `r LP_lower` and `r LP_upper`. We further simulated 1,000 pairings of groups of five participants, with the 5 th percentile of groups scoring an average of `r p5` and the 95 th percentile scoring an average of `r p95`. We use these participants as the competitors for the advisees in our main experiment, and the average group scores to anchor expectations.
 
-Next, we recruited `r scales::comma(dim(study1_time1All)[1])` participants in Stage 1 of our main experiment, for the role of advisees. To arrive at a gender-balanced sample, we dropped the last two male participants to complete the survey, ending up with a sample of 500 men and 500 women ($M_{\text{Age}}$ = `r mean(study1_time1$Age)`,50\% Female,). Participants completed the same 10-item mathematics quiz as the earlier participants and were informed that their performance would affect their bonus earnings in a follow-up study to be conducted a few days later. After completing the quiz, we informed them of the average score of a group of five participants from the preliminary survey. We randomly assigned them to learn about the 5 th percentile of groups, which scored `r p5`. (“Low Expectations” treatment) or the 95 th percentile of groups, which scored `r p95` (“High Expectations” treatment). Participants then made a guess (unincentivized) about how many questions they think they answered correctly. The survey concluded with basic demographic questions.
+Next, we recruited `r scales::comma(dim(study1_time1All)[1])` participants in Stage 1 of our main experiment, for the role of advisees. To arrive at a gender-balanced sample, we dropped the last two male participants to complete the survey, ending up with a sample of 500 men and 500 women ($M_{\text{Age}}$ = `r mean(study1_time1$Age)`,50\% Female). Participants completed the same 10-item mathematics quiz as the earlier participants and were informed that their performance would affect their bonus earnings in a follow-up study to be conducted a few days later. After completing the quiz, we informed them of the average score of a group of five participants from the preliminary survey. We randomly assigned them to learn about the 5 th percentile of groups, which scored `r p5`. (“Low Expectations” treatment) or the 95 th percentile of groups, which scored `r p95` (“High Expectations” treatment). Participants then made a guess (unincentivized) about how many questions they think they answered correctly. The survey concluded with basic demographic questions.
 
 We then recruited `r scales::comma(dim(study1_time2_giver)[1])`  participants for Stage 2, placing them in the role of advisers. We began by informing them of the mathematics quiz that participants in the preliminary study and Stage 1 had completed, and informed them of the average score in the preliminary study. Advisers had to recommend whether an advisee should compete against the Low Performers or the High Performers (we used these terms in the survey). We anticipated that being told to compete against High Performers is more flattering. Advisees would earn 30 cents if their score was equal to or higher than a randomly selected member of the Low Performer group and they chose to compete against this group, or 50 cents if they performed as well or better than a randomly selected member of the High Performer group. If they scored lower, they would not receive any bonus.
 
@@ -155,7 +155,7 @@ modelsummary::modelsummary(list(`(1)` = lm(Advice ~ TreatmentHigh + Performance 
 
 ```
 
-```{r study1genderdiff, fig.cap ="Male participants are more likely to be recommended to compete against the High Performer group than female counterparts, holding performance the same."} 
+```{r study1genderdiff, fig.cap ="Advice given to men and women. Advisers observed real performance and the participants’ estimated performance, but not their gender. As a result of their higher expectations, men were advised to compete against the high performance group more often. In the treatment in which expectations were not shown to the advisors, no gender differences emerged (not displayed in this figure).."} 
 library(dplyr)
 library(ggplot2)
 library(magrittr)
@@ -174,6 +174,38 @@ ggplot(df_exp, aes(x = Performance, y = avg_hardGroup, color = Gender)) +
               method = "glm", method.args = list(family = "binomial"), color = "grey", se = FALSE) +
   scale_color_manual(values = c("#FFA500", "#4169E1", "grey"),
                      labels = c("Female_withExpectation", "Male_withExpectation", "NoExpectation")) +
+  scale_y_continuous(name = "P(Compete Against High Performance)") +
+  scale_x_continuous(name = "Performance") +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        panel.border = element_blank(),
+        axis.line = element_line(colour = "grey"),
+        legend.position = "bottom",
+        legend.title = element_blank(),
+        legend.key.size = unit(1.2, "lines"),
+        legend.text = element_text(size = 12),
+        plot.title = element_text(hjust = 0.5, size = 20))
+
+
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(magrittr)
+
+ProbHG <- study1_advice %>%
+  group_by(Condition, Performance, Gender) %>%
+  dplyr::summarize(avg_hardGroup = mean(Advice))
+
+
+df_exp <- subset(ProbHG, Condition == "E")
+df_none <- subset(ProbHG, Condition == "None")
+
+ggplot(df_exp, aes(x = Performance, y = avg_hardGroup, color = Gender)) +
+  geom_smooth(method = "glm", method.args = list(family = "binomial"),se = FALSE) +
+  scale_color_manual(values = c("#FFA500", "#4169E1"),
+                     labels = c("Female_withExpectation", "Male_withExpectation")) +
   scale_y_continuous(name = "P(Compete Against High Performance)") +
   scale_x_continuous(name = "Performance") +
   theme_bw() +
@@ -212,25 +244,24 @@ We found that males are more competitive to the extent that they are more likely
 In Study 1, we discovered that although advisers are encouraged to provide accurate advice, they still take into account the expectations of advisees, which are irrelevant to the utility of the advice. Due to the fact that males tend to be more confident than their equally competent female counterparts, they are more likely to be recommended to compete against high-performance competitors. However, when advice is given to match the advisees' expectations, these flattering recommendations result in lower expected bonus earnings for male participants.
 
 # Study 2
-In the previous study, we found that individuals take into account the self-expectations of others when providing advice. In this study, we aimed to investigate whether people inflate advice due to the concern for interpersonal benefits. We hypothesized that individuals may exaggerate their advice in order to be viewed more favorably by the recipients. This study was preregistered on AsPredicted (https://aspredicted.org/45P_93G).
+We then conduct a three-stage experiment to determine why advisers give flattering advice. First, we ask a group of advisees to upload selfies and predict their rank in a group of ten people of the same gender based on physical attractiveness. Next, we recruit and ask advisers to rank selfies of the opposite gender and recommend which rank the participant ranked 7th should bet on, with the bonus being contingent on whether the participant guessed accurately or found the adviser likable. Finally, we show the advisees the advice they have received and ask them to make their final prediction about their rank and evaluate the advice giver in terms of likability, warmth, and trustworthiness. Our main hypothesis is that advisers who want to be liked by advisees would recommend a higher rank.
 
 ```{r}
 
 study2_time1 <- readRDS(here::here("Data/Study2_time1.Rds"))
+study2_time1_200 <- readRDS(here::here("Data/Study2_time1_200.Rds"))
 study2_time2 <- readRDS(here::here("Data/Study2_time2.Rds"))
 study2_time3 <- readRDS(here::here("Data/Study2_time3.Rds"))
 
 ```
 
-## Method
-We recruited `r scales::comma(dim(study2_time1)[1])` workers from Prolific (`r round(mean(study2_time1$gender == "Female")*100)`\% Female, $M_{\text{Age}}$ = `r mean(study2_time1$age)`) to upload selfies and another `r scales::comma(dim(study2_time2)[1])` (`r round(mean(study2_time2$gender == "Female")*100)`\% Female, $M_{\text{Age}}$ = `r mean(study2_time2$age)`) participants to rate selfies regarding physical attractiveness and give advice. 
-Study 2 consists of three surveys. At time 1, we invited participants to upload photos of themselves (selfies) to be rated by other participants on attractiveness. We assigned each participant to a group of 10 participants of their own gender. We also asked participants to predict how they rank in this 10-person group regarding physical attractiveness. To create a gender-balanced sample, among all `r dim(study2_time1 %>% dplyr::filter(gender == 'Female'))[1]` female participants who uploaded selfies, we select the first 100 and only include them in the following time 2 and time 3 studies. That is, in total we have 200 recipients. Next, we recruited `r scales::comma(dim(study2_time2)[1])` new participants and asked them to rank the attractiveness of one such group of 10 participants of the opposite gender. After they did so, we showed them the photo of the participant they ranked as the 7th most attractive (that is, the 4th least attractive) and reminded them that they had ranked this person at 7th place. We (truthfully) informed them that this participant would have a chance to earn a bonus if they accurately guessed their rank based on the aggregated ratings of all participants who had ranked this group. Participants were then randomly assigned to an “accuracy” or a “likability” treatment. In the accuracy treatment, they received a bonus identical to that of the advisee. In the “likability” treatment, their bonus depended on how the advisee rated them in terms of likability, after observing only the rank that they had advised the advisee to guess. At time 3, we invited the participants who uploaded selfies to return for the third stage of the experiment. Here, they observed the rank proposed by an adviser and made an incentivized bet on how they ranked across all of those who rated their photo. We then asked participants to evaluate the adviser based on their likability and warmth on a 5-point scale. The latter dimension was measured with 4-item scale adopted from Fiske, Cuddy, and Glick (2007).
+## Methods
+We recruited 300 participants and invited them to upload photos of themselves (selfies) to be rated by other participants on attractiveness. We ended up with a sample of `r scales::comma(dim(study2_time1[study2_time1$gender == 'Male',])[1])` men and `r scales::comma(dim(study2_time1[study2_time1$gender == 'Female',])[1])` women who agreed to do so and uploaded usable pictures. We selected the first 100 photos from women to arrive at a gender-balanced sample ($M_{\text{Age}}$ = `r mean(study2_time1_200$age)` years; 50.0\% Female). We informed them that their selfies will be randomly grouped into nine others from the same gender and ranked by people of the opposite gender and asked them to predict their rank, with 1st rank represents the most attractive and 10th rank represents the least attractive. We assigned each participant to a group of 10 participants of their own gender. 
 
-## Open Science Statement
-We report all manipulations, measures, and data exclusion in this and the following study. 
-The preregistration reports, screenshots of all experimental materials, and 
-the analysis code to replicate all statistical analyses and figures are
-available on the Open Science Framework (will do this later).
+Next, we recruited `r scales::comma(dim(study2_time2)[1])`new participants and asked them to rank the attractiveness of one such group of 10 participants of the opposite gender ($M_{\text{Age}}$ = `r mean(study2_time2$age)` years; `r round(mean(study2_time2$gender == "Female")*100, 2)`\% Female). After they did so, we showed them the photo of the participant they ranked as the 7th  most attractive (that is, the 4th  least attractive) and reminded them that they had ranked this person at 7th attractive. We (truthfully) informed them that this participant would have a chance to earn a bonus if they accurately guessed their rank based on the aggregated ratings of all participants who had ranked this group. Participants were then randomly assigned to an “accuracy” or a “likeability” treatment. In the accuracy treatment, they were told that they would receive a bonus ($1) identical to that of the advisee. While in the “likeability” treatment, the amount their bonus depended on how the advisee rated them in terms of likeability, after observing only the rank that they had advised the advisee to guess. Advisees would rate to what extent they think the adviser is likable on a 5-point scale, and each point they earn increases their bonus by 20 cents.
+
+Finally, we invited participants from Stage 1 and were ranked as the 7th attractive by at least one adviser (so that they received advice) back for the follow-up survey. Following our preregistration, we kept the survey open for 7 days. In total, `r scales::comma(dim(study2_time3)[1])`  participants (`r scales::comma(dim(study2_time3[study2_time3$gender == 'Male',])[1])` men, `r scales::comma(dim(study2_time3[study2_time3$gender == 'Female',])[1])` women) returned. They were reminded of the selfie they uploaded in Stage 1 and informed that a group of 10 selfies, including theirs, had been rated by other participants from Prolific. They were also introduced to the opportunity to earn a $1 bonus if they guessed their rank accurately. Participants were then shown the advice from a randomly selected adviser and made their predictions. After deciding which rank to bet on, advisees were reminded of the advice they received and asked to rate the advice giver's likability, warmth, friendliness, good-naturedness, trustworthiness, and sincerity on a 5-point scale. The last 6 items were adopted from @Fiske2007.
+
 
 ## Results
 ```{r study2advice, fig.cap="Advice for 7th most attractive participants"}
@@ -268,18 +299,21 @@ ggplot(advice_avg, aes(x = Advice, y = percent, color = Condition)) +
 
 ```
 
-First, in line with our prediction, participants advised a lower rank (that is, more attractive) in the likeability treatment than the accuracy treatment, $M_{\text{Likable}}$  =`r round(mean(study2_time2[study2_time2$Condition == "Likable",]$Advice),2)` and $M_{\text{Accurate}}$ = `r round(mean(study2_time2[study2_time2$Condition == "Accurate",]$Advice),2)`, `r papaja::apa_print(t.test(Advice ~ Condition, data = study2_time2, var.equal = T))$statistic`. As seen in Figure \@ref(fig:study2advice), notably, even in the accuracy treatment, participants advised a lower rank than they themselves had provided (`r papaja::apa_print(t.test(study2_time2[study2_time2$Condition == "Accurate",]$Advice, mu = 7, var.equal = T))$statistic`). This suggests that advisers inferred that advising someone that they were more attractive would make the adviser appear more likable and therefore provided advice that communicated a more favorable impression of the participants’ attractiveness.
+Again, we found supportive evidence that males are more confident about themselves, giving higher initial rank prediction (more attractive) than female participants (`r round(mean(study2_time1[study2_time1$gender == "Male",]$Guess),2)` vs. `r round(mean(study2_time1[study2_time1$gender == "Female",]$Guess),2)`, `r papaja::apa_print(t.test(Guess ~ gender, data = study2_time1, var.equal = T))$statistic`). 
+
+Examining advice from Stage 2 participants, we found that participants advised a lower rank (that is, more attractive) in the likeability treatment than the accuracy treatment (`r round(mean(study2_time2[study2_time2$Condition == "Likable",]$Advice),2)` vs `r round(mean(study2_time2[study2_time2$Condition == "Accurate",]$Advice),2)`, `r papaja::apa_print(t.test(Advice ~ Condition, data = study2_time2, var.equal = T))$statistic`). As seen in Figure \@ref(fig:study2advice), notably, however, even in the accuracy treatment, participants advised a lower rank than they themselves had provided (`r papaja::apa_print(t.test(study2_time2[study2_time2$Condition == "Accurate",]$Advice, mu = 7, var.equal = T))$statistic`). This suggests that advisers inferred that advising someone that they were more attractive would make the adviser appear more likeable and therefore provided advice that communicated a more favorable impression of the participants’ attractiveness.
 
 ```{r study2regs}
 
 modelsummary::modelsummary(list(`(1)` = lm(likable ~ Advice, data = study2_time3),
-                                `(2)` = lm(warmAvg ~ Advice, data = study2_time3)),
-                           vcov = c("classical", "classical"),
+                                `(2)` = lm(warmAvg ~ Advice, data = study2_time3),
+                                `(3)` = lm(trustAvg ~ Advice, data = study2_time3)),
+                           vcov = c("classical", "classical", "classical"),
                            coef_map = c("Advice" = "Advised Rank",
                                         "(Intercept)" = "Constant"),
                            stars = T,
                            gof_map = list(list('raw' = 'nobs', 'clean' = 'N', 'fmt' = 0)),
-                           caption = "When individuals receive advice that implies a high level of attractiveness (lower rank), they tend to perceive the advice giver as more likable (Column 1) and warm (Column 2).") %>%
+                           caption = "When individuals receive advice that implies a high level of attractiveness (lower rank), they tend to perceive the advice giver as more likable (Column 1), warm (Column 2). Column 3 shows that advisors are rated as more trustworthy when they advice lower ranks, but this relationship is only directional.") %>%
   kableExtra::kable_styling(latex_option = "scale_down")
 
 ```
@@ -311,8 +345,7 @@ ggplot(rating, aes(x = Advice)) +
 
 ```
 
-Of the 200 advisees, `r round(dim(study2_time3)[1]/200*100,2)`% returned for a follow-up survey, provided their incentivized guess, and evaluated advisers on likeability and warmth. As seen in Figure \@ref(fig:study2rating), in line of our predictions, we found that advisees who suggested that the advisee was more attractive were indeed rated as more likeable (Column 1 of Table \@ref(tab:study2regs) ), and warmer (Column 2 of Table \@ref(tab:study2regs) ). Notably, however, we were not powered to do a comparison across the two experimental groups.
-
+To test whether flattering advice brings more positive evaluation of advisers, we create a single index for warmth and trustworthiness by taking average of ratings on warmth, friendliness, good-naturedness, trustworthiness for the former and ratings on trustworthiness, and sincerity for the later. As seen in Figure \@ref(fig:study2rating), we found that advisees who suggested that the advisee was more attractive (lower rank) were indeed rated as more likeable and warm (b = -0.109, p < .05; b = -0.133, p < .001; See Columns 1 and 2 of Table 2). Interestingly, these benefits are not at the cost of being hypocritical; advisers are also seen as more trustworthy, but the result is only directional (Column 3 of Table 2). Notably, however, we were not powered to do a comparison across the two experimental groups.
 # References
 
 ```{=tex}
