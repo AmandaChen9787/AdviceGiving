@@ -17,8 +17,8 @@ note : |
 authornote : |
   The authors are grateful to a lot of things.
 abstract: |
-  
-  This is an interesting project! Please read through it!
+  The purpose of advice is to help recipients make better decisions and solve their problems. However, in this paper, we propose that advisors may also take recipients' responses into account and attempt to avoid disappointing them, leading to what we call "flattering advice." In two pre-registered experiments involving real interactions between advisors and advisees (n = 2,700), we show that individuals consider others' expectations when giving advice, even when such expectations do not provide informative insights for the underlying decision-making problem. As a result, men receive more aspirational advice than women, given their higher confidence, when expectations (but not gender) are shown to advisors. However, incorporating expectations leads to worse outcomes (Study 1). Individuals inflate their advice due to interpersonal considerations: people who are concerned about advisees' likability inflate their advice to a great extent. Advisees reward such flattering advice, finding the advisers more likable and no less trustworthy than those who provide more accurate advice (Study 2). We discuss practical and theoretical contributions and future research directions.
+ 
 keywords          : "Gender difference, Advice, Interpresonal relationship"
 wordcount         : "4,362"
 figsintext        : yes
@@ -346,6 +346,15 @@ ggplot(rating, aes(x = Advice)) +
 ```
 
 To test whether flattering advice brings more positive evaluation of advisers, we create a single index for warmth and trustworthiness by taking average of ratings on warmth, friendliness, good-naturedness, trustworthiness for the former and ratings on trustworthiness, and sincerity for the later. As seen in Figure \@ref(fig:study2rating), we found that advisees who suggested that the advisee was more attractive (lower rank) were indeed rated as more likeable and warm (b = -0.109, p < .05; b = -0.133, p < .001; See Columns 1 and 2 of Table 2). Interestingly, these benefits are not at the cost of being hypocritical; advisers are also seen as more trustworthy, but the result is only directional (Column 3 of Table 2). Notably, however, we were not powered to do a comparison across the two experimental groups.
+
+# Discussion
+dvice substantially shapes people's career and personal outcomes. Therefore, understanding advisers' motivations has far-reaching implications. We propose that advisers' focus on advisees' expectations and the desire to avoid disappointing them can induce gender differences in the advice given and ultimately in the outcomes achieved. Gender differences in career outcomes contribute significantly to the gender wage gap, with women often holding less senior positions and experiencing worse career outcomes, even with equal performance. Therefore, identifying a factor such as expectations that contributes to this gap has important implications for organizational practice.
+
+In this paper, we examine a novel and unexplored factor of advice-giving: interpersonal considerations. Advisers who take into account the advisee's belief utility inflate their advice to convey a more favorable impression, leading to worse decisions and gender differences. Men have more inflated expectations than women, and taking expectations into account can lead to gender differences, even without discrimination. We ruled out discrimination as a separate channel by withholding information about the gender of the advisee. Finally, we expect that advisers are aware of the tradeoff between giving accurate advice and avoiding disappointment and, thus, are less likely to inflate their advice when advisees can compensate them after observing the outcome of their choice.
+
+The findings of this study suggest that organizations can promote gender equity by calibrating employees' expectations or shifting advisers' attention away from them. While these measures may not entirely solve the gender gap problem, they can make a meaningful difference when unconscious bias interventions have failed to show any effect [@Chang2019; @Paluck2009]. We believe our findings may be particularly relevant to societies that value signaling in interpersonal relationships, including Hong Kong and many Asian countries. Future work could also examine whether people in different cultures place more weight on expectations.
+
+
 # References
 
 ```{=tex}
