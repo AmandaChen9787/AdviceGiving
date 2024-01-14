@@ -48,7 +48,6 @@ editor_options:
 always_allow_html: true
 ---
 
-
 ```{r setup, include=FALSE}
 library(magrittr)
 
@@ -66,28 +65,128 @@ study1_time3 <- readRDS(here::here("Data/Study1_time3.Rds"))
 ```
 
 # Introduction
-Seeking and giving advice can be challenging conversations to navigate. Advice seekers may be embarrassed to ask for help [@Benabou2022], and they may fail to do so if the information they receive could lead to disappointment [@Gill2012]. Indeed, people prefer advisers who withhold unpleasant information [@Shalvi2019] and punish those who tell them things they do not want to hear [@John2019]. People appear to engage in strategic selection of advice to avoid unpleasant information and protect the utility they get from positive beliefs about themselves and the future they anticipate [@Loewenstein2018; @Loewenstein1987]. But do advice givers anticipate and consider the hedonic cost of honest information to the recipient? While previous work has emphasized the instrumental value of advice (e.g., satisfaction with a decision or accuracy of a prediction), we focus on the motivations of the person providing advice.
 
-Research on advice has largely focused on settings that do not tackle belief utility. For example, participants may have been asked to estimate the number of balls in an urn or choose from pairs of lotteries [@Benjamin2015]. Advisers have been shown to be motivated to give accurate advice [@Jonas2003], and engage in perspective-taking to meet the preferences of the advisee [@Kray2000; @Kray1999]. When they are uncertain, they prefer that advisees do not rely (extensively) on their recommendations [@Ache2020]. Thus, it seems that people are concerned about providing good advice even when they are not incentivized for the recipient’s decision quality.
+Seeking and giving advice can be challenging conversations to navigate.
+Advice seekers may be embarrassed to ask for help [@Benabou2022], and
+they may fail to do so if the information they receive could lead to
+disappointment [@Gill2012]. Indeed, people prefer advisers who withhold
+unpleasant information [@Shalvi2019] and punish those who tell them
+things they do not want to hear [@John2019]. People appear to engage in
+strategic selection of advice to avoid unpleasant information and
+protect the utility they get from positive beliefs about themselves and
+the future they anticipate [@Loewenstein2018; @Loewenstein1987]. But do
+advice givers anticipate and consider the hedonic cost of honest
+information to the recipient? While previous work has emphasized the
+instrumental value of advice (e.g., satisfaction with a decision or
+accuracy of a prediction), we focus on the motivations of the person
+providing advice.
 
-In many real settings, however, advice incorporates beliefs about the recipient. Someone recommending an expensive restaurant conveys that they think the advisee is wealthy enough to afford an expensive meal, and someone recommending a student pursue a PhD in economics assumes that they are intellectually capable. Conversely, telling a poorly performing student to switch to a less-demanding major conveys a belief that the student is not capable of improving. Thus, the painful truth may prevent someone from making a bad decision, it may come at a cost to the recipient and damage the relationship between the adviser and advisee. We propose that advisers take these costs into account, even when the interactions are entirely anonymous and they are incentivized for the quality of the advisee’s decision.
+Research on advice has largely focused on settings that do not tackle
+belief utility. For example, participants may have been asked to
+estimate the number of balls in an urn or choose from pairs of lotteries
+[@Benjamin2015]. Advisers have been shown to be motivated to give
+accurate advice [@Jonas2003], and engage in perspective-taking to meet
+the preferences of the advisee [@Kray2000; @Kray1999]. When they are
+uncertain, they prefer that advisees do not rely (extensively) on their
+recommendations [@Ache2020]. Thus, it seems that people are concerned
+about providing good advice even when they are not incentivized for the
+recipient’s decision quality.
 
-Specifically, we focus on the signaling value of advice: what does the advice imply about the adviser's perception of the advisee? We propose that advisees have expectations about the advice they receive and treat this as a reference point [@Koszegi2006]. Advice that falls short of these expectations creates disappointment, while advice that exceeds them is flattering and creates positive interpersonal benefits because it creates a perception that the adviser holds the advisee in high esteem. Such interpersonal considerations may be as important, if not more important, to the adviser than the instrumental value of the advice: the adviser directly experiences a souring relationship, but may suffer little and only much delayed consequences if an advisee makes a poor life decision.
+In many real settings, however, advice incorporates beliefs about the
+recipient. Someone recommending an expensive restaurant conveys that
+they think the advisee is wealthy enough to afford an expensive meal,
+and someone recommending a student pursue a PhD in economics assumes
+that they are intellectually capable. Conversely, telling a poorly
+performing student to switch to a less-demanding major conveys a belief
+that the student is not capable of improving. Thus, the painful truth
+may prevent someone from making a bad decision, it may come at a cost to
+the recipient and damage the relationship between the adviser and
+advisee. We propose that advisers take these costs into account, even
+when the interactions are entirely anonymous and they are incentivized
+for the quality of the advisee’s decision.
 
-Our account therefore predicts that people receive advice that is more flattering and suggestive of inflated ability and optimistic outcomes than would advice in the absence of such interpersonal considerations. However, we propose that this is not true for all advisees equally. Presenting flattering advice requires the formation of beliefs about the advisee's expectations (reference point). @Exley2022 show that men are more overconfident than women, conditional on equal performance and that people anticipate but fail to incorporate this difference into their decisions. An adviser who seeks to avoid disappointment and incorporates expectations into their advice would then present more favorable advice to male advisees than to female advisees (see Figure 1 for an illustration). This provides a novel account for a well-known finding that men receive more aspirational advice than do women [@Kanze2018].
+Specifically, we focus on the signaling value of advice: what does the
+advice imply about the adviser's perception of the advisee? We propose
+that advisees have expectations about the advice they receive and treat
+this as a reference point [@Koszegi2006]. Advice that falls short of
+these expectations creates disappointment, while advice that exceeds
+them is flattering and creates positive interpersonal benefits because
+it creates a perception that the adviser holds the advisee in high
+esteem. Such interpersonal considerations may be as important, if not
+more important, to the adviser than the instrumental value of the
+advice: the adviser directly experiences a souring relationship, but may
+suffer little and only much delayed consequences if an advisee makes a
+poor life decision.
 
-Notably, when it pays to have accurate beliefs, such flattering advice would come at a cost: while men would be more likely to aim higher, they would also suffer greater costs from aiming too high and failing to meet the objective. This may seem at odds with a gender gap favoring men. However, observational data often miss people who were unsuccessful. For example, job candidates who ask for a high starting salary may be less likely to receive a job offer, but will also have a higher starting salary conditional on receiving an offer.
+Our account therefore predicts that people receive advice that is more
+flattering and suggestive of inflated ability and optimistic outcomes
+than would advice in the absence of such interpersonal considerations.
+However, we propose that this is not true for all advisees equally.
+Presenting flattering advice requires the formation of beliefs about the
+advisee's expectations (reference point). @Exley2022 show that men are
+more overconfident than women, conditional on equal performance and that
+people anticipate but fail to incorporate this difference into their
+decisions. An adviser who seeks to avoid disappointment and incorporates
+expectations into their advice would then present more favorable advice
+to male advisees than to female advisees (see Figure 1 for an
+illustration). This provides a novel account for a well-known finding
+that men receive more aspirational advice than do women [@Kanze2018].
 
-In a large, preregistered experiment (n = 2,000), we show that advisers consider the expectations of advisees, even when such expectations do not provide informative insights for the underlying decision-making problem. We find that as a result, showing expectations (but not gender) to advisers leads men to receive more aspirational advice than women. Incorporating expectations leads to worse advice, even when advisers are incentivized based on the outcome of the advisee’s decision. In a second preregistered experiment (n = 700), we show that advisers respond to interpersonal considerations. They advice people that they are more attractive than they believe them to be, and inflate to a greater extent when incentivized for likability rather than accuracy. Advisees indeed reward such flattering advice, finding the advisers more likeable and no less trustworthy than those who provide more accurate advice.
+Notably, when it pays to have accurate beliefs, such flattering advice
+would come at a cost: while men would be more likely to aim higher, they
+would also suffer greater costs from aiming too high and failing to meet
+the objective. This may seem at odds with a gender gap favoring men.
+However, observational data often miss people who were unsuccessful. For
+example, job candidates who ask for a high starting salary may be less
+likely to receive a job offer, but will also have a higher starting
+salary conditional on receiving an offer.
+
+In a large, preregistered experiment (n = 2,000), we show that advisers
+consider the expectations of advisees, even when such expectations do
+not provide informative insights for the underlying decision-making
+problem. We find that as a result, showing expectations (but not gender)
+to advisers leads men to receive more aspirational advice than women.
+Incorporating expectations leads to worse advice, even when advisers are
+incentivized based on the outcome of the advisee’s decision. In a second
+preregistered experiment (n = 700), we show that advisers respond to
+interpersonal considerations. They advice people that they are more
+attractive than they believe them to be, and inflate to a greater extent
+when incentivized for likability rather than accuracy. Advisees indeed
+reward such flattering advice, finding the advisers more likeable and no
+less trustworthy than those who provide more accurate advice.
 
 # Open Science Statement
-We report all sample sizes, data exclusions, all manipulations, and all measures in the studies. Screen captures of the experimental materials are available in the Supplemental Information. The complete data, code to reproduce all statistical analyses and figures in the manuscript, as well as the preregistration reports are available via OSF. All our studies were preregistered on AsPredicted.org. (will do this later)
+
+We report all sample sizes, data exclusions, all manipulations, and all
+measures in the studies. Screen captures of the experimental materials
+are available in the Supplemental Information. The complete data, code
+to reproduce all statistical analyses and figures in the manuscript, as
+well as the preregistration reports are available via OSF. All our
+studies were preregistered on AsPredicted.org. (will do this later)
 
 # Study 1
-We begin by examining whether advisers take the expectations of advisees into account, even when those expectations are not relevant to the quality of advice. In a three-stage experiment, we first recruit a sample of advisees and ask them to complete a mathematics quiz. After answering all ten multiple-choice questions, participants are anchored to low or high performance expectations and asked to guess how many questions they answered correctly. Next, we recruit advice givers and show them either only the true performance of the advisee, or the true performance and how many questions they guessed they answered correctly. Advisers are tasked with recommending whether the advisee should compete against a group of high-performers or a group of low-performers on the mathematics quiz. Finally, we invite the advisees back and show them the advice they have received. Advisees then pick whether to compete against high or low performers, based on their past performance on the quiz. Our key hypothesis is that advisees who were anchored to high expectations would be more likely to receive advice to compete against the high performer group.
+
+We begin by examining whether advisers take the expectations of advisees
+into account, even when those expectations are not relevant to the
+quality of advice. In a three-stage experiment, we first recruit a
+sample of advisees and ask them to complete a mathematics quiz. After
+answering all ten multiple-choice questions, participants are anchored
+to low or high performance expectations and asked to guess how many
+questions they answered correctly. Next, we recruit advice givers and
+show them either only the true performance of the advisee, or the true
+performance and how many questions they guessed they answered correctly.
+Advisers are tasked with recommending whether the advisee should compete
+against a group of high-performers or a group of low-performers on the
+mathematics quiz. Finally, we invite the advisees back and show them the
+advice they have received. Advisees then pick whether to compete against
+high or low performers, based on their past performance on the quiz. Our
+key hypothesis is that advisees who were anchored to high expectations
+would be more likely to receive advice to compete against the high
+performer group.
 
 ## Methods
-```{r} 
+
+```{r}
 
 subgroup_averages <- data.frame(subgroup = numeric(), avg_score = numeric())
 set.seed(807)
@@ -112,14 +211,81 @@ HP_upper <- sortedScore[1]
 
 ```
 
-We first recruited a sample of `r scales::comma(dim(study1_math50)[1])` participants from Prolific to complete a 10-question multiple choice mathematics quiz. The questions were taken from a paper-version of the ASVAB standardized exam, such that answers were not available online. Participants had 5 minutes to answer the quiz and were paid 10 cents for each correctly answered question. We define the top 20 scorers as the “High Performers” and the bottom 20 scorers as the “Low Performers.” On average, participants answered `r round(mean(study1_math50$Score),2)` questions correctly, High Performers scored between `r HP_lower` and `r HP_upper`, and Low Performers scored between `r LP_lower` and `r LP_upper`. We further simulated 1,000 pairings of groups of five participants, with the 5 th percentile of groups scoring an average of `r p5` and the 95 th percentile scoring an average of `r p95`. We use these participants as the competitors for the advisees in our main experiment, and the average group scores to anchor expectations.
+We first recruited a sample of `r scales::comma(dim(study1_math50)[1])`
+participants from Prolific to complete a 10-question multiple choice
+mathematics quiz. The questions were taken from a paper-version of the
+ASVAB standardized exam, such that answers were not available online.
+Participants had 5 minutes to answer the quiz and were paid 10 cents for
+each correctly answered question. We define the top 20 scorers as the
+“High Performers” and the bottom 20 scorers as the “Low Performers.” On
+average, participants answered `r round(mean(study1_math50$Score),2)`
+questions correctly, High Performers scored between `r HP_lower` and
+`r HP_upper`, and Low Performers scored between `r LP_lower` and
+`r LP_upper`. We further simulated 1,000 pairings of groups of five
+participants, with the 5 th percentile of groups scoring an average of
+`r p5` and the 95 th percentile scoring an average of `r p95`. We use
+these participants as the competitors for the advisees in our main
+experiment, and the average group scores to anchor expectations.
 
-Next, we recruited `r scales::comma(dim(study1_time1All)[1])` participants in Stage 1 of our main experiment, for the role of advisees. To arrive at a gender-balanced sample, we dropped the last two male participants to complete the survey, ending up with a sample of 500 men and 500 women ($M_{\text{Age}}$ = `r mean(study1_time1$Age)`,50\% Female). Participants completed the same 10-item mathematics quiz as the earlier participants and were informed that their performance would affect their bonus earnings in a follow-up study to be conducted a few days later. After completing the quiz, we informed them of the average score of a group of five participants from the preliminary survey. We randomly assigned them to learn about the 5 th percentile of groups, which scored `r p5`. (“Low Expectations” treatment) or the 95 th percentile of groups, which scored `r p95` (“High Expectations” treatment). Participants then made a guess (unincentivized) about how many questions they think they answered correctly. The survey concluded with basic demographic questions.
+Next, we recruited `r scales::comma(dim(study1_time1All)[1])`
+participants in Stage 1 of our main experiment, for the role of
+advisees. To arrive at a gender-balanced sample, we dropped the last two
+male participants to complete the survey, ending up with a sample of 500
+men and 500 women ($M_{\text{Age}}$ = `r mean(study1_time1$Age)`,50%
+Female). Participants completed the same 10-item mathematics quiz as the
+earlier participants and were informed that their performance would
+affect their bonus earnings in a follow-up study to be conducted a few
+days later. After completing the quiz, we informed them of the average
+score of a group of five participants from the preliminary survey. We
+randomly assigned them to learn about the 5 th percentile of groups,
+which scored `r p5`. (“Low Expectations” treatment) or the 95 th
+percentile of groups, which scored `r p95` (“High Expectations”
+treatment). Participants then made a guess (unincentivized) about how
+many questions they think they answered correctly. The survey concluded
+with basic demographic questions.
 
-We then recruited `r scales::comma(dim(study1_time2_giver)[1])`  participants for Stage 2, placing them in the role of advisers. We began by informing them of the mathematics quiz that participants in the preliminary study and Stage 1 had completed, and informed them of the average score in the preliminary study. Advisers had to recommend whether an advisee should compete against the Low Performers or the High Performers (we used these terms in the survey). We anticipated that being told to compete against High Performers is more flattering. Advisees would earn 30 cents if their score was equal to or higher than a randomly selected member of the Low Performer group and they chose to compete against this group, or 50 cents if they performed as well or better than a randomly selected member of the High Performer group. If they scored lower, they would not receive any bonus.
+We then recruited `r scales::comma(dim(study1_time2_giver)[1])`
+participants for Stage 2, placing them in the role of advisers. We began
+by informing them of the mathematics quiz that participants in the
+preliminary study and Stage 1 had completed, and informed them of the
+average score in the preliminary study. Advisers had to recommend
+whether an advisee should compete against the Low Performers or the High
+Performers (we used these terms in the survey). We anticipated that
+being told to compete against High Performers is more flattering.
+Advisees would earn 30 cents if their score was equal to or higher than
+a randomly selected member of the Low Performer group and they chose to
+compete against this group, or 50 cents if they performed as well or
+better than a randomly selected member of the High Performer group. If
+they scored lower, they would not receive any bonus.
 
-Advisers were randomly assigned to one of two treatments. In the “Baseline” treatment, they only observed the score of the advisee on the mathematics quiz. In the “Expectation” treatment, they observed the score as well as the advisee’s guess for how many questions they answered correctly. Note that since the outcome is determined only by the past score on the quiz, the advisee’s guess is immaterial to which group they should compete against, and in neither treatment did they receive any demographic information about their advisee. Participants gave recommendations to 10 advisees, which unbeknownst to them were five men and five women matched to have identical performance on the test. They were informed that if their advice was shown to a participant who returned for the follow-up survey, they would receive the identical bonus as that participant. The survey also concluded with basic demographic questions.
-Finally, we invited participants from Stage 1 back for the follow-up survey. Following our preregistration, we kept the survey open for 7 days. In total, `r scales::comma(dim(study1_time3)[1])`  participants (`r scales::comma(dim(study1_time3[study1_time3$Gender == 'Male',])[1])` men, `r scales::comma(dim(study1_time3[study1_time3$Gender == 'Female',])[1])` women) returned. The brief survey reminded them of the task they completed in Stage 1, informed them that other participants from Prolific had observed their real score and given them advice against which group to compete against, and finally were reminded about how many questions they guessed they had answered correctly. Importantly, they were not informed of their true score or the score of the groups they could compete against. Participants then observed the advice from a randomly selected adviser and made their decision.
+Advisers were randomly assigned to one of two treatments. In the
+“Baseline” treatment, they only observed the score of the advisee on the
+mathematics quiz. In the “Expectation” treatment, they observed the
+score as well as the advisee’s guess for how many questions they
+answered correctly. Note that since the outcome is determined only by
+the past score on the quiz, the advisee’s guess is immaterial to which
+group they should compete against, and in neither treatment did they
+receive any demographic information about their advisee. Participants
+gave recommendations to 10 advisees, which unbeknownst to them were five
+men and five women matched to have identical performance on the test.
+They were informed that if their advice was shown to a participant who
+returned for the follow-up survey, they would receive the identical
+bonus as that participant. The survey also concluded with basic
+demographic questions. Finally, we invited participants from Stage 1
+back for the follow-up survey. Following our preregistration, we kept
+the survey open for 7 days. In total,
+`r scales::comma(dim(study1_time3)[1])` participants
+(`r scales::comma(dim(study1_time3[study1_time3$Gender == 'Male',])[1])`
+men,
+`r scales::comma(dim(study1_time3[study1_time3$Gender == 'Female',])[1])`
+women) returned. The brief survey reminded them of the task they
+completed in Stage 1, informed them that other participants from
+Prolific had observed their real score and given them advice against
+which group to compete against, and finally were reminded about how many
+questions they guessed they had answered correctly. Importantly, they
+were not informed of their true score or the score of the groups they
+could compete against. Participants then observed the advice from a
+randomly selected adviser and made their decision.
 
 ```{r}
 library("papaja")
@@ -131,9 +297,46 @@ model1_apa <- apa_print(model1)
 ```
 
 ## Results
-We begin by examining the performance of the Stage 1 participants. Because our treatment takes place after participants complete the mathematics quiz, we would not expect a difference in performance across the Low and High Expectations treatments. Indeed, the two groups scored no different from one another (`r round(mean(study1_time1[study1_time1$Condition == "Low",]$count),2)` and `r round(mean(study1_time1[study1_time1$Condition == "High",]$count),2)` for Low and High Expectations treatments, respectively, `r papaja::apa_print(t.test(count ~ Condition, data = study1_time1, var.equal = T))$statistic`). The expectations treatment did, however, affect how well they thought they performed. Participants in the “Low Expectations” treatment guessed a score of `r round(mean(study1_time1[study1_time1$Condition == "Low",]$count),2)` vs. `r round(mean(study1_time1[study1_time1$Condition == "High",]$Guess),2)` in the High Expectations treatment (`r papaja::apa_print(t.test(Guess ~ Condition, data = study1_time1, var.equal = T))$statistic`), showing that the manipulation was successful. Contrary to our expectations, we did find a gender difference in performance: men scored `r round(mean(study1_time1[study1_time1$Gender == "Male",]$count),2)` on average, while women scored `r round(mean(study1_time1[study1_time1$Gender == "Female",]$count),2)` (`r papaja::apa_print(t.test(count ~ Gender, data = study1_time1, var.equal = T))$statistic`). This difference, however, does not affect the interpretation of our findings, which will rely on an interaction of gender with an experimental treatment for Stage 2 participants. Consistent with this difference, men thought they answered more questions correctly than did women (`r round(mean(study1_time1[study1_time1$Gender == "Male",]$Guess),2)` vs `r round(mean(study1_time1[study1_time1$Gender == "Female",]$Guess),2)`, `r papaja::apa_print(t.test(Guess ~ Gender, data = study1_time1, var.equal = T))$statistic`).
 
-We conducted an OLS regression with the performance and gender of participants and found that with the same performance, male participants are more confident than their female counterparts (`r model1_apa$estimate['GenderMale']`, `r model1_apa$statistic['GenderMale']`).
+We begin by examining the performance of the Stage 1 participants.
+Because our treatment takes place after participants complete the
+mathematics quiz, we would not expect a difference in performance across
+the Low and High Expectations treatments. Indeed, the two groups scored
+no different from one another
+(`r round(mean(study1_time1[study1_time1$Condition == "Low",]$count),2)`
+and
+`r round(mean(study1_time1[study1_time1$Condition == "High",]$count),2)`
+for Low and High Expectations treatments, respectively,
+`r papaja::apa_print(t.test(count ~ Condition, data = study1_time1, var.equal = T))$statistic`).
+The expectations treatment did, however, affect how well they thought
+they performed. Participants in the “Low Expectations” treatment guessed
+a score of
+`r round(mean(study1_time1[study1_time1$Condition == "Low",]$count),2)`
+vs.
+`r round(mean(study1_time1[study1_time1$Condition == "High",]$Guess),2)`
+in the High Expectations treatment
+(`r papaja::apa_print(t.test(Guess ~ Condition, data = study1_time1, var.equal = T))$statistic`),
+showing that the manipulation was successful. Contrary to our
+expectations, we did find a gender difference in performance: men scored
+`r round(mean(study1_time1[study1_time1$Gender == "Male",]$count),2)` on
+average, while women scored
+`r round(mean(study1_time1[study1_time1$Gender == "Female",]$count),2)`
+(`r papaja::apa_print(t.test(count ~ Gender, data = study1_time1, var.equal = T))$statistic`).
+This difference, however, does not affect the interpretation of our
+findings, which will rely on an interaction of gender with an
+experimental treatment for Stage 2 participants. Consistent with this
+difference, men thought they answered more questions correctly than did
+women
+(`r round(mean(study1_time1[study1_time1$Gender == "Male",]$Guess),2)`
+vs
+`r round(mean(study1_time1[study1_time1$Gender == "Female",]$Guess),2)`,
+`r papaja::apa_print(t.test(Guess ~ Gender, data = study1_time1, var.equal = T))$statistic`).
+
+We conducted an OLS regression with the performance and gender of
+participants and found that with the same performance, male participants
+are more confident than their female counterparts
+(`r model1_apa$estimate['GenderMale']`,
+`r model1_apa$statistic['GenderMale']`).
 
 ```{r study1regs}
 study1_advice <- study1_advice %>% dplyr::mutate(TreatmentHigh = ifelse(Treatment == 'High',1,0))
@@ -155,7 +358,7 @@ modelsummary::modelsummary(list(`(1)` = lm(Advice ~ TreatmentHigh + Performance 
 
 ```
 
-```{r study1genderdiff, fig.cap ="Advice given to men and women. Advisers observed real performance and the participants’ estimated performance, but not their gender. As a result of their higher expectations, men were advised to compete against the high performance group more often. In the treatment in which expectations were not shown to the advisors, no gender differences emerged (not displayed in this figure).."} 
+```{r study1genderdiff, fig.cap ="Advice given to men and women. Advisers observed real performance and the participants’ estimated performance, but not their gender. As a result of their higher expectations, men were advised to compete against the high performance group more often. In the treatment in which expectations were not shown to the advisors, no gender differences emerged (not displayed in this figure).."}
 library(dplyr)
 library(ggplot2)
 library(magrittr)
@@ -220,11 +423,37 @@ ggplot(df_exp, aes(x = Performance, y = avg_hardGroup, color = Gender)) +
 
 
 ```
-Next, we examine whether advisers took the advisee’s expectations into account. Column 1 of Table \@ref(tab:study1regs) reports a linear probability model on advising to compete against the High Performer group for advisers in the “Expectations” treatment. Because each adviser was paired with ten advisees, we cluster standard errors at the adviser level. Consistent with our prediction, we find that advisees in the High Expectation condition are more likely to be recommended to compete against the High Performer Group, but the result is not significant.
 
-To test whether expectations can lead to more flattering advice for men than for women, we report a linear probability model with advice to compete against the high group as the outcome measure, and the advisee’s gender, whether expectations were shown to the adviser, and the interaction of the two (Column 2 of Table \@ref(tab:study1regs)). As predicted, we find a significant interaction effect: men are more likely to be advised to compete against the High Performers when expectations are shown than when they are hidden (p < 0.001; see Figure \@ref(fig:study1genderdiff),).
+Next, we examine whether advisers took the advisee’s expectations into
+account. Column 1 of Table \@ref(tab:study1regs) reports a linear
+probability model on advising to compete against the High Performer
+group for advisers in the “Expectations” treatment. Because each adviser
+was paired with ten advisees, we cluster standard errors at the adviser
+level. Consistent with our prediction, we find that advisees in the High
+Expectation condition are more likely to be recommended to compete
+against the High Performer Group, but the result is not significant.
 
-To examine the quality of advice, we computed the expected bonus earnings for all recommendations. We made this calculation by assuming that participants adopted the advice and competed against the recommended competitor group. We then compared their scores with all 20 possible competitors one by one and calculated the bonus accordingly to determine the expected bonus earnings. We conducted an OLS regression with whether givers see the expectation (Baseline or Information condition) and the gender of the Advisee (Female or Male), as well as their interaction. Supporting our theory, male participants will receive less bonus given advice they receive (b = -0.005, p < .01; see also Column 3 of Table \@ref(tab:study1regs)
+To test whether expectations can lead to more flattering advice for men
+than for women, we report a linear probability model with advice to
+compete against the high group as the outcome measure, and the advisee’s
+gender, whether expectations were shown to the adviser, and the
+interaction of the two (Column 2 of Table \@ref(tab:study1regs)). As
+predicted, we find a significant interaction effect: men are more likely
+to be advised to compete against the High Performers when expectations
+are shown than when they are hidden (p \< 0.001; see Figure
+\@ref(fig:study1genderdiff),).
+
+To examine the quality of advice, we computed the expected bonus
+earnings for all recommendations. We made this calculation by assuming
+that participants adopted the advice and competed against the
+recommended competitor group. We then compared their scores with all 20
+possible competitors one by one and calculated the bonus accordingly to
+determine the expected bonus earnings. We conducted an OLS regression
+with whether givers see the expectation (Baseline or Information
+condition) and the gender of the Advisee (Female or Male), as well as
+their interaction. Supporting our theory, male participants will receive
+less bonus given advice they receive (b = -0.005, p \< .01; see also
+Column 3 of Table \@ref(tab:study1regs)
 
 ```{r}
 study1_time3 <- study1_time3 %>% dplyr::mutate(AdviseeConditionHigh = ifelse(AdviseeCondition =='High',1,0))
@@ -236,15 +465,44 @@ model3 <- lm(Bet ~ Gender + AdviseeScore, data = study1_time3)
 model3_apa <- apa_print(model3)
 
 ```
-Finally, we look at the actual earnings of advisees. Although participants in the High Expectation condition earned less, this difference is not significant (`r model2_apa$estimate['AdviseeConditionHigh']`, `r model2_apa$statistic['AdviseeConditionHigh']`).
 
-We found that males are more competitive to the extent that they are more likely to choose to compete against High Performer group (`r model3_apa$estimate['GenderMale']`, `r model3_apa$statistic['GenderMale']`), holding performance the same.
+Finally, we look at the actual earnings of advisees. Although
+participants in the High Expectation condition earned less, this
+difference is not significant
+(`r model2_apa$estimate['AdviseeConditionHigh']`,
+`r model2_apa$statistic['AdviseeConditionHigh']`).
+
+We found that males are more competitive to the extent that they are
+more likely to choose to compete against High Performer group
+(`r model3_apa$estimate['GenderMale']`,
+`r model3_apa$statistic['GenderMale']`), holding performance the same.
 
 ## Discussion
-In Study 1, we discovered that although advisers are encouraged to provide accurate advice, they still take into account the expectations of advisees, which are irrelevant to the utility of the advice. Due to the fact that males tend to be more confident than their equally competent female counterparts, they are more likely to be recommended to compete against high-performance competitors. However, when advice is given to match the advisees' expectations, these flattering recommendations result in lower expected bonus earnings for male participants.
+
+In Study 1, we discovered that although advisers are encouraged to
+provide accurate advice, they still take into account the expectations
+of advisees, which are irrelevant to the utility of the advice. Due to
+the fact that males tend to be more confident than their equally
+competent female counterparts, they are more likely to be recommended to
+compete against high-performance competitors. However, when advice is
+given to match the advisees' expectations, these flattering
+recommendations result in lower expected bonus earnings for male
+participants.
 
 # Study 2
-We then conduct a three-stage experiment to determine why advisers give flattering advice. First, we ask a group of advisees to upload selfies and predict their rank in a group of ten people of the same gender based on physical attractiveness. Next, we recruit and ask advisers to rank selfies of the opposite gender and recommend which rank the participant ranked 7th should bet on, with the bonus being contingent on whether the participant guessed accurately or found the adviser likable. Finally, we show the advisees the advice they have received and ask them to make their final prediction about their rank and evaluate the advice giver in terms of likability, warmth, and trustworthiness. Our main hypothesis is that advisers who want to be liked by advisees would recommend a higher rank.
+
+We then conduct a three-stage experiment to determine why advisers give
+flattering advice. First, we ask a group of advisees to upload selfies
+and predict their rank in a group of ten people of the same gender based
+on physical attractiveness. Next, we recruit and ask advisers to rank
+selfies of the opposite gender and recommend which rank the participant
+ranked 7th should bet on, with the bonus being contingent on whether the
+participant guessed accurately or found the adviser likable. Finally, we
+show the advisees the advice they have received and ask them to make
+their final prediction about their rank and evaluate the advice giver in
+terms of likability, warmth, and trustworthiness. Our main hypothesis is
+that advisers who want to be liked by advisees would recommend a higher
+rank.
 
 ```{r}
 
@@ -256,14 +514,63 @@ study2_time3 <- readRDS(here::here("Data/Study2_time3.Rds"))
 ```
 
 ## Methods
-We recruited 300 participants and invited them to upload photos of themselves (selfies) to be rated by other participants on attractiveness. We ended up with a sample of `r scales::comma(dim(study2_time1[study2_time1$gender == 'Male',])[1])` men and `r scales::comma(dim(study2_time1[study2_time1$gender == 'Female',])[1])` women who agreed to do so and uploaded usable pictures. We selected the first 100 photos from women to arrive at a gender-balanced sample ($M_{\text{Age}}$ = `r mean(study2_time1_200$age)` years; 50.0\% Female). We informed them that their selfies will be randomly grouped into nine others from the same gender and ranked by people of the opposite gender and asked them to predict their rank, with 1st rank represents the most attractive and 10th rank represents the least attractive. We assigned each participant to a group of 10 participants of their own gender. 
 
-Next, we recruited `r scales::comma(dim(study2_time2)[1])`new participants and asked them to rank the attractiveness of one such group of 10 participants of the opposite gender ($M_{\text{Age}}$ = `r mean(study2_time2$age)` years; `r round(mean(study2_time2$gender == "Female")*100, 2)`\% Female). After they did so, we showed them the photo of the participant they ranked as the 7th  most attractive (that is, the 4th  least attractive) and reminded them that they had ranked this person at 7th attractive. We (truthfully) informed them that this participant would have a chance to earn a bonus if they accurately guessed their rank based on the aggregated ratings of all participants who had ranked this group. Participants were then randomly assigned to an “accuracy” or a “likeability” treatment. In the accuracy treatment, they were told that they would receive a bonus ($1) identical to that of the advisee. While in the “likeability” treatment, the amount their bonus depended on how the advisee rated them in terms of likeability, after observing only the rank that they had advised the advisee to guess. Advisees would rate to what extent they think the adviser is likable on a 5-point scale, and each point they earn increases their bonus by 20 cents.
+We recruited 300 participants and invited them to upload photos of
+themselves (selfies) to be rated by other participants on
+attractiveness. We ended up with a sample of
+`r scales::comma(dim(study2_time1[study2_time1$gender == 'Male',])[1])`
+men and
+`r scales::comma(dim(study2_time1[study2_time1$gender == 'Female',])[1])`
+women who agreed to do so and uploaded usable pictures. We selected the
+first 100 photos from women to arrive at a gender-balanced sample
+($M_{\text{Age}}$ = `r mean(study2_time1_200$age)` years; 50.0% Female).
+We informed them that their selfies will be randomly grouped into nine
+others from the same gender and ranked by people of the opposite gender
+and asked them to predict their rank, with 1st rank represents the most
+attractive and 10th rank represents the least attractive. We assigned
+each participant to a group of 10 participants of their own gender.
 
-Finally, we invited participants from Stage 1 and were ranked as the 7th attractive by at least one adviser (so that they received advice) back for the follow-up survey. Following our preregistration, we kept the survey open for 7 days. In total, `r scales::comma(dim(study2_time3)[1])`  participants (`r scales::comma(dim(study2_time3[study2_time3$gender == 'Male',])[1])` men, `r scales::comma(dim(study2_time3[study2_time3$gender == 'Female',])[1])` women) returned. They were reminded of the selfie they uploaded in Stage 1 and informed that a group of 10 selfies, including theirs, had been rated by other participants from Prolific. They were also introduced to the opportunity to earn a $1 bonus if they guessed their rank accurately. Participants were then shown the advice from a randomly selected adviser and made their predictions. After deciding which rank to bet on, advisees were reminded of the advice they received and asked to rate the advice giver's likability, warmth, friendliness, good-naturedness, trustworthiness, and sincerity on a 5-point scale. The last 6 items were adopted from @Fiske2007.
+Next, we recruited `r scales::comma(dim(study2_time2)[1])`new
+participants and asked them to rank the attractiveness of one such group
+of 10 participants of the opposite gender ($M_{\text{Age}}$ =
+`r mean(study2_time2$age)` years;
+`r round(mean(study2_time2$gender == "Female")*100, 2)`% Female). After
+they did so, we showed them the photo of the participant they ranked as
+the 7th most attractive (that is, the 4th least attractive) and reminded
+them that they had ranked this person at 7th attractive. We (truthfully)
+informed them that this participant would have a chance to earn a bonus
+if they accurately guessed their rank based on the aggregated ratings of
+all participants who had ranked this group. Participants were then
+randomly assigned to an “accuracy” or a “likeability” treatment. In the
+accuracy treatment, they were told that they would receive a bonus (\$1)
+identical to that of the advisee. While in the “likeability” treatment,
+the amount their bonus depended on how the advisee rated them in terms
+of likeability, after observing only the rank that they had advised the
+advisee to guess. Advisees would rate to what extent they think the
+adviser is likable on a 5-point scale, and each point they earn
+increases their bonus by 20 cents.
 
+Finally, we invited participants from Stage 1 and were ranked as the 7th
+attractive by at least one adviser (so that they received advice) back
+for the follow-up survey. Following our preregistration, we kept the
+survey open for 7 days. In total,
+`r scales::comma(dim(study2_time3)[1])` participants
+(`r scales::comma(dim(study2_time3[study2_time3$gender == 'Male',])[1])`
+men,
+`r scales::comma(dim(study2_time3[study2_time3$gender == 'Female',])[1])`
+women) returned. They were reminded of the selfie they uploaded in Stage
+1 and informed that a group of 10 selfies, including theirs, had been
+rated by other participants from Prolific. They were also introduced to
+the opportunity to earn a \$1 bonus if they guessed their rank
+accurately. Participants were then shown the advice from a randomly
+selected adviser and made their predictions. After deciding which rank
+to bet on, advisees were reminded of the advice they received and asked
+to rate the advice giver's likability, warmth, friendliness,
+good-naturedness, trustworthiness, and sincerity on a 5-point scale. The
+last 6 items were adopted from @Fiske2007.
 
 ## Results
+
 ```{r study2advice, fig.cap="Advice for 7th most attractive participants"}
 library(dplyr)
 library(ggplot2)
@@ -299,9 +606,29 @@ ggplot(advice_avg, aes(x = Advice, y = percent, color = Condition)) +
 
 ```
 
-Again, we found supportive evidence that males are more confident about themselves, giving higher initial rank prediction (more attractive) than female participants (`r round(mean(study2_time1[study2_time1$gender == "Male",]$Guess),2)` vs. `r round(mean(study2_time1[study2_time1$gender == "Female",]$Guess),2)`, `r papaja::apa_print(t.test(Guess ~ gender, data = study2_time1, var.equal = T))$statistic`). 
+Again, we found supportive evidence that males are more confident about
+themselves, giving higher initial rank prediction (more attractive) than
+female participants
+(`r round(mean(study2_time1[study2_time1$gender == "Male",]$Guess),2)`
+vs.
+`r round(mean(study2_time1[study2_time1$gender == "Female",]$Guess),2)`,
+`r papaja::apa_print(t.test(Guess ~ gender, data = study2_time1, var.equal = T))$statistic`).
 
-Examining advice from Stage 2 participants, we found that participants advised a lower rank (that is, more attractive) in the likeability treatment than the accuracy treatment (`r round(mean(study2_time2[study2_time2$Condition == "Likable",]$Advice),2)` vs `r round(mean(study2_time2[study2_time2$Condition == "Accurate",]$Advice),2)`, `r papaja::apa_print(t.test(Advice ~ Condition, data = study2_time2, var.equal = T))$statistic`). As seen in Figure \@ref(fig:study2advice), notably, however, even in the accuracy treatment, participants advised a lower rank than they themselves had provided (`r papaja::apa_print(t.test(study2_time2[study2_time2$Condition == "Accurate",]$Advice, mu = 7, var.equal = T))$statistic`). This suggests that advisers inferred that advising someone that they were more attractive would make the adviser appear more likeable and therefore provided advice that communicated a more favorable impression of the participants’ attractiveness.
+Examining advice from Stage 2 participants, we found that participants
+advised a lower rank (that is, more attractive) in the likeability
+treatment than the accuracy treatment
+(`r round(mean(study2_time2[study2_time2$Condition == "Likable",]$Advice),2)`
+vs
+`r round(mean(study2_time2[study2_time2$Condition == "Accurate",]$Advice),2)`,
+`r papaja::apa_print(t.test(Advice ~ Condition, data = study2_time2, var.equal = T))$statistic`).
+As seen in Figure \@ref(fig:study2advice), notably, however, even in the
+accuracy treatment, participants advised a lower rank than they
+themselves had provided
+(`r papaja::apa_print(t.test(study2_time2[study2_time2$Condition == "Accurate",]$Advice, mu = 7, var.equal = T))$statistic`).
+This suggests that advisers inferred that advising someone that they
+were more attractive would make the adviser appear more likeable and
+therefore provided advice that communicated a more favorable impression
+of the participants’ attractiveness.
 
 ```{r study2regs}
 
@@ -345,15 +672,55 @@ ggplot(rating, aes(x = Advice)) +
 
 ```
 
-To test whether flattering advice brings more positive evaluation of advisers, we create a single index for warmth and trustworthiness by taking average of ratings on warmth, friendliness, good-naturedness, trustworthiness for the former and ratings on trustworthiness, and sincerity for the later. As seen in Figure \@ref(fig:study2rating), we found that advisees who suggested that the advisee was more attractive (lower rank) were indeed rated as more likeable and warm (b = -0.109, p < .05; b = -0.133, p < .001; See Columns 1 and 2 of Table 2). Interestingly, these benefits are not at the cost of being hypocritical; advisers are also seen as more trustworthy, but the result is only directional (Column 3 of Table 2). Notably, however, we were not powered to do a comparison across the two experimental groups.
+To test whether flattering advice brings more positive evaluation of
+advisers, we create a single index for warmth and trustworthiness by
+taking average of ratings on warmth, friendliness, good-naturedness,
+trustworthiness for the former and ratings on trustworthiness, and
+sincerity for the later. As seen in Figure \@ref(fig:study2rating), we
+found that advisees who suggested that the advisee was more attractive
+(lower rank) were indeed rated as more likeable and warm (b = -0.109, p
+\< .05; b = -0.133, p \< .001; See Columns 1 and 2 of Table 2).
+Interestingly, these benefits are not at the cost of being hypocritical;
+advisers are also seen as more trustworthy, but the result is only
+directional (Column 3 of Table 2). Notably, however, we were not powered
+to do a comparison across the two experimental groups.
 
 # Discussion
-dvice substantially shapes people's career and personal outcomes. Therefore, understanding advisers' motivations has far-reaching implications. We propose that advisers' focus on advisees' expectations and the desire to avoid disappointing them can induce gender differences in the advice given and ultimately in the outcomes achieved. Gender differences in career outcomes contribute significantly to the gender wage gap, with women often holding less senior positions and experiencing worse career outcomes, even with equal performance. Therefore, identifying a factor such as expectations that contributes to this gap has important implications for organizational practice.
 
-In this paper, we examine a novel and unexplored factor of advice-giving: interpersonal considerations. Advisers who take into account the advisee's belief utility inflate their advice to convey a more favorable impression, leading to worse decisions and gender differences. Men have more inflated expectations than women, and taking expectations into account can lead to gender differences, even without discrimination. We ruled out discrimination as a separate channel by withholding information about the gender of the advisee. Finally, we expect that advisers are aware of the tradeoff between giving accurate advice and avoiding disappointment and, thus, are less likely to inflate their advice when advisees can compensate them after observing the outcome of their choice.
+dvice substantially shapes people's career and personal outcomes.
+Therefore, understanding advisers' motivations has far-reaching
+implications. We propose that advisers' focus on advisees' expectations
+and the desire to avoid disappointing them can induce gender differences
+in the advice given and ultimately in the outcomes achieved. Gender
+differences in career outcomes contribute significantly to the gender
+wage gap, with women often holding less senior positions and
+experiencing worse career outcomes, even with equal performance.
+Therefore, identifying a factor such as expectations that contributes to
+this gap has important implications for organizational practice.
 
-The findings of this study suggest that organizations can promote gender equity by calibrating employees' expectations or shifting advisers' attention away from them. While these measures may not entirely solve the gender gap problem, they can make a meaningful difference when unconscious bias interventions have failed to show any effect [@Chang2019; @Paluck2009]. We believe our findings may be particularly relevant to societies that value signaling in interpersonal relationships, including Hong Kong and many Asian countries. Future work could also examine whether people in different cultures place more weight on expectations.
+In this paper, we examine a novel and unexplored factor of
+advice-giving: interpersonal considerations. Advisers who take into
+account the advisee's belief utility inflate their advice to convey a
+more favorable impression, leading to worse decisions and gender
+differences. Men have more inflated expectations than women, and taking
+expectations into account can lead to gender differences, even without
+discrimination. We ruled out discrimination as a separate channel by
+withholding information about the gender of the advisee. Finally, we
+expect that advisers are aware of the tradeoff between giving accurate
+advice and avoiding disappointment and, thus, are less likely to inflate
+their advice when advisees can compensate them after observing the
+outcome of their choice.
 
+The findings of this study suggest that organizations can promote gender
+equity by calibrating employees' expectations or shifting advisers'
+attention away from them. While these measures may not entirely solve
+the gender gap problem, they can make a meaningful difference when
+unconscious bias interventions have failed to show any effect
+[@Chang2019; @Paluck2009]. We believe our findings may be particularly
+relevant to societies that value signaling in interpersonal
+relationships, including Hong Kong and many Asian countries. Future work
+could also examine whether people in different cultures place more
+weight on expectations.
 
 # References
 
