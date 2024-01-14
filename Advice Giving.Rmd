@@ -66,20 +66,20 @@ study1_time3 <- readRDS(here::here("Data/Study1_time3.Rds"))
 
 # Introduction
 
-Seeking and giving advice can be challenging conversations to navigate.
-Advice seekers may be embarrassed to ask for help [@Benabou2022], and
-they may fail to do so if the information they receive could lead to
-disappointment [@Gill2012]. Indeed, people prefer advisers who withhold
-unpleasant information [@Shalvi2019] and punish those who tell them
-things they do not want to hear [@John2019]. People appear to engage in
-strategic selection of advice to avoid unpleasant information and
-protect the utility they get from positive beliefs about themselves and
-the future they anticipate [@Loewenstein2018; @Loewenstein1987]. But do
-advice givers anticipate and consider the hedonic cost of honest
-information to the recipient? While previous work has emphasized the
-instrumental value of advice (e.g., satisfaction with a decision or
-accuracy of a prediction), we focus on the motivations of the person
-providing advice.
+Seeking and giving advice can present conversational challenges that
+are difficult to navigate. Advice seekers may be embarrassed to ask for
+help [@Benabou2022], and they may fail to do so if the information they
+receive could lead to disappointment [@Gill2012]. Indeed, people prefer
+advisers who withhold unpleasant information [@Shalvi2019] and punish
+those who tell them things they do not want to hear [@John2019]. People
+appear to engage in strategic selection of advice to avoid unpleasant
+information and protect the utility they get from positive beliefs about
+themselves and the future they anticipate [@Loewenstein2018;
+@Loewenstein1987]. But do advice givers anticipate and consider the
+hedonic cost of honest information to the recipient? While previous work
+has emphasized the instrumental value of advice (e.g., satisfaction with
+a decision or accuracy of a prediction), we focus on the motivations of
+the person providing advice.
 
 Research on advice has largely focused on settings that do not tackle
 belief utility. For example, participants may have been asked to
@@ -87,7 +87,7 @@ estimate the number of balls in an urn or choose from pairs of lotteries
 [@Benjamin2015]. Advisers have been shown to be motivated to give
 accurate advice [@Jonas2003], and engage in perspective-taking to meet
 the preferences of the advisee [@Kray2000; @Kray1999]. When they are
-uncertain, they prefer that advisees do not rely (extensively) on their
+uncertain, they even prefer that advisees do not rely (extensively) on their
 recommendations [@Ache2020]. Thus, it seems that people are concerned
 about providing good advice even when they are not incentivized for the
 recipient’s decision quality.
@@ -98,8 +98,8 @@ they think the advisee is wealthy enough to afford an expensive meal,
 and someone recommending a student pursue a PhD in economics assumes
 that they are intellectually capable. Conversely, telling a poorly
 performing student to switch to a less-demanding major conveys a belief
-that the student is not capable of improving. Thus, the painful truth
-may prevent someone from making a bad decision, it may come at a cost to
+that the student is not capable of improving. Thus, while the painful truth
+may prevent someone from making a bad decision, it may come at a hedonic cost to
 the recipient and damage the relationship between the adviser and
 advisee. We propose that advisers take these costs into account, even
 when the interactions are entirely anonymous and they are incentivized
@@ -118,28 +118,22 @@ advice: the adviser directly experiences a souring relationship, but may
 suffer little and only much delayed consequences if an advisee makes a
 poor life decision.
 
-Our account therefore predicts that people receive advice that is more
+Our account therefore predicts that people give and receive advice that is more
 flattering and suggestive of inflated ability and optimistic outcomes
 than would advice in the absence of such interpersonal considerations.
 However, we propose that this is not true for all advisees equally.
 Presenting flattering advice requires the formation of beliefs about the
 advisee's expectations (reference point). @Exley2022 show that men are
-more overconfident than women, conditional on equal performance and that
-people anticipate but fail to incorporate this difference into their
-decisions. An adviser who seeks to avoid disappointment and incorporates
+more overconfident than women, conditional on equal performance, and that
+people anticipate this difference. An adviser who seeks to avoid disappointment and incorporates
 expectations into their advice would then present more favorable advice
 to male advisees than to female advisees (see Figure 1 for an
 illustration). This provides a novel account for a well-known finding
 that men receive more aspirational advice than do women [@Kanze2018].
-
 Notably, when it pays to have accurate beliefs, such flattering advice
 would come at a cost: while men would be more likely to aim higher, they
 would also suffer greater costs from aiming too high and failing to meet
-the objective. This may seem at odds with a gender gap favoring men.
-However, observational data often miss people who were unsuccessful. For
-example, job candidates who ask for a high starting salary may be less
-likely to receive a job offer, but will also have a higher starting
-salary conditional on receiving an offer.
+the objective.
 
 In a large, preregistered experiment (n = 2,000), we show that advisers
 consider the expectations of advisees, even when such expectations do
@@ -148,21 +142,22 @@ problem. We find that as a result, showing expectations (but not gender)
 to advisers leads men to receive more aspirational advice than women.
 Incorporating expectations leads to worse advice, even when advisers are
 incentivized based on the outcome of the advisee’s decision. In a second
-preregistered experiment (n = 700), we show that advisers respond to
-interpersonal considerations. They advice people that they are more
+preregistered experiment (n = 700), we show that advisers respond to incentives for
+interpersonal considerations. They tell people that they are more
 attractive than they believe them to be, and inflate to a greater extent
-when incentivized for likability rather than accuracy. Advisees indeed
-reward such flattering advice, finding the advisers more likeable and no
+when incentivized for likability rather than accuracy. Notably, they inflate
+even when only incentivized for accuracy. Advisees indeed
+reward such flattering advice, rating the advisers more likeable and no
 less trustworthy than those who provide more accurate advice.
 
 # Open Science Statement
 
-We report all sample sizes, data exclusions, all manipulations, and all
+We report all sample sizes, data exclusions, manipulations, and
 measures in the studies. Screen captures of the experimental materials
 are available in the Supplemental Information. The complete data, code
 to reproduce all statistical analyses and figures in the manuscript, as
 well as the preregistration reports are available via OSF. All our
-studies were preregistered on AsPredicted.org. (will do this later)
+studies were preregistered on AsPredicted.org.^[<https://osf.io/8r3d4/?view_only=5ad7bafcd16b4d4ba08bb28b0e2bd02d>]
 
 # Study 1
 
