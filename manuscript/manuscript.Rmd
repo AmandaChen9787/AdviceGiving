@@ -369,8 +369,7 @@ modelsummary::modelsummary(list(`(1)` = lm(Advice ~ Treatment + Performance , da
                                         "(Intercept)" = "Constant"),
                            stars = T,
                            gof_map = list(list('raw' = 'nobs', 'clean' = 'N', 'fmt' = 0)),
-                           caption = "Column 1 displays the advice given to compete against a High Performance group based on whether the advisees were primed with low or high expectations and the expectation level shown to the advisor. Column 2 displays the advice given to compete against a High Performance group based on the gender of the targets and the expectation level shown to the advisor. Column 3 displays the expected bonus of the advice received based on the gender of the targets and the expectation level shown to the advisor. All standard errors clustered at the level of the advisor.") %>%
-  kableExtra::kable_styling(latex_option = "scale_down")
+                           caption = "Column 1 displays the advice given to compete against a High Performance group based on whether the advisees were primed with low or high expectations and the expectation level shown to the advisor. Column 2 displays the advice given to compete against a High Performance group based on the gender of the targets and the expectation level shown to the advisor. Column 3 displays the expected bonus of the advice received based on the gender of the targets and the expectation level shown to the advisor. All standard errors clustered at the level of the advisor.")
 
 ```
 
@@ -520,8 +519,8 @@ we find that displaying expectations to advisers does matter.
 Specifically, we found that men underestimate their score on a mathematics test
 less than do women. When these expectations are displayed to advisers, they
 are more likely to tell men to compete against the High Performer group.
-Notably, this is bad advice: men's expected earnings decreases if their
-expectations are shown to advisers.
+Notably, this is bad advice: men whose advisers observed their expectations
+got worse advice as a result.
 
 <!-- David: One more sentence about the earnings difference here, which does not -->
 <!-- differ significantly. And one sentence about the new analysis of whether -->
@@ -529,18 +528,29 @@ expectations are shown to advisers.
 
 # Study 2
 
-We then conduct a three-stage experiment to determine why advisers give
-flattering advice. First, we ask a group of advisees to upload selfies
-and predict their rank in a group of ten people of the same gender based
-on physical attractiveness. Next, we recruit and ask advisers to rank
-selfies of the opposite gender and recommend which rank the participant
-ranked 7th should bet on, with the bonus being contingent on whether the
-participant guessed accurately or found the adviser likable. Finally, we
-show the advisees the advice they have received and ask them to make
-their final prediction about their rank and evaluate the advice giver in
-terms of likability, warmth, and trustworthiness. Our main hypothesis is
-that advisers who want to be liked by advisees would recommend a higher
-rank.
+<!-- David: Just commenting on what I tried to do here... a bit of a transition -->
+<!-- for why this study follows from the last. -->
+So far, we have shown that displaying expectations can induce gender
+differences in advice given. Specifically, advisers were more likely to
+recommend competing against a group of High Performers to men who had higher
+expectations about their performance. We now test directly whether this 
+is driven by interpersonal concerns. Specifically, we examine whether 
+more flattering advice is the result of a desire to be liked and whether
+advisees indeed do like advisers more when they give flattering advice.
+
+We conducted a three-stage experiment in which we experimentally manipulated
+the incentives for advicers. We began by inviting a group of advisees to upload 
+photos of themselves ("selfies") and informed them that they would be rated
+on their attractiveness. We grouped them with nine other participants of the
+same gender and recruited participants of the opposing gender to rank them from
+most to least attractive and to provide advice. Specifically, we asked them
+to advise the participant they ranked as the 7th most attractive (4th least attractive)
+on what rank they should bet they were ranked by a larger group of raters.
+Advisers were randomly assigned to two treatments, receiving a bonus payment
+either if the advisee guessed their rank accurately or if the advisee evaluated
+the adviser as likeable as measured by an unincentivized scale response.
+We hypothesize that advisers who want to be liked by advisees will recommend 
+that they bet on a lower rank, i.e. that they are more attractive.
 
 ```{r}
 
@@ -678,8 +688,7 @@ modelsummary::modelsummary(list(`(1)` = lm(likable ~ Advice, data = study2_time3
                                         "(Intercept)" = "Constant"),
                            stars = T,
                            gof_map = list(list('raw' = 'nobs', 'clean' = 'N', 'fmt' = 0)),
-                           caption = "When individuals receive advice that implies a high level of attractiveness (lower rank), they tend to perceive the advice giver as more likable (Column 1), warm (Column 2). Column 3 shows that advisors are rated as more trustworthy when they advice lower ranks, but this relationship is only directional.") %>%
-  kableExtra::kable_styling(latex_option = "scale_down")
+                           caption = "When individuals receive advice that implies a high level of attractiveness (lower rank), they tend to perceive the advice giver as more likable (Column 1), warm (Column 2). Column 3 shows that advisors are rated as more trustworthy when they advice lower ranks, but this relationship is only directional.")
 
 ```
 
