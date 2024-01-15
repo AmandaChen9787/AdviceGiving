@@ -760,40 +760,52 @@ not come at the cost of trustworthiness, even when the advice is substantially
 inflated (e.g., a recommendation that the advisee is the most attractive in the group).
 
 # General Discussion
-Advice substantially shapes people's career and personal outcomes.
-Therefore, understanding advisers' motivations has far-reaching
-implications. We propose that advisers' focus on advisees' expectations
-and the desire to avoid disappointing them can induce gender differences
-in the advice given and ultimately in the outcomes achieved. Gender
-differences in career outcomes contribute significantly to the gender
-wage gap, with women often holding less senior positions and
-experiencing worse career outcomes, even with equal performance.
-Therefore, identifying a factor such as expectations that contributes to
-this gap has important implications for organizational practice.
+Advice has the potential to shape people's career and personal outcomes.
+Honest feedback, however, may be painful to learn if it falls short of one's
+expectations. As prior work notes, this may motivate people to avoid information 
+and avoid seeking help [@Benabou2022; @Golman2017; @Jaroszewicz2022].
+We present evidence from two experiments that advisers are also cognizant of this
+cost. As a result, they present flattering advice that avoids disappointing the
+recipient, and correctly anticipate that this boosts how advisees perceive them.
 
-In this paper, we examine a novel and unexplored factor of
-advice-giving: interpersonal considerations. Advisers who take into
-account the advisee's belief utility inflate their advice to convey a
-more favorable impression, leading to worse decisions and gender
-differences. Men have more inflated expectations than women, and taking
-expectations into account can lead to gender differences, even without
-discrimination. We ruled out discrimination as a separate channel by
-withholding information about the gender of the advisee. Finally, we
-expect that advisers are aware of the tradeoff between giving accurate
-advice and avoiding disappointment and, thus, are less likely to inflate
-their advice when advisees can compensate them after observing the
-outcome of their choice.
+However, this flattering advice comes at a cost to advisees, who would do worse
+if they followed it blindly, as we show in Study 1.
+<!-- David: But not Study 2? I guess we're not sure yet? -->
+Moreover, a desire to avoid disappointment also means that advisers have to
+take into account the expectations of the advisee. 
+We document that men are more optimistic about their performance than
+women are. As a result, they receive more flattering advice and are more likely
+to be told to aim higher. Notably, in the context of our experiment, this turns
+out to be bad advice ex post.
 
-The findings of this study suggest that organizations can promote gender
-equity by calibrating employees' expectations or shifting advisers'
-attention away from them. While these measures may not entirely solve
-the gender gap problem, they can make a meaningful difference when
-unconscious bias interventions have failed to show any effect
-[@Chang2019; @Paluck2009]. We believe our findings may be particularly
-relevant to societies that value signaling in interpersonal
-relationships. Future work
-could also examine whether people in different cultures place more
-weight on expectations.
+Our findings have implications for organizational practice, where mentoring
+and advice-giving may take into account an employees' expectation. We
+document this as a novel source of gender bias. Organizations could reduce
+this bias by calibrating employees' expectations to reduce overconfidence.
+
+Participants in our experiment were paired anonymously. Even so, we document
+this desire to avoid disappointment. We anticipate that advice would be more
+flattering in face-to-face communication and without anonymity. Moreover,
+existing relationships might make it even more difficult for advisers to be
+honest.
+
+In our experiments, participants only received advice once and did not evaluate
+the adviser after observing the outcome of their decision.
+For example, advice that leads to bad outcomes may undermine the
+interpersonal benefits of flattery. Alternatively, people may still like the
+flattering advice and not fault the adviser for the bad outcome.
+Moreover, our setting involved only a single piece of advice on one task.
+Future research could examine whether people return to those who gave them
+flattering advice, or if they prefer someone who gave them the honest
+(but unpleasant) truth.
+
+Advice has long been studied from the perspective of the receiver. Similarly,
+research on belief utility has examined how recipients respond to the valence
+of the information they receive. Here, we show that advisers, too, take into
+account the psychological impact of the information they convey. They may have
+even greater motivations to avoid conveying bad news, because they incur the
+interpersonal costs of delivering unfavorable information without reaping the
+benefits from helping someone make a better choice.
 
 # References
 
