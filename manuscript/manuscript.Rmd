@@ -668,6 +668,9 @@ to be somewhat realistic to be believable. We return to this in the general disc
 <!-- David: Making a note here that we should be sure to discuss this at the end -->
 <!-- as something for future research. -->
 
+<!-- David: We should also report something on accuracy of the advice given across -->
+<!-- the treatments. Even if no difference. -->
+
 ```{r study2regs}
 
 modelsummary::modelsummary(list(`(1)` = lm(likable ~ Advice, data = study2_time3),
@@ -744,11 +747,19 @@ We were not powered to do a comparison across the two
 experimental groups and did not preregister such a difference.
 <!-- David: But we still need to report warmth & trust across treatments. -->
 
-## Discussion
 
+## Discussion
+In a context where advice communicates ego-relevant information (here, people's
+attractiveness), we find that the advice people give is contingent on their
+incentives. Specifically, when they get rewarded for being more likeable, they
+recommend that the advisee bet on a more favorable rank than when they are
+incentivized for accuracy. Importantly, advisees do not discount flattering
+advice and instead evaluate people who advise them to bet on a more attractive
+rank as warmer and more likeable. These gains to interpersonal perceptions do
+not come at the cost of trustworthiness, even when the advice is substantially
+inflated (e.g., a recommendation that the advisee is the most attractive in the group).
 
 # General Discussion
-
 Advice substantially shapes people's career and personal outcomes.
 Therefore, understanding advisers' motivations has far-reaching
 implications. We propose that advisers' focus on advisees' expectations
