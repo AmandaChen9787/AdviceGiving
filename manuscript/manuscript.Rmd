@@ -18,7 +18,6 @@ authornote : |
   The authors are grateful to a lot of things.
 abstract: |
   The purpose of advice is to help recipients make better decisions and solve their problems. However, in this paper, we propose that advisors may also take recipients' responses into account and attempt to avoid disappointing them, leading to what we call "flattering advice." In two pre-registered experiments involving real interactions between advisors and advisees (n = 2,700), we show that individuals consider others' expectations when giving advice, even when such expectations do not provide informative insights for the underlying decision-making problem. As a result, men receive more aspirational advice than women, given their higher confidence, when expectations (but not gender) are shown to advisors. However, incorporating expectations leads to worse outcomes (Study 1). Individuals inflate their advice due to interpersonal considerations: people who are concerned about advisees' likability inflate their advice to a great extent. Advisees reward such flattering advice, finding the advisers more likable and no less trustworthy than those who provide more accurate advice (Study 2). We discuss practical and theoretical contributions and future research directions.
- 
 keywords          : "Gender difference, Advice, Interpresonal relationship"
 wordcount         : "4,362"
 figsintext        : yes
@@ -344,14 +343,6 @@ only 0.27 points `r papaja::apa_print(t.test(overconfidence ~ Gender, data = stu
 Although neither gender is overconfident, men on average are more confident in
 their performance than are women, as we had expected.
 
-<!-- We conducted an OLS regression with the performance and gender of -->
-<!-- participants and found that with the same performance, male participants -->
-<!-- are more confident than their female counterparts -->
-<!-- (`r model1_apa$estimate['GenderMale']`, -->
-<!-- `r model1_apa$statistic['GenderMale']`). -->
-
-<!-- David: I don't think we can do this regression, but defining overconfidence with a difference score and doing a t-test should be fine. -->
-
 ```{r study1regs}
 study1_advice <- study1_advice %>% dplyr::mutate(Treatment = factor(Treatment, levels = c('Low', 'High')))
 
@@ -407,41 +398,6 @@ ggplot(df_exp, aes(x = Performance, y = avg_hardGroup, color = Gender)) +
         legend.key.size = unit(1.2, "lines"),
         legend.text = element_text(size = 12),
         plot.title = element_text(hjust = 0.5, size = 20))
-
-
-```
-
-<!-- David: Is there something different about the figure below or can we delete? -->
-```{r, eval = F}
-library(dplyr)
-library(ggplot2)
-library(magrittr)
-
-ProbHG <- study1_advice %>%
-  group_by(Condition, Performance, Gender) %>%
-  dplyr::summarize(avg_hardGroup = mean(Advice))
-
-
-df_exp <- subset(ProbHG, Condition == "E")
-df_none <- subset(ProbHG, Condition == "None")
-
-ggplot(df_exp, aes(x = Performance, y = avg_hardGroup, color = Gender)) +
-  geom_smooth(method = "glm", method.args = list(family = "binomial"),se = FALSE) +
-  scale_color_manual(values = c("#FFA500", "#4169E1"),
-                     labels = c("Female_withExpectation", "Male_withExpectation")) +
-  scale_y_continuous(name = "P(Compete Against High Performance)") +
-  scale_x_continuous(name = "Performance") +
-  theme_bw() +
-  theme(panel.grid = element_blank(),
-        panel.border = element_blank(),
-        axis.line = element_line(colour = "grey"),
-        legend.position = "bottom",
-        legend.title = element_blank(),
-        legend.key.size = unit(1.2, "lines"),
-        legend.text = element_text(size = 12),
-        plot.title = element_text(hjust = 0.5, size = 20))
-
-
 ```
 
 Next, we examine whether advisers took the advisee's expectations into
@@ -464,8 +420,8 @@ interaction of the two in Column 2 of Table \@ref(tab:study1regs). As
 predicted, we find a significant interaction effect: men are more likely
 to be advised to compete against the High Performers when expectations
 are shown than when they are hidden ($p < 0.001$).
-We show this result graphically in Figure \@ref(fig:study1genderdiff)).
-<!-- David: Can you add a description of the figure here? -->
+We show this result graphically in Figure \@ref(fig:study1genderdiff)). <!-- Amanda: The gender discrepancy in advice is more significant when performance is less decisive. When performance is extremely low, there is no chance to win high performers and only a slim chance when competing with low performers. When performance is extremely high, it makes no sense to forgo the high chance to win more and choose a low bonus. However, in the middle range of performance, either option has pros and cons, and neither is absolutely better. In such a situation, advisers would take participants' expectations into account, regarding them as a critical factor. -->
+
 
 To examine the quality of advice, we computed the expected bonus
 earnings for someone who followed the recommendations. For example, if an
@@ -481,14 +437,28 @@ to compete against the High Performer group more often, and this advise turned
 out to be bad: men receive worse advise than do women when expectations are 
 displayed, but not in their absence.^[This analysis was not preregistered, and we note here that the reduction in expected earnings is small. However, it is interesting that expectations have a negative effect for men who underestimate their performance on average. One possibility is that advisers suggest the High Performer group more often than is optimal. We return to the possibility that advice is overall biased to be flattering in Study 2.]
 
-```{r}
-study1_time3 <- study1_time3 %>% dplyr::mutate(AdviseeConditionHigh = ifelse(AdviseeCondition =='High',1,0))
+```{r study1time3}
 
-model2 <- lm(bonus ~ AdviseeConditionHigh + AdviseeScore, data = study1_time3)
-model2_apa <- apa_print(model2)
+study1_time3 <- study1_time3 %>% dplyr::mutate(AdviseeCondition = factor(AdviseeCondition, levels = c('Low', 'High'))) %>%
+     dplyr::mutate(Adopt = ifelse(Bet == Advice,1,0))
 
-model3 <- lm(Bet ~ Gender + AdviseeScore, data = study1_time3)
-model3_apa <- apa_print(model3)
+modelsummary::modelsummary(list(`(1)` = lm(bonus ~ AdviseeCondition + AdviseeScore , data = study1_time3),
+                                `(2)` = lm(Bet ~ Gender + AdviseeScore , data = study1_time3),
+                                `(3)` = lm(Adopt ~ Gender + GiverCondition + Advice, data = study1_time3),
+                                `(4)` = lm(Adopt ~ Gender + GiverCondition + Advice + Gender*GiverCondition + GiverCondition*Advice + Gender*Advice, data = study1_time3)),
+                           vcov = c("classical", "classical","classical","classical"),
+                            coef_map = c("AdviseeScore" = "Performance",
+                                         "AdviseeConditionHigh" = "High Expectation",
+                                        "GenderMale" = "Advisee Male",
+                                        "GenderMale:GiverCondition" = "Expectation x Male",
+                                        "GiverCondition" = "Expectation Shown",
+                                        "Advice1" = "Advice: High Performer",
+                                        "GenderMale:Advice1" = "Advice: High Performer x Male",
+                                        "GiverCondition:Advice1" = "Expectation x Advice: High Performer",
+                                        "(Intercept)" = "Constant"),
+                           stars = T,
+                           gof_map = list(list('raw' = 'nobs', 'clean' = 'N', 'fmt' = 0)),
+                           caption = "Column 1 displays the actual bonus based on the performance and whether the participant is primed with high expectations. Column 2 displays whether the participant chooses to compete against a high-performance group based on performance and gender of the participants. Columns 3 and 4 display the chance of adopting the advice based on the gender of the participants, whether the advisee sees expectations, and whether the advice is to compete against high performers. The former considers only the main effect, while the latter also includes the interactive effect.")
 
 ```
 
@@ -496,19 +466,10 @@ To determine whether flattering advice is truly costly, however, we need
 to examine the outcome of the advisees. In particular, they could ignore flattering
 advice, recognizing it as such and thus failing to adhere to it.
 
-<!-- David: Let's turn the regression you discussed below into a column of the Table above -->
+<!-- David: Let's turn the regression you discussed below into a column of the Table above --> 
+<!-- Amanda: Can we create a new table for analyzing time 3 data? Because the variables are different from the previous table, the current table might be difficult to read with new columns. Additionally, the new analysis is only focused on fr advice shown to its target, not all 10,000 advice. It might be vonfusing if we put them together. --> 
 <!-- David: Also, one more suggestion for an analysis: let's look at whether Advisees followed the recommendation they received as an other linear probability model (1/0). I would suggest predictors of whether it's the High Performer group, whether the adviser saw expectations, the gender of the advisee. Also, another model that has the two-way interaction for all of those. We may not end up reporting this, but I would be curious to see. -->
 
-<!-- Finally, we look at the actual earnings of advisees. Although -->
-<!-- participants in the High Expectation condition earned less, this -->
-<!-- difference is not significant -->
-<!-- (`r model2_apa$estimate['AdviseeConditionHigh']`, -->
-<!-- `r model2_apa$statistic['AdviseeConditionHigh']`). -->
-
-<!-- We found that males are more competitive to the extent that they are -->
-<!-- more likely to choose to compete against High Performer group -->
-<!-- (`r model3_apa$estimate['GenderMale']`, -->
-<!-- `r model3_apa$statistic['GenderMale']`), holding performance the same. -->
 
 ## Discussion
 When the quality of a decision is not dependent on someone's expectations,
