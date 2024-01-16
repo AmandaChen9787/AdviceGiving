@@ -13,6 +13,11 @@ giver <- data.table::fread(here::here("Data/Raw Data/S2_time2.csv"),
   dplyr::mutate(value = gsub("st|nd|rd|th| rank| \\(most attractive\\)| \\(least attractive\\)", "", value),
                 value = as.numeric(value))
 
+duplicates <- apply(giver[,3:12], 1, function(x) any(duplicated(x)))
+
+giver <- giver %>% dplyr::mutate(duplicates = duplicates) %>%
+  dplyr::filter(duplicates == 'FALSE')
+
 # clean the url
 url <-  giver %>% dplyr::select(ResponseId,dplyr::starts_with("url."))
 
@@ -51,36 +56,36 @@ for(i in 1:nrow(giver)){
 giverStat <- giver %>% dplyr::filter(!is.na(Target)) %>% dplyr::rename('Advice' = 'value')
 
 
+# We then randomly select one piece of advice for each participant who upload selfies
+#advice <- giverStat %>% dplyr::group_by(Target) %>% dplyr::slice_sample(n=1)  %>%
+#  dplyr::select(Target,Advice,PROLIFIC_PID)%>% dplyr::rename('QID7_Id'='Target') %>% dplyr::rename('Giver_Id'='PROLIFIC_PID')
+
+giverStat <- giverStat %>% dplyr::mutate(age = as.numeric(age))
+
+saveRDS(giverStat, file = here::here("Data/Study2_time2.Rds"))
+giverStat %>% write.csv("Data/Cleaned Data/S2_time2_clean.csv")
+
+
 #calculate final ranking for each selfie
-selfie <- data.table::fread(here::here("Data/Raw Data/S2_time1.csv"),
-                            header = T,na.strings = '')[-c(1,2)]  %>%
-  dplyr::filter(Progress == '100',gender != 'Other',!is.na(QID7_Id)) %>%
-  dplyr::select(ResponseId, PROLIFIC_PID,QID7_Id)
+selfie <- readRDS(here::here("Data/Study2_time1_200.Rds"))
 
-selfies <- as.data.frame(unique(giverStat$Target))
+selfies <- as.data.frame(unique(selfie$QID7_Id))
 selfies[,c('scores','raterNr')] <- 0
-
 
 for(i in 1:nrow(giver)){
   rankList = as.list(giverRank[i,])
   urlList = as.list(url[i,])
   for (j in 1:10){
     photo = urlList[j]
-    selfies[selfies$`unique(giverStat$Target)`==photo,]$scores <- selfies[selfies$`unique(giverStat$Target)`==photo,]$scores + as.numeric(rankList[j])
-    selfies[selfies$`unique(giverStat$Target)`==photo,]$raterNr <- selfies[selfies$`unique(giverStat$Target)`==photo,]$raterNr +1
+    selfies[selfies$`unique(selfie$QID7_Id)`==photo,]$scores <- selfies[selfies$`unique(selfie$QID7_Id)`==photo,]$scores + as.numeric(rankList[j])
+    selfies[selfies$`unique(selfie$QID7_Id)`==photo,]$raterNr <- selfies[selfies$`unique(selfie$QID7_Id)`==photo,]$raterNr +1
   }
 }
-selfies <- selfies %>% dplyr::mutate(finalRank = scores/raterNr, finalRank = round(finalRank)) %>% dplyr::rename('QID7_Id'='unique(giverStat$Target)')
-selfieStst <- merge(selfie,selfies,by = 'QID7_Id')
-giverStat <- merge(giverStat,selfies,by.x = 'Target',by.y = 'QID7_Id')
+selfies <- selfies %>% dplyr::mutate(finalRank = scores/raterNr, finalRank = round(finalRank)) %>% dplyr::rename('QID7_Id'='unique(selfie$QID7_Id)') %>%
+  dplyr::filter(!is.na(finalRank))
+selfieStst <- merge(selfie,selfies,by = 'QID7_Id') %>%
+  dplyr::select(-c('scores','raterNr'))
 
-# We then randomly select one piece of advice for each participant who upload selfies
-#advice <- giverStat %>% dplyr::group_by(Target) %>% dplyr::slice_sample(n=1)  %>%
-#  dplyr::select(Target,Advice,PROLIFIC_PID)%>% dplyr::rename('QID7_Id'='Target') %>% dplyr::rename('Giver_Id'='PROLIFIC_PID')
 
-giverStat <- giverStat %>% dplyr::select(-c('scores','raterNr')) %>%
-  dplyr::mutate(age = as.numeric(age))
-
-saveRDS(giverStat, file = here::here("Data/Study2_time2.Rds"))
-giverStat %>% write.csv("Data/Cleaned Data/S2_time2_clean.csv")
-
+saveRDS(selfieStst, file = here::here("Data/Study2_finalRank.Rds"))
+selfieStst %>% write.csv("Data/Cleaned Data/S2_time2_finalRank.csv")

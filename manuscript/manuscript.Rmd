@@ -48,6 +48,7 @@ always_allow_html: true
 
 ```{r setup, include=FALSE}
 library(magrittr)
+library(ltm)
 
 knitr::opts_chunk$set(fig.width = 8, fig.height = 4, cache = F, echo = F,
                       fig.align = 'center',warning = FALSE, message = FALSE)
@@ -290,15 +291,6 @@ were not informed of their true score or the score of the groups they
 could compete against. Participants then observed the advice from a
 randomly selected adviser and made their decision.
 
-```{r}
-library("papaja")
-# Fit linear regression model
-study1_advice <- study1_advice %>% dplyr::mutate(ExpShow = ifelse(Condition == 'E',1,0))
-
-model1 <- lm(Guess ~ Gender + count, data = study1_time1)
-model1_apa <- apa_print(model1)
-```
-
 ## Results
 
 We begin by examining the performance of the Stage 1 participants.
@@ -343,7 +335,8 @@ Although neither gender is overconfident, men on average are more confident in
 their performance than are women, as we had expected.
 
 ```{r study1regs}
-study1_advice <- study1_advice %>% dplyr::mutate(Treatment = factor(Treatment, levels = c('Low', 'High')))
+study1_advice <- study1_advice %>% dplyr::mutate(Treatment = factor(Treatment, levels = c('Low', 'High'))) %>%
+  dplyr::mutate(ExpShow = ifelse(Condition == 'E',1,0))
 
 # David: No need to redefine a factor variable as a continuous number. Easier to just change the reference level.
 
@@ -380,7 +373,7 @@ ggplot(df_exp, aes(x = Performance, y = avg_hardGroup, color = Gender)) +
   geom_smooth(method = "glm", method.args = list(family = "binomial"),se = FALSE) +
   geom_smooth(data = df_none, aes(x = Performance, y = avg_hardGroup),
               method = "glm", method.args = list(family = "binomial"), color = "grey", se = FALSE) +
-  scale_color_manual(values = c("red", "#4169E1", "grey"),
+  scale_color_manual(values = c("#E74C3C", "#4169E1", "grey"),
                      labels = c("Female + Expectations", "Male + Expectations", "Expectation Hidden")) +
   scale_y_continuous(name = "P(Compete Against High Performance)",
                      labels = scales::percent,
@@ -441,8 +434,10 @@ displayed, but not in their absence.^[This analysis was not preregistered, and w
 study1_time3 <- study1_time3 %>% dplyr::mutate(AdviseeCondition = factor(AdviseeCondition, levels = c('Low', 'High'))) %>%
      dplyr::mutate(Adopt = ifelse(Bet == Advice,1,0))
 
-modelsummary::modelsummary(list(`(1)` = lm(bonus ~ AdviseeCondition + AdviseeScore , data = study1_time3),
-                                `(2)` = lm(Bet ~ Gender + AdviseeScore , data = study1_time3),
+modelsummary::modelsummary(list(`(1)` = lm(bonus ~ AdviseeCondition + AdviseeScore, data = study1_time3 %>%
+                                             dplyr::filter(GiverCondition == 1)),
+                                `(2)` = lm(bonus ~ Gender + AdviseeScore, data = study1_time3 %>%
+                                             dplyr::filter(GiverCondition == 1)),
                                 `(3)` = lm(Adopt ~ Gender + GiverCondition + Advice, data = study1_time3),
                                 `(4)` = lm(Adopt ~ Gender + GiverCondition + Advice + Gender*GiverCondition + GiverCondition*Advice + Gender*Advice, data = study1_time3)),
                            vcov = c("classical", "classical","classical","classical"),
@@ -457,17 +452,20 @@ modelsummary::modelsummary(list(`(1)` = lm(bonus ~ AdviseeCondition + AdviseeSco
                                         "(Intercept)" = "Constant"),
                            stars = T,
                            gof_map = list(list('raw' = 'nobs', 'clean' = 'N', 'fmt' = 0)),
-                           caption = "Column 1 displays the actual bonus based on the performance and whether the participant is primed with high expectations. Column 2 displays whether the participant chooses to compete against a high-performance group based on performance and gender of the participants. Columns 3 and 4 display the chance of adopting the advice based on the gender of the participants, whether the advisee sees expectations, and whether the advice is to compete against high performers. The former considers only the main effect, while the latter also includes the interactive effect.")
+                           caption = "Column 1 displays the actual bonus based on the performance and whether the participant is primed with high expectations. Column 2 displays the actual bonus based on the performance and gender of the participant. Columns 3 and 4 display the chance of adopting the advice based on the gender of the participants, whether the advisee sees expectations, and whether the advice is to compete against high performers. The former considers only the main effect, while the latter also includes the interactive effect.")
 
 ```
 
 To determine whether flattering advice is truly costly, however, we need
 to examine the outcome of the advisees. In particular, they could ignore flattering
-advice, recognizing it as such and thus failing to adhere to it.
+advice, recognizing it as such and thus failing to adhere to it. Align with our prediction, participants who were primed with high expectations earned less when their expectations were conveyed to the advisers, although this result is only directional  (see Column 1 of Table \@ref(tab:study1time3)). Similarly, as shown in Column 2 of Table \@ref(tab:study1time3), Similarly, as shown in Column 2 of Table 1, we also found that male participants received less reward when their expectations were presented, even when their performance was the same. These findings suggest that flattering advice is not without consequences. Furthermore, our research indicates that because males are more likely to follow such advice (see Column 4 of Table \@ref(tab:study1time3), their tendency towards competition intensifies the cost of such advice. 
+ 
+
 
 <!-- David: Let's turn the regression you discussed below into a column of the Table above --> 
-<!-- Amanda: Can we create a new table for analyzing time 3 data? Because the variables are different from the previous table, the current table might be difficult to read with new columns. Additionally, the new analysis is only focused on fr advice shown to its target, not all 10,000 advice. It might be vonfusing if we put them together. --> 
 <!-- David: Also, one more suggestion for an analysis: let's look at whether Advisees followed the recommendation they received as an other linear probability model (1/0). I would suggest predictors of whether it's the High Performer group, whether the adviser saw expectations, the gender of the advisee. Also, another model that has the two-way interaction for all of those. We may not end up reporting this, but I would be curious to see. -->
+
+<!-- Amanda: Can we create a new table for analyzing time 3 data? Because the variables are different from the previous table, the current table might be difficult to read with new columns. Additionally, the new analysis is only focused on fr advice shown to its target, not all 10,000 advice. It might be confusing if we put them together. --> 
 
 
 ## Discussion
@@ -480,7 +478,7 @@ Specifically, we found that men underestimate their score on a mathematics test
 less than do women. When these expectations are displayed to advisers, they
 are more likely to tell men to compete against the High Performer group.
 Notably, this is bad advice: men whose advisers observed their expectations
-got worse advice as a result.
+got worse advice as a result. <!-- Amanda: Our findings suggest that males earned less than their female counterparts who scored the same as them, although the evidence is only directional. This could be attributed to the fact that males received more flattering advice and were more likely to adopt it, resulting in even worse outcomes.-->
 
 <!-- David: One more sentence about the earnings difference here, which does not -->
 <!-- differ significantly. And one sentence about the new analysis of whether -->
@@ -517,15 +515,16 @@ that they bet on a lower rank, i.e. that they are more attractive.
 study2_time1 <- readRDS(here::here("Data/Study2_time1.Rds"))
 study2_time1_200 <- readRDS(here::here("Data/Study2_time1_200.Rds"))
 study2_time2 <- readRDS(here::here("Data/Study2_time2.Rds"))
+study2_finalRank <- readRDS(here::here("Data/Study2_finalRank.Rds"))
 study2_time3 <- readRDS(here::here("Data/Study2_time3.Rds"))
 
 ```
 
 ## Methods
 
-We recruited 300 participants from Prolific and invited them to upload photos of
+We recruited 300 participants from Prolific and, after asking demographic questions, invited them to upload photos of
 themselves (selfies) to be rated by other participants on
-attractiveness.
+attractiveness. 
 `r scales::comma(dim(study2_time1[study2_time1$gender == 'Male',])[1])`
 men and
 `r scales::comma(dim(study2_time1[study2_time1$gender == 'Female',])[1])`
@@ -536,8 +535,8 @@ first 100 photos from women to arrive at a gender-balanced sample
 Participants were informed that their selfies would be randomly grouped with
 those of nine other participants of their gender and ranked in terms of attractiveness
 by a group of new Prolific participants of the opposite gender.
-They then guessed their rank (unincentivized) and the survey concluded
-with demographic questions **David: or did we start with those?**
+Lastly, they guessed their rank (unincentivized). **David: or did we start with those?**
+<!-- Amanda: We started with demographic questions -->
 
 Next, we recruited a new, gender-balanced sample for the role
 of advisers. `r scales::comma(dim(study2_time2)[1])`
@@ -546,10 +545,11 @@ participants from Prolific ($M_{\text{Age}}$ =
 `r round(mean(study2_time2$gender == "Female")*100, 2)`% Female) started by
 providing demographic information, then were matched to a group of the opposite
 gender. They then ranked participants from most to least attractive using a
-drop-down menu next to each picture.
+drop-down menu next to each picture. <!-- Amanda: We excluded data from participants who assigned the same rank to multiple selfies.-->
 <!-- David: wasn't there something with participants selecting the same rank more -->
 <!-- than once, and we dropped people who did that? Or were we able to solve this -->
 <!-- and it happened only during a pilot? -->
+<!-- Amanda: We did not catch this error in pilot, so we decided to use this as a manipulation check -->
 After submitting their ratings, they saw the photo of the participant they
 had ranked as the 7th most attractive (i.e., the 4th least attractive). They
 were reminded of the rank they had given to that perso and informed
@@ -585,45 +585,37 @@ good-naturedness, trustworthiness, and sincerity on 5-point Likert scales
 
 ## Results
 
-<!-- David: The treatment differences here are hard to see. The most salient feature -->
-<!-- is the spike at 7th (which suggests no flattering advice), and the spike at 5. -->
-<!-- Can we try a violin plot for the advised rank?  And maybe we can add a -->
-<!-- dotted horizontal line at 7. This is would be consistent with what they said -->
-<!-- just on the previous screen. So a good reference line. -->
+```{r}
+library(dplyr)
+
+TargetsUnique <- study2_time2 %>%
+  dplyr::select(Target) %>%
+  unique()
+
+
+TargetsUnique <- merge(TargetsUnique,study2_finalRank, by.x = 'Target', by.y = 'QID7_Id')
+
+```
 
 ```{r study2advice, fig.cap="Advice given to the 7th most attractive participants"}
-library(dplyr)
-library(ggplot2)
 
-count <- study2_time2 %>%
-  group_by(Condition) %>%
-  summarize(number = dplyr::n()) 
+study2_time2 <- study2_time2 %>% dplyr::mutate(Advice = as.numeric(Advice))
 
-advice_avg <- study2_time2 %>%
-  group_by(Condition, Advice) %>%
-  summarize(n = dplyr::n()) %>%
-  dplyr::mutate(conditionCount = ifelse(Condition == 'Likable',count[count$Condition == 'Likable',]$number,count[count$Condition == 'Accurate',]$number)) %>%
-  dplyr::mutate(percent = n/conditionCount*100) %>% 
-  dplyr::select(Condition,Advice,percent)
-  
-
-# Create a facet plot with condition as the facet variable and gender as the line color
-ggplot(advice_avg, aes(x = Advice, y = percent, color = Condition)) +
-  geom_line(linewidth = 0.75)+
-  scale_color_manual(values = c("#FFA500", "#4169E1"),
-                      labels = c("Accurate", "Likable")) +
-  scale_y_continuous(name = "% of participants") +
-  scale_x_continuous(name = "Advised Rank",
-                     breaks = seq(1, 10)) +
+ggplot(study2_time2, aes(x = Condition, y = Advice, fill = Condition)) +
+    geom_violin(trim = FALSE) +
+     scale_fill_manual(values = c("#E74C3C", "#4169E1"), labels = c("Accurate", "Likable")) +
+  geom_hline(yintercept = 7, col = 'grey', linetype = 'dashed', linewidth = 0.7) +
+  scale_y_continuous(name = "Advised Rank", breaks = seq(1, 10)) +
   theme_bw() +
   theme(panel.grid = element_blank(),
         panel.border = element_blank(),
         axis.line = element_line(colour = "grey"),
         legend.position = "bottom",
         legend.title = element_blank(),
-        legend.key.size = unit(1.2, "lines"),          
+        legend.key.size = unit(1.2, "lines"),
         legend.text = element_text(size = 12),
         plot.title = element_text(hjust = 0.5, size = 20))
+
 
 ```
 
@@ -633,16 +625,12 @@ On average, men guessed they ranked `r round(mean(study2_time1[study2_time1$gend
 Participants overall underestimate their attractiveness relative to the benchmark
 average of 5.5. Moreover, women do so more than men
 `r papaja::apa_print(t.test(Guess ~ gender, data = study2_time1, var.equal = T))$statistic`.
-Notably, people's self-perceptions correlated strongly/weakly with the aggregate
-ratings of the advisers (correlation coefficient & cor.test). However, there
+Notably, people's self-perceptions correlated strongly with the aggregate
+ratings of the advisers (`r round(cor(study2_finalRank$Guess, study2_finalRank$finalRank),2)`, `r papaja::apa_print(cor.test(study2_finalRank$Guess, study2_finalRank$finalRank))$statistic`). However, there
 was substantial heterogeneity in perceptions of attractiveness.
-Of the 200 participants, XXX were ranked as 7th most attractive by at least one
-adviser. On average,
-men in this subset estimated they were ranked Xth and women estimated they were
-ranked Xth (t-test).
-
-<!-- David: Some stats to fill in above. I think this would be interesting to include -->
-<!-- even though we don't make any predictions about this. -->
+Of the 200 participants, `r length(unique(study2_time2$Target))` were ranked as 7th most attractive by at least one adviser. 
+On average, men in this subset estimated they were ranked `r round(mean(TargetsUnique[TargetsUnique$gender == 'Male',]$Guess),2)`th and women estimated they were
+ranked `r `round(mean(TargetsUnique[TargetsUnique$gender == 'Female',]$Guess),2)`th (`r papaja::apa_print(t.test(Guess ~ gender, data = TargetsUnique, var.equal = T))$statistic`).
 
 Next, we turn our attention to the advisers (Figure \@ref(fig:study2advice)). 
 In the Accuracy condition, those
@@ -685,20 +673,21 @@ modelsummary::modelsummary(list(`(1)` = lm(likable ~ Advice, data = study2_time3
 
 ```
 
-```{r study2rating, fig.cap="The evaluation of advice givers"}
 
-rating <- study2_time3 %>%
-  group_by(Advice) %>%
-  summarise(Likable = mean(likable), Warm = mean(warmAvg), Trust = mean(trustAvg))
+<!-- Amanda: How about this -->
+```{r study2Rating, fig.cap="The evaluation of advice givers"}
+# Load the necessary packages
+library(ggplot2)
+library(gridExtra)
+library(dplyr)
 
-ggplot(rating, aes(x = Advice)) +
-  geom_line(aes(y = Likable, color = "Likable"), linewidth = 0.75) +
-  geom_line(aes(y = Warm, color = "Warm"), linewidth = 0.75) +
-  geom_line(aes(y = Trust, color = "Trust"), linewidth = 0.75) +
-  scale_color_manual(values = c("Likable" = "#FFA500", "Warm" = "#4169E1", "Trust" = "grey"),
-                      labels = c("Likable", "Warm", "Trust")) +
-  scale_y_continuous(name = "Rating") +
-  scale_x_continuous(name = "Advised Rank") +
+study2_time3 <- study2_time3 %>% dplyr::mutate(Advice = as.factor(Advice))
+
+# Create the first plot
+plot1 <- ggplot(study2_time3, aes(x = Advice)) +
+  geom_boxplot(aes(y = likable),position = position_dodge()) +
+  scale_y_continuous(name = "Rating on Likability") +
+  scale_x_discrete(name = "Advised Rank") +
   theme_bw() +
   theme(panel.grid = element_blank(),
         panel.border = element_blank(),
@@ -707,24 +696,47 @@ ggplot(rating, aes(x = Advice)) +
         legend.title = element_blank(),
         legend.key.size = unit(1.2, "lines"),          
         legend.text = element_text(size = 12),
-        plot.title = element_text(hjust = 0.5, size = 20))
+        plot.title = element_text(hjust = 0.5, size = 20)) 
+
+# Create the second plot
+plot2 <- ggplot(study2_time3, aes(x = Advice)) +
+  geom_boxplot(aes(y = warmAvg),position = position_dodge()) +
+  scale_y_continuous(name = "Rating on Warmth") +
+  scale_x_discrete(name = "Advised Rank") +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        panel.border = element_blank(),
+        axis.line = element_line(colour = "grey"),
+        legend.position = "bottom",
+        legend.title = element_blank(),
+        legend.key.size = unit(1.2, "lines"),          
+        legend.text = element_text(size = 12),
+        plot.title = element_text(hjust = 0.5, size = 20)) 
+
+# Combine the plots side by side
+grid.arrange(plot1, plot2, ncol = 2)
 
 
 ```
+
 
 Finally, we examine whether flattering advice indeed leads to more positive evaluations of
 advisers, or whether flattering advice is dismissed as insencere.
 Following our preregistration, we average the ratings on likeability,
 warmth,  friendliness, and good-naturedness to create a scale of likeability
-($\alpha$ = XXX);
+($\alpha$ = `r cronbach.alpha(study2_time3[, 5:8])$alpha`);
 <!-- David: The draft had trustworthiness as part of this scale. -->
 <!-- Can we just double-check against the preregistration? -->
 <!-- And was Likeable part of that? -->
 <!-- We might also want a name for the scale that isn't the same as one -->
 <!-- of the items, though I'm not sure what. -->
 <!-- Same for trustworthiness -- though that could simply be "Trust" -->
+
+<!-- Amanda: My bad. We only pre-reg that we will measure likable (single item) and warm (four items)" -->
+<!-- I include trustworthiness here because it is part of that existing scale" -->
+
 and we create a scale of trustworthiness by averaging the ratings of
-trustworthiness and sincerity ($\alpha$ = XXX).
+trustworthiness and sincerity ($\alpha$ = `r cronbach.alpha(study2_time3[, 9:10])$alpha`).
 
 <!-- The Figure is not super clear. How about we try a series of box plots, -->
 <!-- with the x-axis as the advised rank? Standard errors will be huge at the -->
@@ -735,7 +747,48 @@ trustworthiness and sincerity ($\alpha$ = XXX).
 <!-- more attractive than the participants' own guess, equally attractive, and less -->
 <!-- attractive? -->
 
-As seen in Figure \@ref(fig:study2rating), we
+<!-- Amanda: How about the following picture? -->
+
+```{r study2ratingByGroup, fig.cap="The Response to Different Advice"}
+
+library(dplyr)
+library(ggplot2)
+
+study2_time3 <- study2_time3 %>% dplyr::mutate(Guess = as.numeric(Guess), Advice = as.numeric(Advice)) %>%
+  dplyr::mutate(HorL = ifelse(Guess == Advice,0, ifelse(Guess > Advice, 1,-1))) %>%
+  dplyr::mutate(HorL = as.factor(HorL)) %>% 
+  dplyr::mutate(bonus = ifelse(bet == `Final Rank`,1,0))
+
+ratings <- study2_time3 %>%
+  group_by(HorL) %>%
+  summarise(like = mean(likable), warmth = mean(warmAvg))
+
+rating_table <- matrix(c(ratings$like,ratings$warmth), nrow = 2, byrow = TRUE, dimnames = list( c("Likable",'Warm'),c("Pessimistic", "Accurate", "Flattering")))
+
+rating_df = as.data.frame.table(rating_table) %>%
+  dplyr::rename( 'Condition'='Var1', 'Advice' ='Var2') %>%
+  dplyr::mutate(Freq = round(Freq,2))
+
+ggplot(rating_df, aes(x = Advice, y = Freq, fill = Condition)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  scale_fill_manual(values = c("#E74C3C",'#4169E1')) +
+  labs(x = "Advice", y = "Rating") +
+  ggtitle('Response to Advice') +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        panel.border = element_blank(),
+        axis.line = element_line(colour = "grey"),
+        legend.position = "bottom",
+        legend.title = element_blank(),
+        legend.key.size = unit(1.2, "lines"),          
+        legend.text = element_text(size = 12),
+        plot.title = element_text(hjust = 0.5, size = 20)) +
+  geom_text(aes(label = paste0(Freq), y = 0.5), position = position_dodge(width = 0.9), size = 2, color = 'white')
+
+```
+
+
+As seen in Figure \@ref(fig:study2Rating), we
 found that advisees who suggested that the advisee was more attractive
 (lower rank) were indeed rated as more likeable and warm (b = -0.109, p
 \< .05; b = -0.133, p \< .001, respectively; See Columns 1 and 2 of Table \@ref(tab:study2regs)).
@@ -744,8 +797,9 @@ advisers who recommend a more favorable rank are viewed as no less trustworthy
 (Column 3 of Table \@ref(tab:study2regs)). 
 
 We were not powered to do a comparison across the two 
-experimental groups and did not preregister such a difference.
+experimental groups and did not preregister such a difference. Indeed, we observed that advisers in the Accurate condition received higher ratings in both likable and warm dimensions (`r papaja::apa_print(t.test(likable ~ Condition, data = study2_time3, var.equal = T))$statistic`, and `r papaja::apa_print(t.test(warmAvg ~ Condition, data = study2_time3, var.equal = T))$statistic`, respectively). While the difference is not statistically significant, the results suggest that there may be an optimal range for the level of inflation.
 <!-- David: But we still need to report warmth & trust across treatments. -->
+
 
 
 ## Discussion
@@ -770,7 +824,12 @@ recipient, and correctly anticipate that this boosts how advisees perceive them.
 
 However, this flattering advice comes at a cost to advisees, who would do worse
 if they followed it blindly, as we show in Study 1.
+
 <!-- David: But not Study 2? I guess we're not sure yet? -->
+
+<!-- Amanda: among 146 participants in time 3, only 25 guessed correctly. not enough variation-->
+<!-- Nonetheless, participants received advice from accurate condition earned less (0.15 vs 0.2) -->
+
 Moreover, a desire to avoid disappointment also means that advisers have to
 take into account the expectations of the advisee. 
 We document that men are more optimistic about their performance than
