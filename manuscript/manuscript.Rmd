@@ -155,8 +155,11 @@ We report all sample sizes, data exclusions, manipulations, and
 measures in the studies. Screen captures of the experimental materials
 are available in the Supplemental Information. The complete data, code
 to reproduce all statistical analyses and figures in the manuscript, as
-well as the preregistration reports are available via OSF. All our
-studies were preregistered on AsPredicted.org.^[<https://osf.io/8r3d4/?view_only=5ad7bafcd16b4d4ba08bb28b0e2bd02d>]
+well as the preregistration reports will be available via OSF. All our
+studies were preregistered on AsPredicted.org. 
+
+<!-- ^[<https://osf.io/8r3d4/?view_only=5ad7bafcd16b4d4ba08bb28b0e2bd02d>] -->
+<!-- Commenting this out for IACM -->
 
 # Study 1
 
@@ -338,8 +341,6 @@ their performance than are women, as we had expected.
 study1_advice <- study1_advice %>% dplyr::mutate(Treatment = factor(Treatment, levels = c('Low', 'High'))) %>%
   dplyr::mutate(ExpShow = ifelse(Condition == 'E',1,0))
 
-# David: No need to redefine a factor variable as a continuous number. Easier to just change the reference level.
-
 modelsummary::modelsummary(list(`(1)` = lm(Advice ~ Treatment + Performance , data = study1_advice %>% dplyr::filter(ExpShow == 1)),
                                 `(2)` = lm(Advice ~ ExpShow*Gender , data = study1_advice),
                                 `(3)` = lm(ExpectedBonus ~ ExpShow*Gender, data = study1_advice)),
@@ -412,8 +413,13 @@ interaction of the two in Column 2 of Table \@ref(tab:study1regs). As
 predicted, we find a significant interaction effect: men are more likely
 to be advised to compete against the High Performers when expectations
 are shown than when they are hidden ($p < 0.001$).
-We show this result graphically in Figure \@ref(fig:study1genderdiff)). <!-- Amanda: The gender discrepancy in advice is more significant when performance is less decisive. When performance is extremely low, there is no chance to win high performers and only a slim chance when competing with low performers. When performance is extremely high, it makes no sense to forgo the high chance to win more and choose a low bonus. However, in the middle range of performance, either option has pros and cons, and neither is absolutely better. In such a situation, advisers would take participants' expectations into account, regarding them as a critical factor. -->
+We show this result graphically in Figure \@ref(fig:study1genderdiff)). 
 
+<!-- Amanda: The gender discrepancy in advice is more significant when performance is less decisive. When performance is extremely low, there is no chance to win high performers and only a slim chance when competing with low performers. When performance is extremely high, it makes no sense to forgo the high chance to win more and choose a low bonus. However, in the middle range of performance, either option has pros and cons, and neither is absolutely better. In such a situation, advisers would take participants' expectations into account, regarding them as a critical factor. -->
+
+<!-- David: If we plotted on the x-axis performance and on the y-axis the difference -->
+<!-- between recommendations for men & women, this would look inverse-U shaped, right? -->
+<!-- Might be a nice way to illustrate what you describe. -->
 
 To examine the quality of advice, we computed the expected bonus
 earnings for someone who followed the recommendations. For example, if an
@@ -466,6 +472,8 @@ advice, recognizing it as such and thus failing to adhere to it. Align with our 
 <!-- David: Also, one more suggestion for an analysis: let's look at whether Advisees followed the recommendation they received as an other linear probability model (1/0). I would suggest predictors of whether it's the High Performer group, whether the adviser saw expectations, the gender of the advisee. Also, another model that has the two-way interaction for all of those. We may not end up reporting this, but I would be curious to see. -->
 
 <!-- Amanda: Can we create a new table for analyzing time 3 data? Because the variables are different from the previous table, the current table might be difficult to read with new columns. Additionally, the new analysis is only focused on fr advice shown to its target, not all 10,000 advice. It might be confusing if we put them together. --> 
+
+<!-- Yes, new table is fine. -->
 
 
 ## Discussion
@@ -535,8 +543,7 @@ first 100 photos from women to arrive at a gender-balanced sample
 Participants were informed that their selfies would be randomly grouped with
 those of nine other participants of their gender and ranked in terms of attractiveness
 by a group of new Prolific participants of the opposite gender.
-Lastly, they guessed their rank (unincentivized). **David: or did we start with those?**
-<!-- Amanda: We started with demographic questions -->
+Lastly, they guessed their rank (unincentivized).
 
 Next, we recruited a new, gender-balanced sample for the role
 of advisers. `r scales::comma(dim(study2_time2)[1])`
@@ -545,11 +552,13 @@ participants from Prolific ($M_{\text{Age}}$ =
 `r round(mean(study2_time2$gender == "Female")*100, 2)`% Female) started by
 providing demographic information, then were matched to a group of the opposite
 gender. They then ranked participants from most to least attractive using a
-drop-down menu next to each picture. <!-- Amanda: We excluded data from participants who assigned the same rank to multiple selfies.-->
-<!-- David: wasn't there something with participants selecting the same rank more -->
-<!-- than once, and we dropped people who did that? Or were we able to solve this -->
-<!-- and it happened only during a pilot? -->
-<!-- Amanda: We did not catch this error in pilot, so we decided to use this as a manipulation check -->
+drop-down menu next to each picture. Because of a limitation with the survey software,
+participants were able to select the same rank for multiple participants, rather
+than rank them uniquely. We remove XX participants who did not follow instructions
+and provide a unique ranking.
+
+<!-- David: Note the number above to fill in. -->
+
 After submitting their ratings, they saw the photo of the participant they
 had ranked as the 7th most attractive (i.e., the 4th least attractive). They
 were reminded of the rank they had given to that perso and informed
@@ -675,7 +684,10 @@ modelsummary::modelsummary(list(`(1)` = lm(likable ~ Advice, data = study2_time3
 
 
 <!-- Amanda: How about this -->
-```{r study2Rating, fig.cap="The evaluation of advice givers"}
+<!-- For warmth it looks interesting, but I think the plot is hard -->
+<!-- to read. Let's hold off on this for now. -->
+
+```{r study2Rating, fig.cap="The evaluation of advice givers", eval = F}
 # Load the necessary packages
 library(ggplot2)
 library(gridExtra)
@@ -797,9 +809,11 @@ advisers who recommend a more favorable rank are viewed as no less trustworthy
 (Column 3 of Table \@ref(tab:study2regs)). 
 
 We were not powered to do a comparison across the two 
-experimental groups and did not preregister such a difference. Indeed, we observed that advisers in the Accurate condition received higher ratings in both likable and warm dimensions (`r papaja::apa_print(t.test(likable ~ Condition, data = study2_time3, var.equal = T))$statistic`, and `r papaja::apa_print(t.test(warmAvg ~ Condition, data = study2_time3, var.equal = T))$statistic`, respectively). While the difference is not statistically significant, the results suggest that there may be an optimal range for the level of inflation.
-<!-- David: But we still need to report warmth & trust across treatments. -->
-
+experimental groups and did not preregister such a difference. Indeed, we find
+no difference in likeability and warmth across the two treatments 
+(`r papaja::apa_print(t.test(likable ~ Condition, data = study2_time3, var.equal = T))$statistic`, 
+and `r papaja::apa_print(t.test(warmAvg ~ Condition, data = study2_time3, var.equal = T))$statistic`, 
+respectively).
 
 
 ## Discussion
@@ -821,14 +835,8 @@ and avoid seeking help [@Benabou2022; @Golman2017; @Jaroszewicz2022].
 We present evidence from two experiments that advisers are also cognizant of this
 cost. As a result, they present flattering advice that avoids disappointing the
 recipient, and correctly anticipate that this boosts how advisees perceive them.
-
 However, this flattering advice comes at a cost to advisees, who would do worse
 if they followed it blindly, as we show in Study 1.
-
-<!-- David: But not Study 2? I guess we're not sure yet? -->
-
-<!-- Amanda: among 146 participants in time 3, only 25 guessed correctly. not enough variation-->
-<!-- Nonetheless, participants received advice from accurate condition earned less (0.15 vs 0.2) -->
 
 Moreover, a desire to avoid disappointment also means that advisers have to
 take into account the expectations of the advisee. 
