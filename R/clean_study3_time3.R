@@ -2,7 +2,7 @@ library(dplyr)
 library(ggplot2)
 library(magrittr)
 
-Advisee <- data.table::fread(here::here("Data/Raw Data/S1_time3.csv"),
+Advisee <- data.table::fread(here::here("Data/Raw Data/S3_time3.csv"),
                              header = T,na.strings = '')[-c(1,2)] %>%
   dplyr::filter(Progress == '100' & Status == 'IP Address') %>%
   dplyr::rename('ProlificID' = 'Q3', 'Advice' = '0.Advice',
@@ -15,12 +15,12 @@ Advisee <- data.table::fread(here::here("Data/Raw Data/S1_time3.csv"),
   dplyr::mutate(Guess = as.numeric(Guess) )
 
 # randomly select one competitor
-AdviseeScore <- data.table::fread(here::here("Data/Cleaned Data/S1_time1_clean.csv"),
+AdviseeScore <- data.table::fread(here::here("Data/Cleaned Data/S3_time1_clean.csv"),
                                   header = T,na.strings = '') %>%
   dplyr::select(ProlificID, count, Condition, Gender, Age) %>%
   dplyr::rename('AdviseeScore' = 'count', 'AdviseeCondition' = 'Condition')
 
-Competitors <- data.table::fread(here::here("Data/Cleaned Data/S1_Math50_cleaned.csv"),
+Competitors <- data.table::fread(here::here("Data/Cleaned Data/S3_Math50_cleaned.csv"),
                                     header = T,na.strings = '') %>%
   dplyr::select(ProlificID, Score)
 
@@ -86,8 +86,8 @@ Return <- data_frame(ExpectedBonus = unlist(ReturnList))
 
 AdviseeResult <- cbind(AdviseeResult, Return)
 
-saveRDS(AdviseeResult, file = here::here("Data/Study1_time3.Rds"))
+saveRDS(AdviseeResult, file = here::here("Data/Study3_time3.Rds"))
 
-AdviseeResult %>% write.csv("Data/Cleaned Data/S1_time3_clean.csv")
+AdviseeResult %>% write.csv("Data/Cleaned Data/S3_time3_clean.csv")
 
 

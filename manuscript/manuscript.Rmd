@@ -53,13 +53,13 @@ library(ltm)
 knitr::opts_chunk$set(fig.width = 8, fig.height = 4, cache = F, echo = F,
                       fig.align = 'center',warning = FALSE, message = FALSE)
 
-study1_math50 <- read.csv(here::here("Data/Cleaned Data/S1_Math50_cleaned.csv"))
-study1_time1All <- readRDS(here::here("Data/Study1_time1All.Rds"))
-study1_time1 <- readRDS(here::here("Data/Study1_time1.Rds"))
-study1_time2_giver <- readRDS(here::here("Data/Study1_time2_giver.Rds"))
-study1_time2_giver50 <- readRDS(here::here("Data/Study1_time2_giver50.Rds"))
-study1_advice <- readRDS(here::here("Data/Study1_time2_advice.Rds"))
-study1_time3 <- readRDS(here::here("Data/Study1_time3.Rds"))
+study3_math50 <- read.csv(here::here("Data/Cleaned Data/S3_Math50_cleaned.csv"))
+study3_time1All <- readRDS(here::here("Data/Study3_time1All.Rds"))
+study3_time1 <- readRDS(here::here("Data/Study3_time1.Rds"))
+study3_time2_giver <- readRDS(here::here("Data/Study3_time2_giver.Rds"))
+study3_time2_giver50 <- readRDS(here::here("Data/Study3_time2_giver50.Rds"))
+study3_advice <- readRDS(here::here("Data/Study3_time2_advice.Rds"))
+study3_time3 <- readRDS(here::here("Data/Study3_time3.Rds"))
 
 ```
 
@@ -192,9 +192,9 @@ set.seed(807)
 # loop through 1000 iterations of randomly selecting 10 participants and computing their average score
 for (i in 1:1000) {
   # randomly select 10 participants
-  subgroup <- sample(study1_math50$ProlificID, size = 5, replace = FALSE)
+  subgroup <- sample(study3_math50$ProlificID, size = 5, replace = FALSE)
   # compute the average score for the selected participants
-  subgroup_avg <- mean(study1_math50$Score[study1_math50$ProlificID %in% subgroup])
+  subgroup_avg <- mean(study3_math50$Score[study3_math50$ProlificID %in% subgroup])
   # add the subgroup and its average score to the dataframe
   subgroup_averages <- rbind(subgroup_averages, data.frame(subgroup = i, avg_score = subgroup_avg))
 }
@@ -202,7 +202,7 @@ for (i in 1:1000) {
 p5 <- quantile(subgroup_averages$avg_score, probs = 0.05)
 p95 <- quantile(subgroup_averages$avg_score, probs = 0.95)
 
-sortedScore <- sort(study1_math50$Score, decreasing = TRUE)
+sortedScore <- sort(study3_math50$Score, decreasing = TRUE)
 LP_lower <- sortedScore[50]
 LP_upper <- sortedScore[31]
 HP_lower <- sortedScore[20]
@@ -212,14 +212,14 @@ HP_upper <- sortedScore[1]
 
 As part of our main experiment, participants choose to compete against a group
 of previous participants and have their expectations anchored based on their performance.
-Thus, we begin by first recruiting a sample of `r scales::comma(dim(study1_math50)[1])`
+Thus, we begin by first recruiting a sample of `r scales::comma(dim(study3_math50)[1])`
 participants from Prolific to complete a 10-question multiple choice
 mathematics quiz. The questions were taken from a paper-version of the
 ASVAB standardized exam, such that answers were not available online.
 Participants had five minutes to answer the quiz and were paid 10 cents for
 each correctly answered question. We define the top 20 scorers as the
 "High Performers" and the bottom 20 scorers as the "Low Performers." On
-average, participants answered `r round(mean(study1_math50$Score),2)`
+average, participants answered `r round(mean(study3_math50$Score),2)`
 questions correctly, High Performers scored between `r HP_lower` and
 `r HP_upper`, and Low Performers scored between `r LP_lower` and
 `r LP_upper`. In order to anchor the expectations of participants in our main
@@ -229,11 +229,11 @@ participants, with the 5<sup>th</sup> percentile of groups scoring an average of
 averages to participants in the Low Expectations and High Expectations treatment,
 respectively.
 
-We then recruited `r scales::comma(dim(study1_time1All)[1])`
+We then recruited `r scales::comma(dim(study3_time1All)[1])`
 participants for the role of advisees in Stage 1 of our main experiment.
 To arrive at a gender-balanced sample, we dropped the last two
 male participants to complete the survey, ending up with a sample of 500
-men and 500 women ($M_{\text{Age}}$ = `r mean(study1_time1$Age)`). 
+men and 500 women ($M_{\text{Age}}$ = `r mean(study3_time1$Age)`). 
 Participants completed the same 10-item mathematics quiz as the
 earlier participants and were informed that their performance would
 affect their bonus earnings in a follow-up stage to be conducted a few
@@ -246,7 +246,7 @@ treatment). Participants then made a guess (unincentivized) about how
 many questions they think they answered correctly. The survey concluded
 with basic demographic questions.
 
-We then recruited `r scales::comma(dim(study1_time2_giver)[1])`
+We then recruited `r scales::comma(dim(study3_time2_giver)[1])`
 participants for Stage 2, placing them in the role of advisers. We began
 by informing them of the mathematics quiz that participants in the
 preliminary study and Stage 1 had completed, and informed them of the
@@ -281,10 +281,10 @@ demographic questions.
 Finally, we invited participants from Stage 1
 back for the follow-up survey. Following our preregistration, we kept
 the survey open for 7 days. In total,
-`r scales::comma(dim(study1_time3)[1])` participants
-(`r scales::comma(dim(study1_time3[study1_time3$Gender == 'Male',])[1])`
+`r scales::comma(dim(study3_time3)[1])` participants
+(`r scales::comma(dim(study3_time3[study3_time3$Gender == 'Male',])[1])`
 men,
-`r scales::comma(dim(study1_time3[study1_time3$Gender == 'Female',])[1])`
+`r scales::comma(dim(study3_time3[study3_time3$Gender == 'Female',])[1])`
 women) returned. The brief survey reminded them of the task they
 completed in Stage 1, informed them that other participants from
 Prolific had observed their real score and given them advice against
@@ -301,49 +301,49 @@ Because our treatment takes place after participants completed the
 mathematics quiz, we would not expect a difference in performance across
 the Low and High Expectations treatments. Indeed, the two groups scored
 no different from one another
-(`r round(mean(study1_time1[study1_time1$Condition == "Low",]$count),2)`
+(`r round(mean(study3_time1[study3_time1$Condition == "Low",]$count),2)`
 and
-`r round(mean(study1_time1[study1_time1$Condition == "High",]$count),2)`
+`r round(mean(study3_time1[study3_time1$Condition == "High",]$count),2)`
 for the Low Expectations and High Expectations treatments, respectively,
-`r papaja::apa_print(t.test(count ~ Condition, data = study1_time1, var.equal = T))$statistic`).
+`r papaja::apa_print(t.test(count ~ Condition, data = study3_time1, var.equal = T))$statistic`).
 The expectations treatment did, however, affect how well they thought
 they performed. Participants in the "Low Expectations" treatment guessed
 a score of
-`r round(mean(study1_time1[study1_time1$Condition == "Low",]$count),2)`
+`r round(mean(study3_time1[study3_time1$Condition == "Low",]$count),2)`
 vs.
-`r round(mean(study1_time1[study1_time1$Condition == "High",]$Guess),2)`
+`r round(mean(study3_time1[study3_time1$Condition == "High",]$Guess),2)`
 in the High Expectations treatment
-(`r papaja::apa_print(t.test(Guess ~ Condition, data = study1_time1, var.equal = T))$statistic`),
+(`r papaja::apa_print(t.test(Guess ~ Condition, data = study3_time1, var.equal = T))$statistic`),
 showing that the manipulation was successful, albeit small. Contrary to our
 expectations, we did find a gender difference in performance: men scored
-`r round(mean(study1_time1[study1_time1$Gender == "Male",]$count),2)` on
+`r round(mean(study3_time1[study3_time1$Gender == "Male",]$count),2)` on
 average, while women scored
-`r round(mean(study1_time1[study1_time1$Gender == "Female",]$count),2)`
-(`r papaja::apa_print(t.test(count ~ Gender, data = study1_time1, var.equal = T))$statistic`).
+`r round(mean(study3_time1[study3_time1$Gender == "Female",]$count),2)`
+(`r papaja::apa_print(t.test(count ~ Gender, data = study3_time1, var.equal = T))$statistic`).
 Consistent with this difference, men thought they answered more questions 
 correctly than did
 women
-(`r round(mean(study1_time1[study1_time1$Gender == "Male",]$Guess),2)`
+(`r round(mean(study3_time1[study3_time1$Gender == "Male",]$Guess),2)`
 vs
-`r round(mean(study1_time1[study1_time1$Gender == "Female",]$Guess),2)`,
-`r papaja::apa_print(t.test(Guess ~ Gender, data = study1_time1, var.equal = T))$statistic`).
+`r round(mean(study3_time1[study3_time1$Gender == "Female",]$Guess),2)`,
+`r papaja::apa_print(t.test(Guess ~ Gender, data = study3_time1, var.equal = T))$statistic`).
 This difference, however, does not affect the interpretation of our
 findings, which will rely on an interaction of gender with an
 experimental treatment for Stage 2 participants.
 
 We define a measure of "overconfidence" as (Performance - Estimate). We observe
 that women underestimate their performance by 0.76 points, while men do so by
-only 0.27 points `r papaja::apa_print(t.test(overconfidence ~ Gender, data = study1_time1 %>% dplyr::mutate(overconfidence = Guess - count)))$full_result`.
+only 0.27 points `r papaja::apa_print(t.test(overconfidence ~ Gender, data = study3_time1 %>% dplyr::mutate(overconfidence = Guess - count)))$full_result`.
 Although neither gender is overconfident, men on average are more confident in
 their performance than are women, as we had expected.
 
 ```{r study1regs}
-study1_advice <- study1_advice %>% dplyr::mutate(Treatment = factor(Treatment, levels = c('Low', 'High'))) %>%
+study3_advice <- study3_advice %>% dplyr::mutate(Treatment = factor(Treatment, levels = c('Low', 'High'))) %>%
   dplyr::mutate(ExpShow = ifelse(Condition == 'E',1,0))
 
-modelsummary::modelsummary(list(`(1)` = lm(Advice ~ Treatment + Performance , data = study1_advice %>% dplyr::filter(ExpShow == 1)),
-                                `(2)` = lm(Advice ~ ExpShow*Gender , data = study1_advice),
-                                `(3)` = lm(ExpectedBonus ~ ExpShow*Gender, data = study1_advice)),
+modelsummary::modelsummary(list(`(1)` = lm(Advice ~ Treatment + Performance , data = study3_advice %>% dplyr::filter(ExpShow == 1)),
+                                `(2)` = lm(Advice ~ ExpShow*Gender , data = study3_advice),
+                                `(3)` = lm(ExpectedBonus ~ ExpShow*Gender, data = study3_advice)),
                            vcov = c(~GiverID, ~GiverID,~GiverID),
                             coef_map = c("TreatmentHigh" = "High Expectation",
                                          "Performance" = "Performance",
@@ -362,7 +362,7 @@ library(dplyr)
 library(ggplot2)
 library(magrittr)
 
-ProbHG <- study1_advice %>%
+ProbHG <- study3_advice %>%
   group_by(Condition, Performance, Gender) %>%
   dplyr::summarize(avg_hardGroup = mean(Advice))
 
@@ -441,15 +441,15 @@ displayed, but not in their absence.^[This analysis was not preregistered, and w
 
 ```{r study1time3}
 
-study1_time3 <- study1_time3 %>% dplyr::mutate(AdviseeCondition = factor(AdviseeCondition, levels = c('Low', 'High'))) %>%
+study3_time3 <- study3_time3 %>% dplyr::mutate(AdviseeCondition = factor(AdviseeCondition, levels = c('Low', 'High'))) %>%
      dplyr::mutate(Adopt = ifelse(Bet == Advice,1,0))
 
-modelsummary::modelsummary(list(`(1)` = lm(bonus ~ AdviseeCondition + AdviseeScore, data = study1_time3 %>%
+modelsummary::modelsummary(list(`(1)` = lm(bonus ~ AdviseeCondition + AdviseeScore, data = study3_time3 %>%
                                              dplyr::filter(GiverCondition == 1)),
-                                `(2)` = lm(bonus ~ Gender + AdviseeScore, data = study1_time3 %>%
+                                `(2)` = lm(bonus ~ Gender + AdviseeScore, data = study3_time3 %>%
                                              dplyr::filter(GiverCondition == 1)),
-                                `(3)` = lm(Adopt ~ Gender + GiverCondition + Advice, data = study1_time3),
-                                `(4)` = lm(Adopt ~ Gender + GiverCondition + Advice + Gender*GiverCondition + GiverCondition*Advice + Gender*Advice, data = study1_time3)),
+                                `(3)` = lm(Adopt ~ Gender + GiverCondition + Advice, data = study3_time3),
+                                `(4)` = lm(Adopt ~ Gender + GiverCondition + Advice + Gender*GiverCondition + GiverCondition*Advice + Gender*Advice, data = study3_time3)),
                            vcov = c("classical", "classical","classical","classical"),
                             coef_map = c("AdviseeScore" = "Performance",
                                          "AdviseeConditionHigh" = "High Expectation",
