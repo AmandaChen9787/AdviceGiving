@@ -1,4 +1,4 @@
-"","PROLIFIC_PID","Guess","default","Score","Age","Gender","Ethnicity","Education"
+"","ProlificID","Guess","default","Score","Age","Gender","Ethnicity","Education"
 "1","604db6324496c57afe822770",0,"Low",5,"45","Female","Asian","Bachelor’s degree"
 "2","66462e5a0a965c4190374d88",0,"High",5,"28","Female","White or Caucasian","Bachelor’s degree"
 "3","66462d867fe1025286613561",1,"Low",4,"21","Male","White or Caucasian","Associates or technical degree"
