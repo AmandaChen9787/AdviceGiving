@@ -62,6 +62,7 @@ knitr::opts_chunk$set(fig.width = 8, fig.height = 4, cache = F, echo = F,
 
 
 study1_time1 <- readRDS(here::here("Data/Study1_time1.Rds"))
+study1_ability50 <- read.csv(here::here("Data/Cleaned Data/S1_Ability50_clean.csv"))
 study1_time2_giver <- readRDS(here::here("Data/Study1_time2_giver.Rds"))
 study1_time2_advice <- readRDS(here::here("Data/Study1_time2_advice.Rds"))
 study1_time3 <- readRDS(here::here("Data/Study1_time3.Rds"))
@@ -160,7 +161,42 @@ We report all manipulations, measures, and data exclusion in this and the follow
 (<https://osf.io/8r3d4/?view_only=5ad7bafcd16b4d4ba08bb28b0e2bd02d>).
 
 # Study 1
+In Study 1, we investigate whether givers take into account advisees' expectations 
+when providing advice. We compare the advice given to recipients who expressed either
+high or low expectations, across two treatments: one where givers were aware of these 
+expectations (Expectation treatment) and one where this information was unknown to them 
+(Performance treatment).
 
+The experiment consisted of three stages, in which we manipulated advisees' expectations and whether givers had access to this information. First, we measured participants' performance, then informed them that their performance would be compared to that of another participant, with the higher scorer eligible to win a bonus. Participants were asked to choose their competitor from either the top 20 performers ("High Performer Group") or the bottom 20 performers ("Low Performer Group") out of a pool of 50 competitors. We nudged participants to have high or low expectations by encouraging them to compete against either the High Performer Group or the Low Performer Group. Advisors were randomly assigned to one of two treatments: seeing only performance information or both performance and expectation information. We hypothesize that advisees who indicate they are capable of competing against strong competitors will be more likely to receive advice to do so.
+
+## Methods
+
+As part of our main experiment, participants were asked to choose a group 
+of previous participants to compete against. To create these groups, we 
+first recruited a sample of  `r scales::comma(dim(study1_ability50)[1])`
+participants from Prolific to complete a 10-question ability quiz. The quiz 
+included word puzzles, identifying emotions from photos, and selecting the
+best responses in given scenarios. These questions were adapted from surveys 
+that measure problem-solving, emotional intelligence, and communication
+skills. We selected these specific abilities based on a pretest in which 
+participants ranked them as the three most critical skills in modern society, 
+making performance on this task ego-relevant.Participants had five minutes to 
+answer the quiz and were paid 5 cents for each correctly answered question. 
+We define the top 20 scorers as the "High Performer Group"
+and the bottom 20 scorers as the "Low Performer Group." 
+
+We then recruited `r scales::comma(dim(study1_time1)[1])`
+participants to serve as advisees in Stage 1 of our main experiment. These 
+participants completed the same 10-item ability quiz as the earlier group, 
+with the opportunity to earn 5 cents for each correct answer. After the 
+quiz, we asked them to indicate their initial preference for competitors. 
+Half of the participants were randomly shown the default option of the 
+'High Performer Group,' highlighted in blue, while the other half were 
+shown the 'Low Performer Group' as the default. This manipulation was 
+designed to influence advisees' expectations, as advisees who believed 
+they could compete against stronger competitors were perceived by givers 
+to have higher expectations. However, participants were free to opt out 
+of the default choice.
 
 # Study 2
 
