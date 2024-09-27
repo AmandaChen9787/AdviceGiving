@@ -140,7 +140,7 @@ have accurate beliefs, such flattering advice would come at a cost:
 while men would be more likely to aim higher, they would also suffer
 greater costs from aiming too high and failing to meet the objective.
 
-In a large, preregistered experiment (n = 2,000), we show that advisers
+In a large, preregistered experiment (n = 1,200), we show that advisers
 consider the expectations of advisees, even when such expectations do
 not provide informative insights for the underlying decision-making
 problem. We find that as a result, showing expectations (but not gender)
@@ -191,12 +191,141 @@ participants completed the same 10-item ability quiz as the earlier group,
 with the opportunity to earn 5 cents for each correct answer. After the 
 quiz, we asked them to indicate their initial preference for competitors. 
 Half of the participants were randomly shown the default option of the 
-'High Performer Group,' highlighted in blue, while the other half were 
-shown the 'Low Performer Group' as the default. This manipulation was 
+'High Performer Group,' highlighted in blue ("High Default" treatment), while the other half were 
+shown the 'Low Performer Group' as the default ("Low Default" treatment). This manipulation was 
 designed to influence advisees' expectations, as advisees who believed 
 they could compete against stronger competitors were perceived by givers 
 to have higher expectations. However, participants were free to opt out 
 of the default choice.
+
+We then recruited `r scales::comma(dim(study1_time2_giver)[1])`
+participants for Stage 2, placing them in the role of advisers. We began
+by informing them of the ability quiz that participants in the
+preliminary study and Stage 1 had completed, and informed them of the
+average score of all participants in the preliminary study. Advisers had
+to recommend whether an advisee should compete against the Low
+Performer Group or the High Performer Group (we used these terms in the survey).
+We anticipated that being told to compete against High Performers is
+more flattering and hence being told to compete against the Low
+Performers would be disappointing if one had expected to do well.
+Advisees would earn 20 cents if their score was equal to or higher than
+a randomly selected member of the Low Performer Group and they chose to
+compete against this group, or 50 cents if they performed as well or
+better than a randomly selected member of the High Performer Group and
+they chose to compete against that group. If they scored lower, they
+would not receive any bonus.
+
+Advisers were randomly assigned to one of two treatments. In the
+"Performance" treatment, they only observed the score of the advisee on the
+ability quiz. In the "Expectation" treatment, they observed the
+score as well as the advisee's initial preference for which group to compete against.
+However, since the outcome was based solely on the quiz score and advisees didn’t 
+know their scores, their initial choice wasn’t useful in deciding which group had a 
+higher expected bonus. Advisers gave recommendations to 10 advisees and were told that 
+if their advice was used by a participant in a follow-up survey, they would receive 
+the same bonus as that participant. The survey concluded with basic demographic 
+questions.
+
+Finally, we invited participants from Stage 1 back for the follow-up
+survey. Following our preregistration, we kept the survey open for 7
+days. In total, `r scales::comma(dim(study1_time3)[1])` participants
+(`r scales::comma(dim(study1_time3[study1_time3$Gender == 'Male',])[1])`
+men,
+`r scales::comma(dim(study1_time3[study1_time3$Gender == 'Female',])[1])`
+women) returned. The brief survey reminded them of the task they
+completed in Stage 1, informed them that other participants from
+Prolific had observed their real score and given them advice against
+which group to compete against, and finally were reminded them of how
+many questions they guessed they had answered correctly. Importantly,
+they were not informed of their true score or the score of the groups
+they could compete against. Participants then observed the advice from a
+randomly selected adviser and made their decision.
+
+##Results
+
+<!-- Amanda: Wondering if we need to report the p-value of priming manipulation -->
+
+```{r}
+contingency_table <- table(study1_time1$Guess, study1_time1$default)
+
+chi_test <- chisq.test(contingency_table)
+
+```
+
+We begin by examining the performance of the Stage 1 participants.
+Because our treatment takes place after participants completed the
+ability quiz, we would not expect a difference in performance across
+the Low and High Default treatments. Indeed, the two groups scored
+no different from one another
+(`r round(mean(study1_time1[study1_time1$default == "Low",]$Score),2)`
+and
+`r round(mean(study1_time1[study1_time1$default == "High",]$Score),2)`
+for the Low Defult and High Defult treatments, respectively,
+`r papaja::apa_print(t.test(Score ~ default, data = study1_time1, var.equal = T))$statistic`).
+The priming did, however, affect advisees' initial choices. In the "Low Default" treatment, 
+only `r round(mean(study1_time1[study1_time1$default == "Low",]$Guess),2)*100`% 
+of participants initially preferred competing against the High Performer Group, 
+compared to `r round(mean(study1_time1[study1_time1$default == "High",]$Guess),2)*100`%
+of participants who saw the High Performer Group highlighted ($\chi^2$(1, n = 201) = 36.62, p < .001).
+
+```{r study1regs}
+
+study1_advice <- study1_time2_advice %>%
+  dplyr::mutate(Treatment = factor(Treatment, levels = c('Low', 'High'))) %>%
+  dplyr::mutate(ExpShow = ifelse(Condition == 'E', 1, 0))
+
+# Fit the two models
+model1 <- lm(Advice ~ ExpShow * Treatment, data = study1_advice)
+model2 <- lm(Advice ~ Treatment + Score, data = study1_advice %>% dplyr::filter(ExpShow == 1))
+
+# Use sandwich package for clustered standard errors
+library(sandwich)
+
+# Clustered standard errors by GiverID
+vcov_list <- list(sandwich::vcovCL(model1, cluster = ~GiverID), 
+                  sandwich::vcovCL(model2, cluster = ~GiverID))
+
+modelsummary::modelsummary(
+  list(`(1)` = model1, `(2)` = model2),
+  vcov = vcov_list,
+  coef_map = c(
+    "TreatmentHigh" = "High Default",
+    "ExpShow" = "Expectation Shown",
+    "ExpShow:TreatmentHigh" = "Expectation x Default",
+    "Score" = "Performance",
+    "(Intercept)" = "Constant"
+  ),
+  stars = TRUE,
+  gof_map = list(list('raw' = 'nobs', 'clean' = 'N', 'fmt' = 0)),
+  caption = "Column 1 displays the advice given to compete against a High Performer Group based on whether the advisees were primed with low or high default and the initial preference shown to the advisor. Column 2 displays the advice given to compete against a High Performer Group based on the default and advisees' performance when their initial preference was visible to the advisor. All standard errors are clustered at the level of the advisor."
+)
+
+```
+
+Next, we examine whether advisers took the advisee's expectations into
+account. Column 1 of Table \@ref(tab:study1regs) reports a linear
+probability model on advising to compete against the High Performer
+group for advisers in the "Expectations" treatment, controlling for the
+true performance of the advisee. Because each adviser made ten
+recommendations, we cluster standard errors at the adviser level.
+However, contrary to our expectations, we do not see a significant
+effect of the expectations treatment. This may be because the induced
+difference in expectations was too small.
+
+However, recall that men were more confident in their performance than
+were women. Our theory thus predicts that showing expectations should
+lead to more flattering advice (i.e., a recommendation to compete
+against the High Performer group) for men than for women. We report a
+linear probability model with advice to compete against the high group
+as the outcome measure, and the advisee's gender, whether expectations
+were shown to the adviser, and the interaction of the two in Column 2 of
+Table \@ref(tab:study3regs). As predicted, we find a significant
+interaction effect: men are more likely to be advised to compete against
+the High Performers when expectations are shown than when they are
+hidden ($p < 0.001$). We show this result graphically in Figure
+\@ref(fig:study3genderdiff)).
+
+
 
 # Study 2
 
@@ -745,7 +874,7 @@ men do so by only 0.27 points
 Although neither gender is overconfident, men on average are more
 confident in their performance than are women, as we had expected.
 
-```{r study1regs}
+```{r study3regs}
 study3_advice <- study3_advice %>% dplyr::mutate(Treatment = factor(Treatment, levels = c('Low', 'High'))) %>%
   dplyr::mutate(ExpShow = ifelse(Condition == 'E',1,0))
 
@@ -765,7 +894,7 @@ modelsummary::modelsummary(list(`(1)` = lm(Advice ~ Treatment + Performance , da
 
 ```
 
-```{r study1genderdiff, fig.cap ="Advisers observed real performance and the participants' estimated performance, but not their gender. As a result of their higher expectations, men (blue) were advised to compete against the high performance group more often than women (red). The grey line shows advice absent expectations, which did not differ by gender."}
+```{r study3genderdiff, fig.cap ="Advisers observed real performance and the participants' estimated performance, but not their gender. As a result of their higher expectations, men (blue) were advised to compete against the high performance group more often than women (red). The grey line shows advice absent expectations, which did not differ by gender."}
 library(dplyr)
 library(ggplot2)
 library(magrittr)
@@ -802,7 +931,7 @@ ggplot(df_exp, aes(x = Performance, y = avg_hardGroup, color = Gender)) +
 ```
 
 Next, we examine whether advisers took the advisee's expectations into
-account. Column 1 of Table \@ref(tab:study1regs) reports a linear
+account. Column 1 of Table \@ref(tab:study3regs) reports a linear
 probability model on advising to compete against the High Performer
 group for advisers in the "Expectations" treatment, controlling for the
 true performance of the advisee. Because each adviser made ten
@@ -818,11 +947,11 @@ against the High Performer group) for men than for women. We report a
 linear probability model with advice to compete against the high group
 as the outcome measure, and the advisee's gender, whether expectations
 were shown to the adviser, and the interaction of the two in Column 2 of
-Table \@ref(tab:study1regs). As predicted, we find a significant
+Table \@ref(tab:study3regs). As predicted, we find a significant
 interaction effect: men are more likely to be advised to compete against
 the High Performers when expectations are shown than when they are
 hidden ($p < 0.001$). We show this result graphically in Figure
-\@ref(fig:study1genderdiff)).
+\@ref(fig:study3genderdiff)).
 
 <!-- Amanda: The gender discrepancy in advice is more significant when performance is less decisive. When performance is extremely low, there is no chance to win high performers and only a slim chance when competing with low performers. When performance is extremely high, it makes no sense to forgo the high chance to win more and choose a low bonus. However, in the middle range of performance, either option has pros and cons, and neither is absolutely better. In such a situation, advisers would take participants' expectations into account, regarding them as a critical factor. -->
 
@@ -846,7 +975,7 @@ cents for the High and Low Performer group, respectively). To see if
 including expectations leads to worse advise for men, we report a linear
 probability model with the experimental treatment of the adviser, the
 gender of the advisee, and their interaction in Column 3 of Table
-\@ref(tab:study1regs). Displaying expectations led men to be advised to
+\@ref(tab:study3regs). Displaying expectations led men to be advised to
 compete against the High Performer group more often, and this advise
 turned out to be bad: men receive worse advise than do women when
 expectations are displayed, but not in their absence.[^2]
