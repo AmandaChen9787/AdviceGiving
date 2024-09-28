@@ -268,6 +268,8 @@ of participants initially preferred competing against the High Performer Group,
 compared to `r round(mean(study1_time1[study1_time1$default == "High",]$Guess),2)*100`%
 of participants who saw the High Performer Group highlighted ($\chi^2$(1, n = 201) = 36.62, p < .001).
 
+<!-- No main interactive effect on expected bonus, therefore I did not include it in this tabel -->
+
 ```{r study1regs}
 
 study1_advice <- study1_time2_advice %>%
@@ -277,6 +279,7 @@ study1_advice <- study1_time2_advice %>%
 # Fit the two models
 model1 <- lm(Advice ~ ExpShow * Treatment, data = study1_advice)
 model2 <- lm(Advice ~ Treatment + Score, data = study1_advice %>% dplyr::filter(ExpShow == 1))
+
 
 # Use sandwich package for clustered standard errors
 library(sandwich)
@@ -291,7 +294,7 @@ modelsummary::modelsummary(
   coef_map = c(
     "TreatmentHigh" = "High Default",
     "ExpShow" = "Expectation Shown",
-    "ExpShow:TreatmentHigh" = "Expectation x Default",
+    "ExpShow:TreatmentHigh" = "Expectation x High Default",
     "Score" = "Performance",
     "(Intercept)" = "Constant"
   ),
@@ -302,30 +305,59 @@ modelsummary::modelsummary(
 
 ```
 
-Next, we examine whether advisers took the advisee's expectations into
-account. Column 1 of Table \@ref(tab:study1regs) reports a linear
-probability model on advising to compete against the High Performer
-group for advisers in the "Expectations" treatment, controlling for the
-true performance of the advisee. Because each adviser made ten
+Next, we examine whether advisers took the advisees' expectations into account. 
+Recall that advisees who defaulted to competing against the High Performer 
+Group were indeed more likely to choose this group, which, from the advisers' 
+perspective, could signal high confidence in their abilities. Our theory 
+predicts that showing expectations should lead to more flattering advice—
+specifically, a recommendation to compete against the High Performer Group—
+for advisees with a high default choice compared to those with a low 
+default choice. Column 1 of Table \@ref(tab:study1regs) reports a linear
+probability model with advice to compete against the high group
+as the outcome measure, incorporating the default choice advisees saw, whether expectations
+were shown to the adviser, and the interaction of the two. Because each adviser made ten
 recommendations, we cluster standard errors at the adviser level.
-However, contrary to our expectations, we do not see a significant
-effect of the expectations treatment. This may be because the induced
-difference in expectations was too small.
+As predicted, we find a marginally significant interaction effect: advisees 
+with a default choice to compete against the High Performer Group (nudged 
+to have high expectations, though not necessarily holding them) were more 
+likely to receive advice to compete against stronger competitors when 
+their expectations were shown compared to when they were hidden.
+We reported a linear probability model on advising to compete against the High Performer
+group for advisers in the "Expectations" treatment, controlling for the
+true performance of the advisee in Column 2 of Table \@ref(tab:study1regs).
+We observe a significant main effect of the default treatment, where a high default
+increased the likelihood of receiving flattering advice. It is worth noting that, 
+since only `r round(mean(study1_time1[study1_time1$default == "High",]$Guess),2)*100`
+% of advisees in the high default group actually stuck with their default 
+choice, this represents a conservative test of the effect of high expectations on 
+the likelihood of receiving flattering advice.
 
-However, recall that men were more confident in their performance than
-were women. Our theory thus predicts that showing expectations should
-lead to more flattering advice (i.e., a recommendation to compete
-against the High Performer group) for men than for women. We report a
-linear probability model with advice to compete against the high group
-as the outcome measure, and the advisee's gender, whether expectations
-were shown to the adviser, and the interaction of the two in Column 2 of
-Table \@ref(tab:study3regs). As predicted, we find a significant
-interaction effect: men are more likely to be advised to compete against
-the High Performers when expectations are shown than when they are
-hidden ($p < 0.001$). We show this result graphically in Figure
-\@ref(fig:study3genderdiff)).
+```{r study1Advice fig.cap ="Advisees who were nudged to express high expectations were more likely to receive advice to compete against the High Performer Group."}
+study1_time2_advice %>%
+  mutate(Treatment=factor(Treatment, levels=c('High','Low'), labels = c('High default', 'Low default'))) %>%
+  group_by(Condition, Treatment) %>%
+  summarize(avg_count = mean(Advice), ci = qnorm(0.975)*sd(Advice)/sqrt(dplyr::n())) %>%
+  ggplot2::ggplot(ggplot2::aes(x = Condition, y = avg_count, fill = Treatment)) +
+  ggplot2::geom_col(position = 'dodge') +
+  ggplot2::geom_errorbar(ggplot2::aes(ymin = avg_count - ci, ymax = avg_count + ci), 
+                         position = ggplot2::position_dodge(0.9), linewidth = 0.2, width = 0.1) +
+  ggtitle("Advice: Meeting Expectations vs. Absent Expectations") +
+  scale_fill_manual(values = c("#d19715", "#29526d")) +
+  theme_bw() +
+  labs(y = "P(Compete Against High Performer)", x = NULL) +
+  theme(panel.grid = element_blank(),
+        panel.border = element_blank(),
+        axis.line = element_line(colour = "grey"),
+        axis.text.x = element_text(size = 12),
+        legend.position = "none", # No legend
+        plot.title = element_text(hjust = 0.5, size = 16)) +
+  scale_x_discrete(labels = c("Expectation shown", "Expectation Absent")) +
+   geom_text(aes(label=Treatment, y = -0.01), position = position_dodge(0.90))
 
 
+```
+
+## Discussion
 
 # Study 2
 

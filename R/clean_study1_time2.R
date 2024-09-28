@@ -39,9 +39,9 @@ AdviceAll <- data_frame(Target = unlist(TargetList) ,Advice = unlist(AdviceList)
 AdviceAll <- cbind(AdviceAll,conditions)
 
 
-advisee <- readRDS(here::here("Data/Study1_time1.Rds"))%>%
-  dplyr::select(PROLIFIC_PID,Guess, default,Score,Gender) %>%
-  dplyr::rename('Target' = "PROLIFIC_PID", "intChoice" = 'Guess', 'Treatment' = 'default','TarGender' = 'Gender')
+advisee <- readRDS(here::here("Data/Study1_time1.Rds")) %>%
+  dplyr::select(ProlificID,Guess, default,Score) %>%
+  dplyr::rename('Target' = "ProlificID", "intChoice" = 'Guess', 'Treatment' = 'default')
 
 AdviceAll <- merge(AdviceAll,advisee,by.x = 'Target',by.y = "Target")
 
@@ -63,7 +63,7 @@ LowGroup <- Competitors[31:50,]
 ReturnList <- list()
 
 for(i in 1:nrow(AdviceAll)){
-  performance <- AdviceAll$Performance[i]
+  performance <- AdviceAll$Score[i]
   if (AdviceAll$Advice[i] == '1'){
     reward = 0.5
     group <- HighGroup
