@@ -617,29 +617,30 @@ sincerity ($\alpha$ = `r cronbach.alpha(study2_time3[, 9:10])$alpha`).
 
 ```{r study2rating, fig.cap="Participants tend to rate advisors who suggest betting on a higher rank (implying greater attractiveness) as more likable and warm."}
 
-study2_time3 <- study2_time3 %>% dplyr::mutate(Advice = as.numeric(Advice))
-
-# Load necessary library
 library(ggplot2)
 library(dplyr)
 library(tidyr)
 
+study2_time3 <- study2_time3 %>% dplyr::mutate(Advice = as.numeric(Advice))
+
+
+
 # Reshape the data to long format
 study2_long <- study2_time3 %>%
   pivot_longer(cols = c(likable, warmAvg), 
-               names_to = "Metric", 
+               names_to = "Evaluation", 
                values_to = "Value")
 
 # Create the plot
-ggplot(study2_long, aes(x = Advice, y = Value, color = Metric)) +  
+ggplot(study2_long, aes(x = Advice, y = Value, color = Evaluation)) +  
   # Add points for each observation
   geom_point(size = 2, alpha = 0.7) +  
   
   # Add linear regression lines for each metric
-  geom_smooth(method = "lm", se = TRUE, aes(fill = Metric), alpha = 0.2, show.legend = FALSE) +  
+  geom_smooth(method = "lm", se = TRUE, aes(fill = Evaluation), alpha = 0.2, show.legend = FALSE) +  
   
   # Customize axis labels
-  scale_y_continuous(name = "Scores",limits = c(0.9, 5.1)) +  
+  scale_y_continuous(name = "Evaluation",limits = c(0.9, 5.1)) +  
   scale_x_continuous(name = "Advised Rank",limits = c(1, 10), breaks = c(1,2,3,4,5,6,7,8,9,10)) +  
   
   # Apply a theme
