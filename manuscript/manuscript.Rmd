@@ -241,7 +241,7 @@ they were not informed of their true score or the score of the groups
 they could compete against. Participants then observed the advice from a
 randomly selected adviser and made their decision.
 
-##Results
+## Results
 
 <!-- Amanda: Wondering if we need to report the p-value of priming manipulation -->
 
@@ -332,7 +332,7 @@ since only `r round(mean(study1_time1[study1_time1$default == "High",]$Guess),2)
 choice, this represents a conservative test of the effect of high expectations on 
 the likelihood of receiving flattering advice.
 
-```{r study1Advice fig.cap ="Advisees who were nudged to express high expectations were more likely to receive advice to compete against the High Performer Group."}
+```{r study1Advice, fig.cap ="Advisees who were nudged to express high expectations were more likely to receive advice to compete against the High Performer Group."}
 study1_time2_advice %>%
   mutate(Treatment=factor(Treatment, levels=c('High','Low'), labels = c('High default', 'Low default'))) %>%
   group_by(Condition, Treatment) %>%
@@ -342,7 +342,7 @@ study1_time2_advice %>%
   ggplot2::geom_errorbar(ggplot2::aes(ymin = avg_count - ci, ymax = avg_count + ci), 
                          position = ggplot2::position_dodge(0.9), linewidth = 0.2, width = 0.1) +
   ggtitle("Advice: Meeting Expectations vs. Absent Expectations") +
-  scale_fill_manual(values = c("#d19715", "#29526d")) +
+  scale_fill_manual(values = c("#2A629A",'#FF7F3E')) +
   theme_bw() +
   labs(y = "P(Compete Against High Performer)", x = NULL) +
   theme(panel.grid = element_blank(),
@@ -358,6 +358,21 @@ study1_time2_advice %>%
 ```
 
 ## Discussion
+
+When the quality of a decision does not depend on someone's expectations,
+the adviser's awareness of the advisee's expectations should not influence
+the advice given. However, in line with our argument that advisers take
+into account the belief utility of the advisee and prefer to flatter 
+rather than disappoint, we find that displaying the advisee's expectations
+does make a difference. Specifically, advisees who expressed a preference
+for stronger competitors were more likely to receive 'flattering' advice,
+encouraging them to pursue that option. One possible explanation for this
+finding is that, rather than trying to flatter, advisers may simply be 
+telling advisees what they want to hear. In the next study, we aim to 
+investigate the mechanism behind this discrepancy in advice-giving when
+expectations are revealed, exploring the question: Why do people give 
+flattering advice?
+
 
 # Study 2
 
@@ -479,25 +494,51 @@ TargetsUnique <- merge(TargetsUnique,study2_finalRank, by.x = 'Target', by.y = '
 
 ```{r study2advice, fig.cap="Advisers were asked to suggest what rank to bet on for someone they ranked as the 7th most attractive out of ten people. When incentivized for accuracy, most of them advised betting on 7, which was based on their evaluation of the recipient's attractiveness. However, when incentivized for likability, many participants gave flattering advice by suggesting betting on higher ranks that imply a higher evaluation of attractiveness."}
 
+library(ggplot2)
+library(ggridges)
+
 study2_time2 <- study2_time2 %>% dplyr::mutate(Advice = as.numeric(Advice))
 
-ggplot(study2_time2, aes(x = Condition, y = Advice, fill = Condition)) +
-    geom_violin(trim = FALSE) +
-     scale_fill_manual(values = c("#2A629A",'#FF7F3E'), labels = c("Accurate", "Likable")) +
-  geom_hline(yintercept = 7, col = 'grey', linetype = 'dashed', linewidth = 0.7) +
-  scale_y_continuous(name = "Advised Rank", breaks = seq(1, 10)) +
-  theme_bw() +
-  theme(panel.grid = element_blank(),
-        panel.border = element_blank(),
-        axis.line = element_line(colour = "grey"),
-        legend.position = "bottom",
-        legend.title = element_blank(),
-        legend.key.size = unit(1.2, "lines"),
-        legend.text = element_text(size = 12),
-        plot.title = element_text(hjust = 0.5, size = 20))
+ggplot(study2_time2, aes(x = Advice, y = Condition, fill = Condition)) +
+    # Reduce vertical spacing with rel_min_height and scale
+    geom_density_ridges(scale = 1.0, rel_min_height = 0.01, alpha = 0.7) +
+    
+    # Shading the left side of x = 7 in light grey
+    geom_rect(aes(xmin = 7, xmax = Inf, ymin = -Inf, ymax = Inf), fill = "gray95", alpha = 0.01) +
+    
+    # Add the dashed line at x = 7
+    geom_vline(xintercept = 7, col = 'black', linetype = 'dashed', linewidth = 0.7) +
+    
+    # Add the text "Flattering" on the left of the line
+    annotate("text", x = 5, y = 0.6, label = "Flattering Ranks", hjust = 1, size = 8, fontface = "bold") +
+    
+    # Manual fill colors
+    scale_fill_manual(values = c("#2A629A", '#FF7F3E'), labels = c("Accurate", "Likable")) +
+    
+    # X-axis adjustments
+    scale_x_continuous(name = "Advised Rank", breaks = seq(1, 10)) +
+    
+    # Theme adjustments
+    theme_bw() +
+    theme(panel.grid = element_blank(),
+          panel.border = element_blank(),
+          axis.line = element_line(colour = "black"),
+          legend.position = "bottom",
+          legend.title = element_blank(),
+          legend.key.size = unit(1.2, "lines"),
+          legend.text = element_text(size = 12),
+          plot.title = element_text(hjust = 0.5, size = 20),
+          axis.text.x = element_text(size = 14),  # X-axis text size
+          axis.text.y = element_text(size = 14),
+          axis.title.x = element_text(size = 16, face = "bold"),  # X-axis title size
+          axis.title.y = element_text(size = 16, face = "bold"))
+
 
 
 ```
+
+
+
 
 We begin by examining the prior beliefs of advisees who uploaded their
 selfies. On average, men guessed they ranked
@@ -604,43 +645,47 @@ sincerity ($\alpha$ = `r cronbach.alpha(study2_time3[, 9:10])$alpha`).
 
 ```{r study2rating, fig.cap="Participants tend to rate advisors who suggest betting on a higher rank (implying greater attractiveness) as more likable and warm."}
 
-study2_time3 <- study2_time3 %>% dplyr::mutate(Advice = as.factor(Advice))
+study2_time3 <- study2_time3 %>% dplyr::mutate(Advice = as.numeric(Advice))
 
-# Create the first plot
-plot1 <- ggplot(study2_time3, aes(x = Advice)) +
-  geom_boxplot(aes(y = likable),position = position_dodge(width = 0.8), alpha = 0.8, color = "darkgrey", fill = "#2A629A") +
-  scale_y_continuous(name = "Likability") +
-  scale_x_discrete(name = "Advised Rank") +
-  theme_bw() +
+# Load necessary library
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# Reshape the data to long format
+study2_long <- study2_time3 %>%
+  pivot_longer(cols = c(likable, warmAvg), 
+               names_to = "Metric", 
+               values_to = "Value")
+
+# Create the plot
+ggplot(study2_long, aes(x = Advice, y = Value, color = Metric)) +  
+  # Add points for each observation
+  geom_point(size = 2, alpha = 0.7) +  
+  
+  # Add linear regression lines for each metric
+  geom_smooth(method = "lm", se = TRUE, aes(fill = Metric), alpha = 0.2, show.legend = FALSE) +  
+  
+  # Customize axis labels
+  scale_y_continuous(name = "Scores",limits = c(0.9, 5.1)) +  
+  scale_x_continuous(name = "Advised Rank",limits = c(1, 10), breaks = c(1,2,3,4,5,6,7,8,9,10)) +  
+  
+  # Apply a theme
+  theme_bw() +  
   theme(panel.grid = element_blank(),
         panel.border = element_blank(),
         axis.line = element_line(colour = "grey"),
-        legend.position = "bottom",
-        legend.title = element_blank(),
-        legend.key.size = unit(1.2, "lines"),
-        legend.text = element_text(size = 12),
-        plot.title = element_text(hjust = 0.5, size = 20))
-
-# Create the second plot
-plot2 <- ggplot(study2_time3, aes(x = Advice)) +
-  geom_boxplot(aes(y = warmAvg),position = position_dodge(width = 0.8), alpha = 0.8, color = "darkgrey", fill = "#FF7F3E") +
-  scale_y_continuous(name = "Warmth") +
-  scale_x_discrete(name = "Advised Rank") +
-  theme_bw() +
-  theme(panel.grid = element_blank(),
-        panel.border = element_blank(),
-        axis.line = element_line(colour = "grey"),
-        legend.position = "bottom",
-        legend.title = element_blank(),
-        legend.key.size = unit(1.2, "lines"),
-        legend.text = element_text(size = 12),
-        plot.title = element_text(hjust = 0.5, size = 20))
-
-# Combine the plots side by side
-grid.arrange(plot1, plot2, ncol = 2)
-
+        legend.position = "right",
+        plot.title = element_text(hjust = 0.5, size = 20)) + 
+  
+  # Set custom colors for each metric
+  scale_color_manual(values = c("#FF7F3E", "#2A629A"), 
+                     labels = c("Likability", "Warm")) + 
+  scale_fill_manual(values = c("#FF7F3E", "#2A629A"))
 
 ```
+
+
 
 ```{r study2ratingByGroup, fig.cap="After participants received advice that suggested betting on a rank that was lower than, equal to, or higher than their self-expectations, they evaluated advisors based on their likability and warmth. Participants rated advisors who gave flattering advice and delivered a high evaluation of their attractiveness as more likable and warm than those whose advice implied a lower evaluation of their attractiveness."}
 
@@ -1064,12 +1109,7 @@ intensifies the cost of such advice.
 
 ## Discussion
 
-When the quality of a decision is not dependent on someone's
-expectations, advice should not be moved by whether an adviser is aware
-of the advisees expectations. However, consistent with our account that
-advisers consider the belief utility of the advisee and want to flatter,
-rather than disappoint them, we find that displaying expectations to
-advisers does matter. Specifically, we found that men underestimate
+ men underestimate
 their score on a mathematics test less than do women. When these
 expectations are displayed to advisers, they are more likely to tell men
 to compete against the High Performer group. Notably, this is bad
