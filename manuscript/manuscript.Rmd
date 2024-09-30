@@ -376,21 +376,16 @@ flattering advice?
 
 # Study 2
 
-<!-- David: Just commenting on what I tried to do here... a bit of a transition -->
-
-<!-- for why this study follows from the last. -->
-
-So far, we have shown that displaying expectations can induce gender
-differences in advice-giving. Specifically, advisers were more likely to
-recommend competing against a group of High Performers to men who had
-higher expectations about their performance than did women. We now test
-directly whether this is driven by interpersonal concerns. Specifically,
-we examine whether more flattering advice is the result of a desire to
-be liked and whether advisees indeed do like advisers more when they
-give flattering advice.
+So far, we have shown that displaying expectations influences the advice given. 
+Specifically, advisers were more likely to recommend competing against a group 
+of high performers to advisees with higher performance expectations compared to 
+those without. We now directly test whether this effect is driven by 
+interpersonal concerns. In particular, we explore whether more flattering advice
+stems from a desire to be liked, and whether advisees, in turn, like advisers 
+more when they receive flattering advice.
 
 We conducted a three-stage experiment in which we experimentally
-manipulated the incentives for advicers. We began by inviting a group of
+manipulated the incentives for advisers. We began by inviting a group of
 advisees to upload photos of themselves ("selfies") and informed them
 that they would be rated on their attractiveness. We grouped them with
 nine other participants of the same gender and recruited participants of
@@ -446,7 +441,7 @@ unique ranking.
 
 After submitting their ratings, they saw the photo of the participant
 they had ranked as the 7th most attractive (i.e., the 4th least
-attractive). They were reminded of the rank they had given to that perso
+attractive). They were reminded of the rank they had given to that person
 and informed that this participant would be invited back and could earn
 a \$1 bonus if they guessed their rank correctly. The rank was
 determined by the aggregate ratings of all participants who had ranked
@@ -539,7 +534,6 @@ ggplot(study2_time2, aes(x = Advice, y = Condition, fill = Condition)) +
 
 
 
-
 We begin by examining the prior beliefs of advisees who uploaded their
 selfies. On average, men guessed they ranked
 `r round(mean(study2_time1[study2_time1$gender == "Male",]$Guess),2)` in
@@ -612,12 +606,6 @@ modelsummary::modelsummary(list(`(1)` = lm(likable ~ Advice, data = study2_time3
 
 ```
 
-<!-- Amanda: How about this -->
-
-<!-- For warmth it looks interesting, but I think the plot is hard -->
-
-<!-- to read. Let's hold off on this for now. -->
-
 Finally, we examine whether flattering advice indeed leads to more
 positive evaluations of advisers, or whether flattering advice is
 dismissed as insencere. Following our preregistration, we average the
@@ -626,22 +614,6 @@ create a scale of likeability ($\alpha$ =
 `r cronbach.alpha(study2_time3[, 5:8])$alpha`); and we create a scale of
 trustworthiness by averaging the ratings of trustworthiness and
 sincerity ($\alpha$ = `r cronbach.alpha(study2_time3[, 9:10])$alpha`).
-
-<!-- The Figure is not super clear. How about we try a series of box plots, -->
-
-<!-- with the x-axis as the advised rank? Standard errors will be huge at the -->
-
-<!-- extremes. -->
-
-<!-- Also, we need to do something relative to the advisees' expectations. -->
-
-<!-- I wonder what would be interesting here? Maybe averages for three groups: -->
-
-<!-- more attractive than the participants' own guess, equally attractive, and less -->
-
-<!-- attractive? -->
-
-<!-- Amanda: How about the following picture? -->
 
 ```{r study2rating, fig.cap="Participants tend to rate advisors who suggest betting on a higher rank (implying greater attractiveness) as more likable and warm."}
 
@@ -691,39 +663,48 @@ ggplot(study2_long, aes(x = Advice, y = Value, color = Metric)) +
 
 library(dplyr)
 library(ggplot2)
+library(reshape2)
 
 study2_time3 <- study2_time3 %>% dplyr::mutate(Guess = as.numeric(Guess), Advice = as.numeric(Advice)) %>%
   dplyr::mutate(HorL = ifelse(Guess == Advice,0, ifelse(Guess > Advice, 1,-1))) %>%
   dplyr::mutate(HorL = as.factor(HorL)) %>% 
-  dplyr::mutate(bonus = ifelse(bet == `Final Rank`,1,0))
+  dplyr::mutate(bonus = ifelse(bet == `Final Rank`,1,0)) %>%
+  dplyr::mutate(accuracy = `Final Rank`-Advice)
 
 ratings <- study2_time3 %>%
   group_by(HorL) %>%
-  summarise(like = mean(likable), warmth = mean(warmAvg))
+  summarise(like = round(mean(likable),2), warmth = round(mean(warmAvg),2))
 
-rating_table <- matrix(c(ratings$like,ratings$warmth), nrow = 2, byrow = TRUE, dimnames = list( c("Likable",'Warm'),c("Pessimistic", "Accurate", "Flattering")))
+rating_table <- matrix(c(ratings$like,ratings$warmth), nrow = 2, byrow = TRUE, dimnames = list( c("Likable",'Warm'),c("Lower than", "Equal to", "Higher than")))
 
 rating_df = as.data.frame.table(rating_table) %>%
   dplyr::rename( 'Condition'='Var1', 'Advice' ='Var2') %>%
   dplyr::mutate(Freq = round(Freq,2))
 
-ggplot(rating_df, aes(x = Advice, y = Freq, fill = Condition)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  scale_fill_manual(values = c("#2A629A",'#FF7F3E')) +
-  labs(x = "Advice", y = "Rating") +
-  ggtitle('Response to Advice') +
-  theme_bw() +
-  theme(panel.grid = element_blank(),
-        panel.border = element_blank(),
-        axis.line = element_line(colour = "grey"),
-        legend.position = "bottom",
-        legend.title = element_blank(),
-        legend.key.size = unit(1.2, "lines"),          
-        legend.text = element_text(size = 12),
-        plot.title = element_text(hjust = 0.5, size = 20)) +
-  geom_text(aes(label = paste0(Freq), y = 0.5), position = position_dodge(width = 0.9), size = 5, color = 'white', fontface = "bold")
+# Create a data frame similar to your structure
+data <- rating_df
 
+# Reshape the data to wide format for the heatmap
+heatmap_data <- dcast(data, Condition ~ Advice, value.var = "Freq")
+
+# Melt the data for ggplot
+melted_data <- melt(heatmap_data, id.vars = "Condition", variable.name = "Advice", value.name = "Rating")
+
+# Create the heatmap
+ggplot(melted_data, aes(x = Advice, y = Condition, fill = Rating)) +
+  geom_tile(color = "white") +
+  scale_fill_gradient(low = "grey80", high = "grey30", name = "Rating") +  # Grey gradient from light to dark
+  geom_text(aes(label = sprintf("%.2f", Rating)), color = "white", size = 8) +
+  theme_minimal() +
+  labs(x = "Attractiveness (Advice Relative to Self-Expectations)", y = "Evaluation") +
+  theme(
+    axis.text.x = element_text(size = 12),  # X-axis text size
+          axis.text.y = element_text(size = 12),
+          axis.title.x = element_text(size = 12),  # X-axis title size
+          axis.title.y = element_text(size = 12))
+  
 ```
+
 
 As seen in Figure \@ref(fig:study2rating), we found that advisees who
 suggested that the advisee was more attractive (lower rank) were indeed
@@ -742,11 +723,16 @@ difference in likeability and warmth across the two treatments
 (`r papaja::apa_print(t.test(likable ~ Condition, data = study2_time3, var.equal = T))$statistic`,
 and
 `r papaja::apa_print(t.test(warmAvg ~ Condition, data = study2_time3, var.equal = T))$statistic`,
-respectively).
+respectively). We also assess the quality of advice by measuring the 
+discrepancy between the advised rank and the final rank. Our analysis
+revealed no significant difference between the two treatments in terms 
+of how helpful the advice was for advisees in making accurate guesses,
+`r papaja::apa_print(t.test(accuracy ~ Condition, data = study2_time3, var.equal = T))$statistic`.
+
 
 ## Discussion
 
-In a context where advice communicates ego-relevant information (here,
+In another context where advice communicates ego-relevant information (here,
 people's attractiveness), we find that the advice people give is
 contingent on their incentives. Specifically, when they get rewarded for
 being more likeable, they recommend that the advisee bet on a more
@@ -772,26 +758,25 @@ study3_time3 <- readRDS(here::here("Data/Study3_time3.Rds"))
 
 ```
 
-We begin by examining whether advisers take the expectations of advisees
-into account, even when those expectations are not relevant to the
-decision the advisee has to make. In a three-stage experiment, we first
-recruit a sample of advisees and ask them to complete a mathematics
-quiz. After answering ten multiple-choice questions, participants are
-anchored to low or high performance expectations and asked to guess how
-many questions they answered correctly. Next, we recruit advisers and
-show them either only the true performance of the advisee, or the true
-performance and how many questions they guessed they answered correctly.
-Advisers are tasked with recommending whether the advisee should compete
-against a group of high-performers or a group of low-performers on the
-mathematics quiz, where a potential bonus depends on outperforming the
-competitor and which group was chosen. Finally, we invite the advisees
-back and show them the advice they have received. Advisees then pick
-whether to compete against high or low performers, with the outcome
-determined by their past performance on the quiz. Our key hypotheses are
-that (1) advisees who were anchored to high expectations would be more
-likely to receive advice to compete against the high performer group,
-and (2) that men are more likely than women to be advised to compete
-against the high-performer group when expectations are shown.
+
+In Study 3, we replicate the main effect in a different ego-relevant domain: 
+intelligence. The experimental design is conceptually identical to Study 1, 
+but this time we utilize a more direct measure of expectation by asking 
+participants to estimate their scores.
+
+This three-stage experiment begins with measuring actual performance. 
+Participants are then anchored to low or high performance expectations 
+and asked to guess how many questions they answered correctly. As in 
+previous studies, we recruit advisers who are presented with either 
+just the advisee's true performance or both the true performance and 
+the number of questions the advisee believes they answered correctly. 
+Advisers are then asked to provide advice on choosing a competitor. 
+Finally, we present the advice to the advisees and ask them to make 
+their final choice. Our key hypotheses are: (1) advisees anchored to 
+high expectations will be more likely to receive advice to compete 
+against the high-performing group, and (2) men will be more likely 
+than women to be advised to compete against the high-performing group
+when expectations are disclosed.
 
 ## Methods
 
@@ -820,15 +805,13 @@ HP_upper <- sortedScore[1]
 
 ```
 
-As part of our main experiment, participants choose to compete against a
-group of previous participants and have their expectations anchored
-based on their performance. Thus, we begin by first recruiting a sample
+We begin by first recruiting a sample
 of `r scales::comma(dim(study3_math50)[1])` participants from Prolific
 to complete a 10-question multiple choice mathematics quiz. The
 questions were taken from a paper-version of the ASVAB standardized
 exam, such that answers were not available online. Participants had five
 minutes to answer the quiz and were paid 10 cents for each correctly
-answered question. We define the top 20 scorers as the "High Performers"
+answered question. Like before, we define top 20 scores as "High Performers"
 and the bottom 20 scorers as the "Low Performers." On average,
 participants answered `r round(mean(study3_math50$Score),2)` questions
 correctly, High Performers scored between `r HP_lower` and `r HP_upper`,
@@ -866,19 +849,17 @@ to recommend whether an advisee should compete against the Low
 Performers or the High Performers (we used these terms in the survey).
 We anticipated that being told to compete against High Performers is
 more flattering and hence being told to compete against the Low
-Performers would be disappointing if one had expected to do well.
-Advisees would earn 30 cents if their score was equal to or higher than
-a randomly selected member of the Low Performer group and they chose to
-compete against this group, or 50 cents if they performed as well or
-better than a randomly selected member of the High Performer group and
-they chose to compete against that group. If they scored lower, they
-would not receive any bonus.
+Performers would be disappointing if one had expected to do well. Advisees
+could earn a bonus if their score was equal to or higher than that of 
+a randomly selected member from their chosen group. Competing against 
+the High Performers was more challenging, resulting in an average bonus
+of 50 cents, compared to 30 cents when competing against other groups.
 
-Advisers were randomly assigned to one of two treatments. In the
+Like before, advisers were randomly assigned to one of two treatments. In the
 "Baseline" treatment, they only observed the score of the advisee on the
 mathematics quiz. In the "Expectation" treatment, they observed the
 score as well as the advisee's guess for how many questions they
-answered correctly. Note that since the outcome is determined only by
+answered correctly. We want to emphasize that sice the outcome is determined only by
 the past score on the quiz, the advisee's guess is immaterial to which
 group they should compete against. Moreover, in neither treatment did
 they receive any demographic information about their advisee.
@@ -974,38 +955,64 @@ modelsummary::modelsummary(list(`(1)` = lm(Advice ~ Treatment + Performance , da
 ```{r study3genderdiff, fig.cap ="Advisers observed real performance and the participants' estimated performance, but not their gender. As a result of their higher expectations, men (blue) were advised to compete against the high performance group more often than women (red). The grey line shows advice absent expectations, which did not differ by gender."}
 library(dplyr)
 library(ggplot2)
-library(magrittr)
 
-ProbHG <- study3_advice %>%
-  group_by(Condition, Performance, Gender) %>%
-  dplyr::summarize(avg_hardGroup = mean(Advice))
+# Calculate averages for the performance, grouped by condition and gender
+ProbHG <- study3_advice %>%  
+  group_by(Condition, Performance, Gender) %>%  
+  summarise(avg_hardGroup = mean(Advice), .groups = 'drop')
 
+# Create a data frame for the NONE condition as the baseline
+baseline <- ProbHG %>%  
+  filter(Condition == "None") %>%  
+  select(Performance, baseline_avg = avg_hardGroup)
 
-df_exp <- subset(ProbHG, Condition == "E")
-df_none <- subset(ProbHG, Condition == "None")
+# Merge with the original data to get comparison values
+comparison_data <- ProbHG %>%  
+  filter(Condition != "None") %>%  
+  left_join(baseline, by = "Performance") %>%  
+  mutate(diff = avg_hardGroup - baseline_avg)  # Calculate the difference
 
-ggplot(df_exp, aes(x = Performance, y = avg_hardGroup, color = Gender)) +
-  geom_smooth(method = "glm", method.args = list(family = "binomial"),se = FALSE) +
-  geom_smooth(data = df_none, aes(x = Performance, y = avg_hardGroup),
-              method = "glm", method.args = list(family = "binomial"), color = "grey", se = FALSE) +
-  scale_color_manual(values = c("#2A629A",'#FF7F3E', "grey"),
-                     labels = c("Female + Expectations", "Male + Expectations", "Expectation Hidden")) +
+# Create a scatter plot comparing conditions with NONE as baseline
+ggplot() +
+  # Step lines for the NONE condition
+  geom_segment(data = baseline,
+               aes(x = Performance, 
+                   xend = lead(Performance, 1),  # Create horizontal lines to the next performance point
+                   y = baseline_avg, 
+                   yend = baseline_avg,
+                   linetype = "None"), 
+               color = "grey70", size = 0.5, 
+               na.rm = TRUE,
+               show.legend = TRUE) + 
+  geom_point(data = comparison_data %>% filter(Gender == "Male"), 
+             aes(x = Performance + 0.5, y = avg_hardGroup, shape = Gender, color = Gender), 
+             size = 4) +  # Males with an offset to the left
+  geom_point(data = comparison_data %>% filter(Gender == "Female"), 
+             aes(x = Performance + 0.5, y = avg_hardGroup, shape = Gender, color = Gender), 
+             size = 4) +  # Females with an offset to the right
+  scale_shape_manual(values = c(16, 17), labels = c("Female", "Male")) +  # Circle for Females, Triangle for Males
+  scale_color_manual(values = c( "#FF7F3E","#2A629A"), 
+                     labels = c("Female", "Male")) +  
   scale_y_continuous(name = "P(Compete Against High Performance)",
                      labels = scales::percent,
-                     expand = c(0, 0)) +
+                     limits = c(0, 1.1),
+                     breaks = c(0,1)) +  # Set limits for y-axis
   scale_x_continuous(name = "Performance",
-                     expand = c(0, 0),
-                     breaks = seq(0, 10, 2)) +
-  theme_bw() +
-  theme(panel.grid = element_blank(),
-        panel.border = element_blank(),
-        axis.line = element_line(colour = "grey"),
-        legend.position = "bottom",
-        legend.title = element_blank(),
-        legend.key.size = unit(1.2, "lines"),
-        legend.text = element_text(size = 12),
-        plot.title = element_text(hjust = 0.5, size = 20))
+                     limits = c(0, 11),expand = c(0, 0), 
+                     breaks = seq(0, 10, 1)) +  
+  theme_bw() +  
+  theme(panel.grid = element_blank(), 
+        panel.border = element_blank(), 
+        axis.line = element_line(colour = "grey"), 
+        legend.position = "bottom", 
+        legend.title = element_blank(), 
+        legend.key.size = unit(1.2, "lines"), 
+        legend.text = element_text(size = 12), 
+        plot.title = element_text(hjust = 0.5, size = 20)) 
+
 ```
+
+
 
 Next, we examine whether advisers took the advisee's expectations into
 account. Column 1 of Table \@ref(tab:study3regs) reports a linear
@@ -1029,18 +1036,6 @@ interaction effect: men are more likely to be advised to compete against
 the High Performers when expectations are shown than when they are
 hidden ($p < 0.001$). We show this result graphically in Figure
 \@ref(fig:study3genderdiff)).
-
-<!-- Amanda: The gender discrepancy in advice is more significant when performance is less decisive. When performance is extremely low, there is no chance to win high performers and only a slim chance when competing with low performers. When performance is extremely high, it makes no sense to forgo the high chance to win more and choose a low bonus. However, in the middle range of performance, either option has pros and cons, and neither is absolutely better. In such a situation, advisers would take participants' expectations into account, regarding them as a critical factor. -->
-
-<!-- David: If we plotted on the x-axis performance and on the y-axis the difference -->
-
-<!-- between recommendations for men & women, this would look inverse-U shaped, right? -->
-
-<!-- Might be a nice way to illustrate what you describe. -->
-
-<!-- Amanda: I think our primary purpose here is still showing the existence of gender difference -->
-
-<!-- The current plot shows discrepancy between two lines, allowing us to demonstrate gender gap -->
 
 To examine the quality of advice, we computed the expected bonus
 earnings for someone who followed the recommendations. For example, if
@@ -1109,15 +1104,20 @@ intensifies the cost of such advice.
 
 ## Discussion
 
- men underestimate
-their score on a mathematics test less than do women. When these
-expectations are displayed to advisers, they are more likely to tell men
-to compete against the High Performer group. Notably, this is bad
-advice: men whose advisers observed their expectations got worse advice
-as a result. Our findings suggest that males with the same scores as
-their female counterparts earned less, although the evidence is only
-directional. This may be due to males receiving more favorable advice
-and being more likely to adopt it, resulting in even worse outcomes.
+We found supportive evidence for our argument in a different domain. 
+Advisors tend to consider advisees' self-expectations and match 
+their advice accordingly, aiming to avoid disappointment. Consistent
+with the confidence gap narrative, men tend to underestimate their 
+mathematics test scores less than women. When these expectations are
+displayed to advisors, they are more likely to advise men to compete
+against high performers. Notably, this turns out to be poor advice: 
+men whose advisors were aware of their expectations received worse 
+advice. Our findings suggest that men with the same scores as their
+female counterparts ended up earning less, although this result is 
+only directional. This discrepancy may be due to men receiving more
+favorable advice, being more likely to follow it, and ultimately 
+facing worse outcomes.
+
 
 <!-- David: One more sentence about the earnings difference here, which does not -->
 
