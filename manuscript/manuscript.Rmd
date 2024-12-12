@@ -71,10 +71,47 @@ study1_time3 <- readRDS(here::here("Data/Study1_time3.Rds"))
 
 # Introduction
 
-We frequently seek and offer advice, often with the hope of solving problems 
-more effectively. Whether we are navigating personal dilemmas or making 
-professional decisions, advice is seen as a valuable tool for improving 
-outcomes. For instance, in some studies, participants are asked to estimate 
+Individuals seek (and give) advice on complex choices in their professional and
+personal lives. While advice is widely viewed as a mechanism for improving 
+outcomes (CITE), recent findings suggest systematic gender differences in 
+the advice received: men are more likely to be encouraged toward competitive 
+positions and risk-taking behaviors (CITE, if real), and women are less likely to receive
+criticism (CITE). These differences in advice can result in gender gaps in
+career advancement, as opportunities often depend on individuals applying (even
+if they do not meet all requirements, CITE-women apply for jobs when they meet all reqs)
+and direct feedback, even if unpleasant, can help people improve their performance.
+In this paper, we propose and present evidence for a novel mechanism to explain
+gendered patterns in advice received: advisers are motivated by interpersonal
+considerations and do not want to disappoint the advisee.
+
+Models of decision-making that incorporate belief utility (Loewenstein & Molnar) 
+imply a tradeoff between the benefits from having accurate beliefs and the
+hedonic costs of receiving bad news. For example, someone expecting a good outcome
+may feel disappointment if the realized outcome is not as good as what they had
+expected holding accurate beliefs and the hedonic
+costs of receiving bad news, such as disappointment from a desired outcome
+failing to materialize (Gul and Pesendorfer, I think, disappointment aversion, Golman et al 2017). 
+Because outcomes are frequently evaluated with respect to expectations
+(Koszegi and Rabin), advice that falls short of someone's expectation can be
+painful. Thus, advice may be shaped by the *beliefs* about someone else's
+expectations.
+
+
+
+perpetuate gender gaps in career advancement, as many opportunities depend on 
+individual initiative and self-selection. This paper proposes a novel mechanism 
+to explain gendered patterns in advice-giving: advisors calibrate their 
+recommendations to match perceived advisee expectations. In professional 
+contexts where women typically demonstrate lower confidence levels, advisors 
+may provide less ambitious guidance that aligns with these reduced expectations.
+In two experimental studies, we establish evidence for this expectation-matching 
+mechanism. Specifically, men are more confident in their performance on a task
+than women and advisers, who observe performance and confidence but not gender,
+give more flattering advice to men than to women. A third experiment shows that 
+advisors strategically provide "flattering" advice to avoid disappointing their 
+advisees, further illuminating how interpersonal dynamics shape advice content.
+
+For instance, in some studies, participants are asked to estimate 
 quantities or choose between lotteries [@Benjamin2015]. Advisors are often 
 motivated to provide accurate advice [@Jonas2003], and engage in perspective-taking
 to align with the preferences of the advisee [@Kray2000; @Kray1999]. When 
