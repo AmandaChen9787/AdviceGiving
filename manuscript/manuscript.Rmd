@@ -75,7 +75,7 @@ often serving as a crucial tool for navigating complex challenges and improving
 outcomes [@Gino2007; @Harvey1997; @Soll2009]. While prior research has 
 extensively examined the *recipients* of advice (e.g., how they evaluate or act 
 on recommendations) far less attention has been devoted to understanding the 
-motivations and behaviors of the *givers* of advice. In this paper, we shift the 
+motivations and behaviors of the *givers* of advice (CITES). In this paper, we shift the 
 focus to advisers, proposing that their recommendations are shaped not only by 
 accuracy considerations but also by interpersonal concerns. Specifically, we 
 propose that advisers factor in advisees' subjective expectations, providing 
@@ -87,7 +87,7 @@ and advisers are financially incentivized for accuracy.
 Advice is often viewed as a mechanism to improve decision satisfaction or 
 prediction accuracy, assuming both parties prioritize solving the problem at 
 hand. However, prior research highlights that interpersonal dynamics can 
-complicate these interactions. Advice seekers may avoid asking for help due to 
+complicate these interactions (CITE). Advice seekers may avoid asking for help due to 
 fear of rejection [@Benabou2022], and people generally have been shown to avoid
 information that could lead to disappointment [@Gill2012; @Golman2017]. 
 They are motivated to avoid unpleasant truths in an ethical dilemma [@Shalvi2019] 
