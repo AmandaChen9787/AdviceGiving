@@ -1,5 +1,5 @@
 ---
-title: "Flattering Advice: Avoiding Disappointment as a Driver of Gender Discrimination"
+title: "Flattering Advice: Avoiding Disappointment in Advice-Giving"
 shorttitle        : "Flattering Advice"
 author: 
   - name          : "Amanda Chen"
@@ -15,7 +15,7 @@ affiliation:
 note : |
   `r format(Sys.time(), "%e %B, %Y")`
 abstract: |
-  The primary purpose of advice is often seen as helping recipients make better decisions and solve problems. However, this paper reveals that advisors are also influenced by interpersonal concerns. Specifically, we propose that advisors consider the recipient's "belief utility" and may seek to avoid disappointing them, resulting in what we call "flattering advice." Through three pre-registered experiments involving real interactions between advisors and advisees (n = 3,900), we demonstrate that advisors account for advisees' expectations, even when irrelevant to solving the problem. Specifically, advisors tailor their advice to match advisees' expectations about their own capabilities, aiming to avoid disappointing them (Study 1). Advisors inflate their advice due to interpersonal concerns, with those who care about being liked by the advisee inflating their advice to a greater extent. Advisees, in turn, reward this flattery, perceiving these advisors as more likable and equally trustworthy compared to those who aim to give more accurate advice (Study 2). Additionally, when advisors match advisees' expectations, men tend to receive more aspirational advice than women, due to their higher confidence, even when only expectations (not gender) are visible to the advisor. However, relying on these expectations leads to poorer decision outcomes (Study 3). We conclude by discussing the practical and theoretical implications of our findings, as well as directions for future research.
+  Good advice improves decision quality but often requires delivering unpleasant truths that may disappoint advisees. Across three pre-registered and incentivized experiments involving real adviser-advisee interactions (n = 3,900), we demonstrate that advisers prioritize avoiding disappointment, even at the expense of accuracy. In Study 1, advisers financially rewarded for accuracy still tailored recommendations to aspirational goals expressed by advisees, resulting in poorer advice. When incentivized to be liked, advisers provided even more flattering advice, and advisees rated these advisers as more likable, despite the advice being less honest and less accurate (Study 2). In Study 3, advisers incorporated advisees' subjective and uninformative performance expectations into recommendations, leading to systematically different advice for men and women. Because men expected to perform better than women, they received more aspirational advice, even when their gender was unknown to advisers. Advisers' efforts to avoid disappointment may thus contribute to systematic gender disparities in advice, with implications for downstream decision-making and equity.
   
 keywords          : "Gender difference, Advice, Interpresonal relationship"
 wordcount         : "6,104"
@@ -70,140 +70,61 @@ study1_time3 <- readRDS(here::here("Data/Study1_time3.Rds"))
 ```
 
 # Introduction
+Advice plays a critical role in both professional and personal decision-making, 
+often serving as a crucial tool for navigating complex challenges and improving 
+outcomes [@Gino2007; @Harvey1997; @Soll2009]. While prior research has 
+extensively examined the *recipients* of advice (e.g., how they evaluate or act 
+on recommendations) far less attention has been devoted to understanding the 
+motivations and behaviors of the *givers* of advice. In this paper, we shift the 
+focus to advisers, proposing that their recommendations are shaped not only by 
+accuracy considerations but also by interpersonal concerns. Specifically, we 
+propose that advisers factor in advisees' subjective expectations, providing 
+flattering advice that aligns with these expectations, even when doing so leads 
+to objectively worse recommendations. Notably, this tendency persists in our 
+experimental settings, where advisees' expectations are clearly uninformative 
+and advisers are financially incentivized for accuracy.
 
-Individuals seek (and give) advice on complex choices in their professional and
-personal lives. While advice is widely viewed as a mechanism for improving 
-outcomes (CITE), recent findings suggest systematic gender differences in 
-the advice received: men are more likely to be encouraged toward competitive 
-positions and risk-taking behaviors (CITE, if real), and women are less likely to receive
-criticism (CITE). These differences in advice can result in gender gaps in
-career advancement, as opportunities often depend on individuals applying (even
-if they do not meet all requirements, CITE-women apply for jobs when they meet all reqs)
-and direct feedback, even if unpleasant, can help people improve their performance.
-In this paper, we propose and present evidence for a novel mechanism to explain
-gendered patterns in advice received: advisers are motivated by interpersonal
-considerations and do not want to disappoint the advisee.
+Advice is often viewed as a mechanism to improve decision satisfaction or 
+prediction accuracy, assuming both parties prioritize solving the problem at 
+hand. However, prior research highlights that interpersonal dynamics can 
+complicate these interactions. Advice seekers may avoid asking for help due to 
+fear of rejection [@Benabou2022], and people generally have been shown to avoid
+information that could lead to disappointment [@Gill2012; @Golman2017]. 
+They are motivated to avoid unpleasant truths in an ethical dilemma [@Shalvi2019] 
+and dislike those who deliver unwelcome feedback even when they had no role in
+the outcome [@John2019]. These tendencies align with models of belief utility 
+[@Loewenstein2018], which suggest that individuals experience 
+hedonic costs when receiving bad news. A natural reference point for evaluating 
+the valence of advice is the advisee's expectation in the absence of advice
+[@Koszegi2006]. Consequently, advisers who are aware of expectations may 
+strategically adapt their advice to avoid delivering bad news, even at the 
+expense of accuracy.
 
-Models of decision-making that incorporate belief utility (Loewenstein & Molnar) 
-imply a tradeoff between the benefits from having accurate beliefs and the
-hedonic costs of receiving bad news. For example, someone expecting a good outcome
-may feel disappointment if the realized outcome is not as good as what they had
-expected holding accurate beliefs and the hedonic
-costs of receiving bad news, such as disappointment from a desired outcome
-failing to materialize (Gul and Pesendorfer, I think, disappointment aversion, Golman et al 2017). 
-Because outcomes are frequently evaluated with respect to expectations
-(Koszegi and Rabin), advice that falls short of someone's expectation can be
-painful. Thus, advice may be shaped by the *beliefs* about someone else's
-expectations.
+This interpersonal dimension of advice-giving has significant implications for 
+understanding systematic gender differences in advice quality. Men are more 
+likely than women to receive aspirational advice and encouragement to pursue 
+competitive or risky opportunities [@Kanze2018]. Conversely, women are often 
+shielded from criticism [@Jampol2023], which, while intended to be kind, 
+may ultimately limit their professional growth. We propose a novel mechanism to 
+explain these patterns: advisers calibrate their recommendations to match 
+advisees’ expectations. Because, in many tasks (including those in our experiments)
+men are more confident and have higher expectations about their performance than
+do women, they are more likely to receive flattering (but, in our setting, worse) 
+advice.
 
-
-
-perpetuate gender gaps in career advancement, as many opportunities depend on 
-individual initiative and self-selection. This paper proposes a novel mechanism 
-to explain gendered patterns in advice-giving: advisors calibrate their 
-recommendations to match perceived advisee expectations. In professional 
-contexts where women typically demonstrate lower confidence levels, advisors 
-may provide less ambitious guidance that aligns with these reduced expectations.
-In two experimental studies, we establish evidence for this expectation-matching 
-mechanism. Specifically, men are more confident in their performance on a task
-than women and advisers, who observe performance and confidence but not gender,
-give more flattering advice to men than to women. A third experiment shows that 
-advisors strategically provide "flattering" advice to avoid disappointing their 
-advisees, further illuminating how interpersonal dynamics shape advice content.
-
-For instance, in some studies, participants are asked to estimate 
-quantities or choose between lotteries [@Benjamin2015]. Advisors are often 
-motivated to provide accurate advice [@Jonas2003], and engage in perspective-taking
-to align with the preferences of the advisee [@Kray2000; @Kray1999]. When 
-uncertain, they may even prefer that advisees rely less on their recommendations
-[@Ache2020]. This suggests that people are generally concerned with offering 
-good advice, assuming accuracy is the primary objective.
-
-Indeed, seeking and giving advice often involve complex conversational dynamics 
-that can be challenging to manage. People frequently struggle with 
-decisions about whom to approach for advice, whether they seek it too 
-often or too little, and the potential consequences of asking for advice—or
-failing to—when it’s expected [@lee1997;@minson2012;@see2011]. 
-From the advisor's perspective, factors such as knowledge and expertise [@sniezek2001],
-confidence [@sah2013], age [@zhang2020], and communication style [@yaniv2012]
-also play critical roles in determining whether accurate advice is 
-effectively conveyed.
-
-While much of the advice literature emphasizes the instrumental value of 
-advice—such as improving decision satisfaction or prediction accuracy, assuming
-both parties prioritize accuracy—research suggests that solving the problem is 
-not the only concern in these interactions. Advice seekers may feel embarrassed 
-to ask for help [@Benabou2022] and may avoid seeking advice if they fear the 
-information could lead to disappointment [@Gill2012]. Moreover, people tend 
-to favor advisors who withhold unpleasant information [@Shalvi2019] and even 
-punish those who tell them things they would rather not hear [@John2019] This 
-indicates that individuals strategically select advice to shield themselves 
-from uncomfortable truths, protecting the positive beliefs they hold about 
-themselves and their anticipated future [@Loewenstein2018;
-@Loewenstein1987]. But do advice givers recognize and account 
-for the emotional cost of delivering honest information to the recipient?
-
-In many real settings, advice often incorporates beliefs about the
-recipient. Someone recommending an expensive restaurant conveys that
-they think the advisee is wealthy enough to afford an expensive meal,
-and someone recommending a student pursue a PhD in economics assumes
-that they are intellectually capable. Conversely, telling a poorly
-performing student to switch to a less-demanding major conveys a belief
-that the student is not capable of improving. Thus, while the painful
-truth may prevent someone from making a bad decision, it may come at a
-hedonic cost to the recipient and damage the relationship between the
-adviser and advisee. We propose that advisers take these costs into
-account, even when the interactions are entirely anonymous and they are
-incentivized for the quality of the advisee's decision.
-
-Specifically, we focus on the signaling value of advice: what does the
-advice imply about the adviser's perception of the advisee? We propose
-that advisees have expectations about the advice they receive and treat
-this as a reference point [@Koszegi2006]. Advice that falls short of
-these expectations creates disappointment, while advice that exceeds
-them is flattering and creates positive interpersonal benefits because
-it creates a perception that the adviser holds the advisee in high
-esteem. Such interpersonal considerations may be as important, if not
-more important, to the adviser than the instrumental value of the
-advice: the adviser directly experiences a souring relationship, but may
-suffer little and only much delayed consequences if an advisee makes a
-poor life decision.
-
-Our account therefore predicts that people give and receive advice that
-is more flattering and suggestive of inflated ability and optimistic
-outcomes than would advice in the absence of such interpersonal
-considerations. However, we propose that this is not true for all
-advisees equally. Presenting flattering advice requires the formation of
-beliefs about the advisee's expectations (reference point). @Exley2022
-show that men are more overconfident than women, conditional on equal
-performance, and that people anticipate this difference. An adviser who
-seeks to avoid disappointment and incorporates expectations into their
-advice would then present more favorable advice to male advisees than to
-female advisees (see Figure 1 for an illustration). This provides a
-novel account for a well-known finding that men receive more
-aspirational advice than do women [@Kanze2018]. Notably, when it pays to
-have accurate beliefs, such flattering advice would come at a cost:
-while men would be more likely to aim higher, they would also suffer
-greater costs from aiming too high and failing to meet the objective.
-
-In a large, preregistered experiment (n = 1,200), we demonstrate that 
-advisors take into account advisees' expectations, even when those expectations
-offer no relevant insights for solving the decision-making problem. 
-Advisors were more likely to encourage advisees to compete against strong
-competitors when they saw that the advisees had high expectations of their 
-own abilities, compared to when the advisees had low expectations. In a second
-preregistered experiment (n = 700), we show that advisors respond to interpersonal
-incentives, telling advisees they are more attractive than they believe, and 
-inflating their advice more when incentivized for likability rather than accuracy.
-Notably, they still inflate their advice even when incentivized solely for accuracy.
-Advisees, in turn, reward this flattering advice, rating these advisors as more 
-likable and no less trustworthy than those who provide more accurate feedback. 
-In the third preregistered experiment (n = 2,000), we replicate the finding that
-advisors consider advisees' expectations when giving advice. Additionally, we find
-that when only expectations (but not gender) are shown, men receive more aspirational
-advice than women. This tendency to factor in expectations ultimately leads to poorer
-advice, even when advisors are incentivized based on the outcome of the advisee’s 
-decision.
+We present evidence for this mechanism from three preregistered and incentivized 
+experiments involving real interactions between advisers and advisees (N = 3,900). 
+In Study 1, we experimentally manipulate advisee's expectations and show
+that advisers account for those expectations, even when they offer no relevant
+insight for the decision. In Study 2, we show that advisers put more weight on
+interpersonal concerns when they are incentivized to be liked. Advisees reward
+this flattery by rating advisers as more likeable and equally trustworthy compared
+to those offering more honest (and accurate) feedback. In Study 3, we measure
+expected performance on a math quiz and show that advisers take these expectations
+into account even when they have information about actual performance. Because
+men expect to score higher, they are more likely to be advised to compete against
+a stronger group for a higher potential payment than are women, even when advisers
+are unaware of the advisees' gender. Notably, this leads to worse advice for men.
 
 # Open Science Statement
 
@@ -211,89 +132,76 @@ We report all manipulations, measures, and data exclusion in this and the follow
 (<https://osf.io/8r3d4/?view_only=5ad7bafcd16b4d4ba08bb28b0e2bd02d>).
 
 # Study 1
-In Study 1, we investigate whether givers take into account advisees' expectations 
-when providing advice. We compare the advice given to recipients who expressed either
-high or low expectations, across two treatments: one where givers were aware of these 
-expectations (Expectation treatment) and one where this information was unknown to them 
-(Performance treatment).
+We first examine whether advisers take into account the expectations of advisees
+when providing a recommendation. A group of participants ("Advisees") complete 
+a quiz consisting of ten questions that draw on ego-relevant domains. They then
+express a non-binding preference to compete against a group of high performers
+or low performers on the same task, based on their past performance. We nudge
+participants towards picking either the low or the high performer group by 
+selecting one of the two by default. A second group of participants ("Advisers") 
+observe Advisees' score on the quiz and, in one treatment, also which group
+they had selected. We predicted that Advisees who were nudged toward the high
+performer group would be more likely to receive advice to compete against this
+high group when Advisers observed their non-binding choice.
 
-The experiment consisted of three stages, in which we manipulated advisees' expectations and whether givers had access to this information. First, we measured participants' performance, then informed them that their performance would be compared to that of another participant, with the higher scorer eligible to win a bonus. Participants were asked to choose their competitor from either the top 20 performers ("High Performer Group") or the bottom 20 performers ("Low Performer Group") out of a pool of 50 competitors. We nudged participants to have high or low expectations by encouraging them to compete against either the High Performer Group or the Low Performer Group. Advisors were randomly assigned to one of two treatments: seeing only performance information or both performance and expectation information. We hypothesize that advisees who indicate they are capable of competing against strong competitors will be more likely to receive advice to do so.
 
 ## Methods
+In a preliminary stage, we recruited `r scales::comma(dim(study1_ability50)[1])` 
+participants from Prolific and gave them five minutes to complete a quiz 
+consisting of ten items. The quiz included word puzzles,
+identifying emotions from photos, and selecting the best responses for hypothetical
+scenarios. These questions were adapted from surveys that measure problem-solving,
+emotional intelligence, and communication skills---which we pre-tested as being
+important in modern society and hence where participants might have a stake in
+doing well. Participants received a bonus of five cents for each correctly
+answered question. We then ranked them based on their score and label the 20
+participants with the lowest (highest) scores as the Low (High) Performer Group.
 
-As part of our main experiment, participants were asked to choose a group 
-of previous participants to compete against. To create these groups, we 
-first recruited a sample of  `r scales::comma(dim(study1_ability50)[1])`
-participants from Prolific to complete a 10-question ability quiz. The quiz 
-included word puzzles, identifying emotions from photos, and selecting the
-best responses in given scenarios. These questions were adapted from surveys 
-that measure problem-solving, emotional intelligence, and communication
-skills. We selected these specific abilities based on a pretest in which 
-participants ranked them as the three most critical skills in modern society, 
-making performance on this task ego-relevant.Participants had five minutes to 
-answer the quiz and were paid 5 cents for each correctly answered question. 
-We define the top 20 scorers as the "High Performer Group"
-and the bottom 20 scorers as the "Low Performer Group." 
-
-We then recruited `r scales::comma(dim(study1_time1)[1])`
-participants to serve as advisees in Stage 1 of our main experiment. These 
-participants completed the same 10-item ability quiz as the earlier group, 
-with the opportunity to earn 5 cents for each correct answer. After the 
-quiz, we asked them to indicate their initial preference for competitors. 
-Half of the participants were randomly shown the default option of the 
-'High Performer Group,' highlighted in blue ("High Default" treatment), while the other half were 
-shown the 'Low Performer Group' as the default ("Low Default" treatment). This manipulation was 
-designed to influence advisees' expectations, as advisees who believed 
-they could compete against stronger competitors were perceived by givers 
-to have higher expectations. However, participants were free to opt out 
-of the default choice.
+Next, we recruited `r scales::comma(dim(study1_time1)[1])` participants who
+completed the same 10-item quiz, also earning five cents for each correct answer.
+We then asked them to express a non-binding preference for whether they would
+like to compete against the High or Low Performer Group. We informed them that
+they would be invited back at a later date when they could make a binding decision
+and they could earn a bonus based on whether their score on this quiz was equal
+to or higher than a randomly selected member from their comparison group.
+If they picked the High Performer Group and had an equal or higher score than
+a randomly selected member of that group, they would earn a bonus of 50 cents.
+If they picked the Low Performer Group, they could earn a bonus of 20 cents.
+If their score was lower in this comparison, they would not earn an additional
+bonus. We randomized which of the two groups (High or Low Performers) was 
+selected by default, and participants were free to select the other group.
+Participants also made a guess as to their score, and the survey concluded with 
+basic demographic questions.
 
 We then recruited `r scales::comma(dim(study1_time2_giver)[1])`
-participants for Stage 2, placing them in the role of advisers. We began
-by informing them of the ability quiz that participants in the
-preliminary study and Stage 1 had completed, and informed them of the
-average score of all participants in the preliminary study. Advisers had
-to recommend whether an advisee should compete against the Low
-Performer Group or the High Performer Group (we used these terms in the survey).
-We anticipated that being told to compete against High Performers is
-more flattering and hence being told to compete against the Low
-Performers would be disappointing if one had expected to do well.
-Advisees would earn 20 cents if their score was equal to or higher than
-a randomly selected member of the Low Performer Group and they chose to
-compete against this group, or 50 cents if they performed as well or
-better than a randomly selected member of the High Performer Group and
-they chose to compete against that group. If they scored lower, they
-would not receive any bonus.
-
+participants for the role of advisers, and the focal part of our experiment. 
+They were informed of the ability quiz that participants had completed, how the 
+Low Performer Group and High Performer Groups were constructed, as well as the
+choice and incentives for the other participants. We then asked participants
+to give advice to ten participants on which group they should compete against.
 Advisers were randomly assigned to one of two treatments. In the
-"Performance" treatment, they only observed the score of the advisee on the
-ability quiz. In the "Expectation" treatment, they observed the
-score as well as the advisee's initial preference for which group to compete against.
-However, since the outcome was based solely on the quiz score and advisees didn’t 
-know their scores, their initial choice wasn’t useful in deciding which group had a 
-higher expected bonus. Advisers gave recommendations to 10 advisees and were told that 
-if their advice was used by a participant in a follow-up survey, they would receive 
-the same bonus as that participant. The survey concluded with basic demographic 
-questions.
+"Performance" treatment, they observed the score of the other participant.
+In the "Performance + Expectation" treatment, they additionally observed the
+advisee's non-binding choice for which group to compete against.
+However, since the outcome was based solely on the past quiz score and advisers,
+but not advisees, know the score, this initial choice was not informative.
+Advisers could earn the same bonus as one of the participants they had given
+advice to and who returned to make a decision. The survey concluded with basic 
+demographic questions.
 
-Finally, we invited participants from Stage 1 back for the follow-up
-survey. Following our preregistration, we kept the survey open for 7
+Finally, we invited advisees back for the follow-up survey. Following our 
+preregistration, we kept the survey open for 7
 days. In total, `r scales::comma(dim(study1_time3)[1])` participants
-(`r scales::comma(dim(study1_time3[study1_time3$Gender == 'Male',])[1])`
-men,
-`r scales::comma(dim(study1_time3[study1_time3$Gender == 'Female',])[1])`
-women) returned. The brief survey reminded them of the task they
-completed in Stage 1, informed them that other participants from
+returned. The short survey reminded them of the task they
+completed in the previous survey, informed them that other participants from
 Prolific had observed their real score and given them advice against
-which group to compete against, and finally were reminded them of how
+which group to compete against, and finally reminded them of how
 many questions they guessed they had answered correctly. Importantly,
 they were not informed of their true score or the score of the groups
 they could compete against. Participants then observed the advice from a
 randomly selected adviser and made their decision.
 
 ## Results
-
-<!-- Amanda: Wondering if we need to report the p-value of priming manipulation -->
 
 ```{r}
 contingency_table <- table(study1_time1$Guess, study1_time1$default)
@@ -303,22 +211,20 @@ chi_test <- chisq.test(contingency_table)
 ```
 
 We begin by examining the performance of the Stage 1 participants.
-Because our treatment takes place after participants completed the
-ability quiz, we would not expect a difference in performance across
+Because our default treatment takes place after participants completed the
+ability quiz, we do not expect a difference in performance across
 the Low and High Default treatments. Indeed, the two groups scored
 no different from one another
 (`r round(mean(study1_time1[study1_time1$default == "Low",]$Score),2)`
 and
 `r round(mean(study1_time1[study1_time1$default == "High",]$Score),2)`
-for the Low Defult and High Defult treatments, respectively,
+for the Low Default and High Default treatments, respectively,
 `r papaja::apa_print(t.test(Score ~ default, data = study1_time1, var.equal = T))$statistic`).
-The priming did, however, affect advisees' initial choices. In the "Low Default" treatment, 
+The default manipulation affected their initial choices. In the "Low Default" treatment, 
 only `r round(mean(study1_time1[study1_time1$default == "Low",]$Guess),2)*100`% 
 of participants initially preferred competing against the High Performer Group, 
 compared to `r round(mean(study1_time1[study1_time1$default == "High",]$Guess),2)*100`%
 of participants who saw the High Performer Group highlighted ($\chi^2$(1, n = 201) = 36.62, p < .001).
-
-<!-- No main interactive effect on expected bonus, therefore I did not include it in this tabel -->
 
 ```{r study1regs}
 
@@ -326,21 +232,10 @@ study1_advice <- study1_time2_advice %>%
   dplyr::mutate(Treatment = factor(Treatment, levels = c('Low', 'High'))) %>%
   dplyr::mutate(ExpShow = ifelse(Condition == 'E', 1, 0))
 
-# Fit the two models
-model1 <- lm(Advice ~ ExpShow * Treatment, data = study1_advice)
-model2 <- lm(Advice ~ Treatment + Score, data = study1_advice %>% dplyr::filter(ExpShow == 1))
-
-
-# Use sandwich package for clustered standard errors
-library(sandwich)
-
-# Clustered standard errors by GiverID
-vcov_list <- list(sandwich::vcovCL(model1, cluster = ~GiverID), 
-                  sandwich::vcovCL(model2, cluster = ~GiverID))
-
 modelsummary::modelsummary(
-  list(`(1)` = model1, `(2)` = model2),
-  vcov = vcov_list,
+  list(`(1)` = lm(Advice ~ ExpShow * Treatment, data = study1_advice), 
+       `(2)` = lm(Advice ~ Treatment + Score, data = study1_advice %>% dplyr::filter(ExpShow == 1))),
+  vcov = ~GiverID,
   coef_map = c(
     "TreatmentHigh" = "High Default",
     "ExpShow" = "Expectation Shown",
@@ -350,13 +245,13 @@ modelsummary::modelsummary(
   ),
   stars = TRUE,
   gof_map = list(list('raw' = 'nobs', 'clean' = 'N', 'fmt' = 0)),
-  caption = "Column 1 displays the advice given to compete against a High Performer Group based on whether the advisees were primed with low or high default and the initial preference shown to the advisor. Column 2 displays the advice given to compete against a High Performer Group based on the default and advisees' performance when their initial preference was visible to the advisor. All standard errors are clustered at the level of the advisor."
+  caption = "Advice to compete against the High Performer Group in Study 1. Displaying the non-binding choice of those for whom the Low Performer Group was selected by default makes it more likely that they are advised to compete against the High Performer Group (Column 1). Column 2 restricts the analysis to advisers who observed advisees' initial non-binding choice and controls for advisees' score on the quiz. Standard errors are clustered at the adviser level."
 )
 
 ```
 
-Next, we examine whether advisers took the advisees' expectations into account. 
-Recall that advisees who defaulted to competing against the High Performer 
+We now examine whether advisers took the advisees' expectations into account. 
+Recall that advisees who were defaulted to competing against the High Performer 
 Group were indeed more likely to choose this group, which, from the advisers' 
 perspective, could signal high confidence in their abilities. Our theory 
 predicts that showing expectations should lead to more flattering advice—
