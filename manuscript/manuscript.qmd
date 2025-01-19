@@ -279,61 +279,65 @@ chi_test <- chisq.test(contingency_table)
 We begin by examining the performance of the Stage 1 participants.
 Because our default treatment takes place after participants completed
 the ability quiz, we do not expect a difference in performance across
-the Low and High Default treatments. Indeed, the two groups scored no
+the Low and High Default treatments. Indeed, the two groups score no
 different from one another
-(`r round(mean(study1_time1[study1_time1$default == "Low",]$Score),2)`
+(`r papaja::printnum(round(mean(study1_time1[study1_time1$default == "Low",]$Score),2))`
 and
 `r round(mean(study1_time1[study1_time1$default == "High",]$Score),2)`
 for the Low Default and High Default treatments, respectively,
 `r papaja::apa_print(t.test(Score ~ default, data = study1_time1, var.equal = T))$statistic`).
-The default manipulation affected their initial choices. In the "Low
+As expected, the default manipulation changes their initial choices. In the "Low
 Default" treatment, only
 `r round(mean(study1_time1[study1_time1$default == "Low",]$Guess),2)*100`%
-of participants initially preferred competing against the High Performer
+of participants prefer to compete against the High Performer
 Group, compared to
 `r round(mean(study1_time1[study1_time1$default == "High",]$Guess),2)*100`%
-of participants who saw the High Performer Group highlighted
+of participants in the "High Default" treatment
 ($\chi^2$(1, n = 201) = 36.62, p \< .001).
 
 ```{r}
 #| label: tbl-study1regs
-#| tbl-cap: "Advice to compete against the High Performer Group in Study 1. Displaying the non-binding choice of those for whom the Low Performer Group was selected by default makes it more likely that they are advised to compete against the High Performer Group (Column 1). Column 2 restricts the analysis to advisers who observed advisees' initial non-binding choice and controls for advisees' score on the quiz. Standard errors are clustered at the adviser level."
+#| tbl-cap: "Advice to compete against the High Performer Group in Study 1. Displaying the non-binding choice of those for whom the Low Performer Group was selected by default makes it less likely that they are advised to compete against the High Performer Group (Column 1). Column 2 restricts the analysis to advisers who observe advisees' initial non-binding choice and controls for advisees' score on the quiz. Standard errors are clustered at the adviser level."
 
 study1_advice <- study1_time2_advice %>%
   dplyr::mutate(Treatment = factor(Treatment, levels = c('Low', 'High'))) %>%
   dplyr::mutate(ExpShow = ifelse(Condition == 'E', 1, 0))
 
 modelsummary::modelsummary(
-  list(`(1)` = lm(Advice ~ ExpShow * Treatment, data = study1_advice), 
-       `(2)` = lm(Advice ~ Treatment + Score, data = study1_advice %>% dplyr::filter(ExpShow == 1))),
+  list(`All Advice` = lm(Advice ~ ExpShow * Treatment, data = study1_advice), 
+       `Expectations Shown` = lm(Advice ~ Treatment + Score, data = study1_advice %>% dplyr::filter(ExpShow == 1))),
   vcov = ~GiverID,
   coef_map = c(
     "TreatmentHigh" = "High Default",
     "ExpShow" = "Expectation Shown",
     "ExpShow:TreatmentHigh" = "Expectation x High Default",
-    "Score" = "Performance",
+    "Score" = "Score",
     "(Intercept)" = "Constant"
   ),
   stars = TRUE,
   gof_map = list(list('raw' = 'nobs', 'clean' = 'N', 'fmt' = 0))
-)
+) %>%
+  tinytable::group_tt(
+   j = list("Advice to Compete Against High Performers" = 2:3))
 
 ```
 
-We now examine whether advisers took the advisees' expectations into
-account. Recall that advisees who were defaulted to competing against
-the High Performer Group were indeed more likely to choose this group,
-which, from the advisers' perspective, could signal high confidence in
-their abilities. Our theory predicts that showing expectations should
-lead to more flattering advice--- specifically, a recommendation to
-compete against the High Performer Group--- for advisees with a high
-default choice compared to those with a low default choice. Column 1 of
-@tbl-study1regs reports a linear probability model with advice to
-compete against the high group as the outcome measure, incorporating the
-default choice advisees saw, whether expectations were shown to the
-adviser, and the interaction of the two. Because each adviser made ten
-recommendations, we cluster standard errors at the adviser level. As
-predicted, we find a marginally significant interaction effect: advisees
+We now examine whether advisers take the advisees' expectations into
+account. Advisers observe the true performance of the advisee, such that
+expectations about performance add no additional information. However,
+because participants who score higher are also more likely to pick the
+High Performer Group, we use our Default treatment as an instrument.
+We show linear probability models for the decision of the Advisers, which is
+equal to 1 if they recommend competing against the High Performer Group and
+0 if they recommend the Low Performer Group. In Column 1 of @tbl-study1regs,
+we show our main specificiation with the experimental assignment for Advisees
+(High Performer Default vs. Low Performer Default) and Advisers
+(Expectation Shown vs. Expectation Hidden), as well as their interaction.
+Because each adviser made ten
+recommendations, we cluster standard errors at the adviser level. We find that
+displaying expectations of those in the Low Performer Default reduces recommendations
+to compete against the Top group by 4 percentage points, or about 10\% relative
+to when expectations are hidden. This decrease is marginally smaller advisees
 with a default choice to compete against the High Performer Group
 (nudged to have high expectations, though not necessarily holding them)
 were more likely to receive advice to compete against stronger
