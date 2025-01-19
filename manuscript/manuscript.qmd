@@ -325,7 +325,8 @@ We now examine whether advisers take the advisees' expectations into
 account. Advisers observe the true performance of the advisee, such that
 expectations about performance add no additional information. However,
 because participants who score higher are also more likely to pick the
-High Performer Group, we use our Default treatment as an instrument.
+High Performer Group, we use our Default treatment as an instrument that reflect
+higher expectations.
 We show linear probability models for the decision of the Advisers, which is
 equal to 1 if they recommend competing against the High Performer Group and
 0 if they recommend the Low Performer Group. In Column 1 of @tbl-study1regs,
@@ -336,12 +337,11 @@ Because each adviser made ten
 recommendations, we cluster standard errors at the adviser level. We find that
 displaying expectations of those in the Low Performer Default reduces recommendations
 to compete against the Top group by 4 percentage points, or about 10\% relative
-to when expectations are hidden. This decrease is marginally smaller advisees
+to when expectations are hidden. This decrease is marginally smaller for advisees
 with a default choice to compete against the High Performer Group
-(nudged to have high expectations, though not necessarily holding them)
-were more likely to receive advice to compete against stronger
-competitors when their expectations were shown compared to when they
-were hidden. We reported a linear probability model on advising to
+(nudged to have high expectations, though not necessarily holding them), and whose
+advice did not differ based on whether their expectations were shown or hidden.
+We reported a linear probability model on advising to
 compete against the High Performer group for advisers in the
 "Expectations" treatment, controlling for the true performance of the
 advisee in Column 2 of @tbl-study1regs. We observe a significant main
@@ -355,7 +355,7 @@ high expectations on the likelihood of receiving flattering advice.
 
 ```{r}
 #| label: fig-study1Advice
-#| fig-cap: "Advisees who were nudged to express high expectations were more likely to receive advice to compete against the High Performer Group."
+#| fig-cap: "Advice given in Study 1. Advisees who were nudged to express high expectations were more likely to receive advice to compete against the High Performer Group."
 
 study1_time2_advice %>%
   mutate(Treatment=factor(Treatment, levels=c('High','Low'), labels = c('High default', 'Low default'))) %>%
@@ -365,17 +365,25 @@ study1_time2_advice %>%
   ggplot2::geom_col(position = 'dodge') +
   ggplot2::geom_errorbar(ggplot2::aes(ymin = avg_count - ci, ymax = avg_count + ci), 
                          position = ggplot2::position_dodge(0.9), linewidth = 0.2, width = 0.1) +
-  ggtitle("Advice: Meeting Expectations vs. Absent Expectations") +
+  # ggtitle("Advice: Meeting Expectations vs. Absent Expectations") +
   scale_fill_manual(values = c("#2A629A",'#FF7F3E')) +
-  theme_bw() +
-  labs(y = "P(Compete Against High Performer)", x = NULL) +
+  scale_y_continuous("P(Compete Against High Performer)",
+                     labels = scales::percent) +
+  geom_text(aes(x = Condition, y = 0.02,
+                label = paste0(round(avg_count*100), "%")),
+            position = position_dodge(0.9),
+            color = "white") +
+  papaja::theme_apa() +
   theme(panel.grid = element_blank(),
         panel.border = element_blank(),
         axis.line = element_line(colour = "grey"),
         axis.text.x = element_text(size = 12),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.title.x = element_blank(),
         legend.position = "none", # No legend
         plot.title = element_text(hjust = 0.5, size = 16)) +
-  scale_x_discrete(labels = c("Expectation shown", "Expectation Absent")) +
+  scale_x_discrete(labels = c("Expectation Shown", "Expectation Hidden")) +
    geom_text(aes(label=Treatment, y = -0.01), position = position_dodge(0.90))
 
 
@@ -383,31 +391,22 @@ study1_time2_advice %>%
 
 ## Discussion
 
-When the quality of a decision does not depend on someone's
-expectations, the adviser's awareness of the advisee's expectations
-should not influence the advice given. However, in line with our
+When an adviser knows an outcome that an advisee can only estimate, learning
+this estimate should not change the advice that is given. However, in line with our
 argument that advisers take into account the belief utility of the
-advisee and prefer to flatter rather than disappoint, we find that
-displaying the advisee's expectations does make a difference.
+advisee and prefer to avoid disappointing them, we find that providing information
+about expectations makes a difference.
 Specifically, advisees who expressed a preference for stronger
-competitors were more likely to receive 'flattering' advice, encouraging
-them to pursue that option. One possible explanation for this finding is
-that, rather than trying to flatter, advisers may simply be telling
-advisees what they want to hear. In the next study, we aim to
-investigate the mechanism behind this discrepancy in advice-giving when
-expectations are revealed, exploring the question: Why do people give
-flattering advice?
+competitors were more likely to receive flattering advice, encouraging
+them to pursue that option. This occurs even though advisers are incentivized
+to give good advice.
 
 # Study 2
 
-So far, we have shown that displaying expectations influences the advice
-given. Specifically, advisers were more likely to recommend competing
-against a group of high performers to advisees with higher performance
-expectations compared to those without. We now directly test whether
-this effect is driven by interpersonal concerns. In particular, we
-explore whether more flattering advice stems from a desire to be liked,
-and whether advisees, in turn, like advisers more when they receive
-flattering advice.
+We next examine if advisers believe that flattering advice will improve
+how advisees perceive them, and whether this perception is true. We do this
+by manipulating the incentives for advisers, who receive a bonus either based
+on how they are evaluated by an advisee, or a bonus for the advisee's accuracy.
 
 We conducted a three-stage experiment in which we experimentally
 manipulated the incentives for advisers. We began by inviting a group of
