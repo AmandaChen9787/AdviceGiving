@@ -78,7 +78,10 @@ can lead to gender discrimination through the formation of false beliefs
 [@Hagmann2024]. Here, we propose a novel source of differences in advice
 by drawing on recent work on belief-based utility, expectation-based
 reference points [@Koszegi2006; @Koszegi2009], and the hedonic
-consequences of information [@Golman2017].
+consequences of information [@Golman2017]. Specifically, we hypothesize
+that advice-givers want to avoid causing disappointment and hence
+match the advisee's expectations. In settings where expectations differ
+by gender, this can then lead to different advice for men and women.
 
 Advice figures prominently in workplace and personal decision-making,
 shaping choices about promotions, career paths, and everyday dilemmas
@@ -103,7 +106,7 @@ high, an adviser might hesitate to deliver information that undermines
 it---particularly if doing so risks negative interpersonal
 repercussions.
 
-People often go to great lengths to avoid unpleasant information,
+People go to great lengths to avoid unpleasant information,
 deriving belief-based utility from maintaining favorable views of
 themselves [@Golman2017; @Ho2018; @Loewenstein2018]. Moreover, they
 often prefer advisers who withhold bad news from them [@Shalvi2019] and
@@ -124,8 +127,8 @@ of disappointing news. As a result, they may similarly incur a hedonic
 cost for delivering unpleasant information that they anticipate may
 distress the advisee. Thus, even in the anonymized context of an online
 experiment, we hypothesize (and find) that advisers are relucant to
-disappoint advisees and advice is thus biased upward, away from accuracy
-and toward confirming advisees' priors. We show that this reduces the
+disappoint advisees and advice is thus biased upward, away from accuracy. 
+We show that this reduces the
 quality of advice—but that advisees nonetheless view flattering advisers
 more favorably.
 
@@ -143,10 +146,10 @@ which the adviser and advisee have an existing relationship and when the
 advice is delivered face-to-face. Moreover, advisers usually do not
 suffer any direct costs when their flattering advice leads to a poor
 outcome for the recipient, particularly when it is not clear what would
-have happened under a counterfactual.\^\[In some cases, however,
+have happened under a counterfactual.^[In some cases, however,
 repeated interaction might also increase incentives for honest feedback.
 Someone who is known to persistently give overoptimistic advice may be
-viewed as less trustworthy in the long run.\]
+viewed as less trustworthy in the long run.]
 
 In Study 1, we nudge advisees into a preference for competing against
 either a group of top-performers or a group of low-performers, through
@@ -198,45 +201,43 @@ task, based on their past performance. We nudge participants towards
 picking either the low or the high performer group by selecting one of
 the two by default. A second group of participants ("Advisers") observe
 Advisees' score on the quiz and, in one treatment, also which group they
-had selected. We predicted that Advisees who were nudged toward the high
-performer group would be more likely to receive advice to compete
-against this high group when Advisers observed their non-binding choice.
+had selected. We predict that Advisees who are nudged toward the high
+performer group will be more likely to receive advice to compete
+against this high group, consistent with Advisers aiming to meet their
+expectations.
 
 ## Methods
 
-In a preliminary stage, we recruited
+In a preliminary stage, we recruit
 `r scales::comma(dim(study1_ability50)[1])` participants from Prolific
-and gave them five minutes to complete a quiz consisting of ten items.
-The quiz included word puzzles, identifying emotions from photos, and
+and give them five minutes to complete a quiz consisting of ten items.
+The quiz consists of word puzzles, identifying emotions from photos, and
 selecting the best responses for hypothetical scenarios. These questions
-were adapted from surveys that measure problem-solving, emotional
+are adapted from surveys that measure problem-solving, emotional
 intelligence, and communication skills---which we pre-tested as being
 important in modern society and hence where participants might have a
-stake in doing well. Participants received a bonus of five cents for
-each correctly answered question. We then ranked them based on their
+stake in doing well. Participants receive a bonus of five cents for
+each correctly answered question. We then rank them based on their
 score and label the 20 participants with the lowest (highest) scores as
 the Low (High) Performer Group.
 
-Next, we recruited `r scales::comma(dim(study1_time1)[1])` participants
-for the role of Advisees. They completed the same 10-item quiz, also
-earning five cents for each correct answer. We then asked them to
+Next, we recruit `r scales::comma(dim(study1_time1)[1])` participants
+for the role of Advisees. They complete the same 10-item quiz, also
+earning five cents for each correct answer. We then ask them to
 express a non-binding preference for whether they would like to compete
-against the High or Low Performer Group. We informed them that they
-would be invited back at a later date when they could make a binding
+against the High or Low Performer Group. We inform them that they
+will be invited back at a later date when they could make a binding
 decision and they could earn a bonus based on whether their score on
-this quiz was equal to or higher than a randomly selected member from
-their comparison group. If they picked the High Performer Group and had
+this quiz is equal to or higher than a randomly selected member from
+their comparison group. If they pick the High (Low) Performer Group and have
 an equal or higher score than a randomly selected member of that group,
-they would earn a bonus of 50 cents. If they picked the Low Performer
-Group and outperformed a randomly selected member of that group, they
-could earn a bonus of 20 cents. If their score was lower in this
-comparison, they would not earn an additional bonus. We randomized which
-of the two groups (High or Low Performers) was selected by default, and
-Advisees were free to select the other group. They also made a guess as
-to their score, and the survey concluded with basic demographic
-questions.
+they earn a bonus of 50 cents (20 cents). If their score is lower in this
+comparison, they earn no additional bonus. We randomize which
+of the two groups (High or Low Performers) is selected by default, and
+Advisees are free to change to the other group. They also make a guess about
+their score, and the survey concludes with basic demographic questions.
 
-We then recruited `r scales::comma(dim(study1_time2_giver)[1])`
+We then recruit `r scales::comma(dim(study1_time2_giver)[1])`
 participants for the role of Advisers, and the focal part of our
 experiment. They were informed of the ability quiz that the Advisees had
 completed, how the Low Performer Group and High Performer Groups were
