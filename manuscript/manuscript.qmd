@@ -237,9 +237,8 @@ Group and outperformed a randomly selected member of that group, they
 could earn a bonus of 20 cents. If their score was lower in this
 comparison, they would not earn an additional bonus. We randomized which
 of the two groups (High or Low Performers) was selected by default, and
-Advisees were free to select the other group. They also made a guess as
-to their score, and the survey concluded with basic demographic
-questions.
+Advisees were free to select the other group. The survey concluded 
+with basic demographic questions.
 
 We then recruited `r scales::comma(dim(study1_time2_giver)[1])`
 participants for the role of Advisers, and the focal part of our
@@ -264,9 +263,9 @@ our preregistration, we kept the survey open for 7 days. In total,
 `r scales::comma(dim(study1_time3)[1])` Advisees returned. The short
 survey reminded them of the task they completed in the previous survey,
 informed them that other participants from Prolific had observed their
-real score and given them advice on which group to compete against, and
-finally reminded them of how many questions they guessed they had
-answered correctly. They were not informed of their true score or the
+real score and given them advice on which group to compete against, and, 
+finally, reminded them of their initial choice of comparison group. 
+They were not informed of their true score or the
 score of the groups they could compete against. Participants then
 observed the advice from a randomly selected adviser and made their
 decision.
@@ -384,14 +383,15 @@ study1_time2_advice %>%
   theme(panel.grid = element_blank(),
         panel.border = element_blank(),
         axis.line = element_line(colour = "grey"),
-        axis.text.x = element_text(size = 12),
+        axis.text.x = element_text(size = 12, face = "bold",color = "black"),
+        axis.title.y = element_text(size = 12, face = "bold"),
         axis.ticks.x = element_blank(),
         axis.ticks.y = element_blank(),
         axis.title.x = element_blank(),
         legend.position = "none", # No legend
         plot.title = element_text(hjust = 0.5, size = 16)) +
   scale_x_discrete(labels = c("Expectation Shown", "Expectation Hidden")) +
-   geom_text(aes(label=Treatment, y = -0.01), position = position_dodge(0.90))
+   geom_text(aes(label=Treatment, y = -0.02), position = position_dodge(0.90), color = "#464747"  )
 
 
 ```
@@ -418,7 +418,7 @@ advisee's accuracy.
 
 The study takes place in three stages. First, a group of advisees upload
 photos of themselves ("selfies") and are grouped with nine other
-participants of the same sex We then recruit participants of the
+participants of the same sex. We then recruit participants of the
 opposing sex to rank them from most to least attractive and to provide
 advice. Specifically, they advise the participant they ranked as the 7th
 most attractive (i.e., 4th least attractive) on what rank they should
@@ -440,6 +440,7 @@ study2_time3 <- readRDS(here::here("Data/Study2_time3.Rds"))
 
 ```
 
+
 ## Methods
 
 We recruit 300 participants from Prolific and, after asking demographic
@@ -459,12 +460,12 @@ an unincentivized guess of their rank.
 
 Next, we recruit `r scales::comma(dim(study2_time2)[1])` participants
 from Prolific for the role of advisers ($M_{\text{Age}}$ =
-`r mean(study2_time2$age)` years;
+`r round(mean(study2_time2$age),2)` years;
 `r round(mean(study2_time2$gender == "Female")*100, 2)`% Female). We
 first collect demographic information, then match them to a group of the
-opposite sex. They rank selfies from ten participants from most to least
-attractive using a drop-down menu next to each picture. Because of a
-limitation with the survey software, we could not validate that each
+opposite sex. They rank selfies of ten participants from most to least 
+attractive by entering their rankings into a text box next to each picture. 
+Because of a limitation with the survey software, we could not validate that each
 rank is given only once, and we remove 115 participants who failed to
 follow instructions and did not provide a complete ranking.[^2]
 
@@ -681,9 +682,9 @@ positive evaluations of advisers, or whether flattering advice is
 dismissed as insencere. Following our preregistration, we average the
 ratings on likeability, warmth, friendliness, and good-naturedness to
 create a scale of likeability ($\alpha$ =
-`r cronbach.alpha(study2_time3[, 5:8])$alpha`); and we create a scale of
+`r round(cronbach.alpha(study2_time3[, 5:8])$alpha,2)`); and we create a scale of
 trustworthiness by averaging the ratings of trustworthiness and
-sincerity ($\alpha$ = `r cronbach.alpha(study2_time3[, 9:10])$alpha`).
+sincerity ($\alpha$ = `r round(cronbach.alpha(study2_time3[, 9:10])$alpha,2)`).
 
 ```{r}
 #| label: fig-study2rating
