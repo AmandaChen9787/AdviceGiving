@@ -103,6 +103,7 @@ high, an adviser might hesitate to deliver information that undermines
 it---particularly if doing so risks negative interpersonal
 repercussions.
 
+People go to great lengths to avoid unpleasant information,
 People often go to great lengths to avoid unpleasant information,
 deriving belief-based utility from maintaining favorable views of
 themselves [@Golman2017; @Ho2018; @Loewenstein2018]. Moreover, they
@@ -124,6 +125,8 @@ of disappointing news. As a result, they may similarly incur a hedonic
 cost for delivering unpleasant information that they anticipate may
 distress the advisee. Thus, even in the anonymized context of an online
 experiment, we hypothesize (and find) that advisers are relucant to
+disappoint advisees and advice is thus biased upward, away from accuracy. 
+We show that this reduces the
 disappoint advisees and advice is thus biased upward, away from accuracy
 and toward confirming advisees' priors. We show that this reduces the
 quality of advice—but that advisees nonetheless view flattering advisers
