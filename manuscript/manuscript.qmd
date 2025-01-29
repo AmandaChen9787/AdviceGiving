@@ -103,7 +103,20 @@ high, an adviser might hesitate to deliver information that undermines
 it---particularly if doing so risks negative interpersonal
 repercussions.
 
-People go to great lengths to avoid unpleasant information,
+While much of the literature on advice assumes that advisers aim to provide
+the most helpful advice, thier motivations are often more complex [@Yaniv2012;@Dalal2010; @Rader2017]. 
+Advisers are not only concerned with the accuracy and usefulness of their advice 
+but also with their relationships with advisees. Interpersonal concerns—such
+as maintaining a positive image, avoiding conflict, or preserving social 
+harmony—can shape the way advice is delivered [@Van2009; @Schaerer2018; @Chentsova2012].
+In particular, advisers may strategically soften their messages or withhold 
+unfavorable information to manage how they are perceived or to prevent discomfort
+for both themselves and the advisee [@Sniezek2001;@Levine2020]. These interpersonal dynamics 
+suggest that advice is not always optimized for the recipient’s best interest but
+is instead filtered through social and psychological considerations.
+
+Just as advisers may hesitate to provide unwelcome truths, advisees themselves are o
+ften resistant to hearing them. People go to great lengths to avoid unpleasant information,
 People often go to great lengths to avoid unpleasant information,
 deriving belief-based utility from maintaining favorable views of
 themselves [@Golman2017; @Ho2018; @Loewenstein2018]. Moreover, they
