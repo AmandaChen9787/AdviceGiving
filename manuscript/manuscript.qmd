@@ -115,9 +115,8 @@ for both themselves and the advisee [@Sniezek2001;@Levine2020]. These interperso
 suggest that advice is not always optimized for the recipient’s best interest but
 is instead filtered through social and psychological considerations.
 
-Just as advisers may hesitate to provide unwelcome truths, advisees themselves are o
-ften resistant to hearing them. People go to great lengths to avoid unpleasant information,
-People often go to great lengths to avoid unpleasant information,
+Just as advisers may hesitate to provide unwelcome truths, advisees themselves are often 
+resistant to hearing them. People often go to great lengths to avoid unpleasant information,
 deriving belief-based utility from maintaining favorable views of
 themselves [@Golman2017; @Ho2018; @Loewenstein2018]. Moreover, they
 often prefer advisers who withhold bad news from them [@Shalvi2019] and
