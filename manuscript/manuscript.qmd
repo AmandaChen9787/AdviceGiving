@@ -21,7 +21,7 @@ author:
     # gratitude: The authors are grateful to XXX for their helpful comments.
 abstract: Good advice improves decision quality but often requires delivering unpleasant truths that may disappoint advisees. Across three pre-registered and incentivized experiments involving real adviser-advisee interactions (N = 3,900), we show that advisers prioritize avoiding disappointment at the expense of accuracy and their own earnings. In Study 1, advisers financially rewarded for accuracy still tailor recommendations to aspirational goals expressed by advisees, resulting in worse advice. When incentivized to be liked, advisers provide even more flattering advice, and advisees reward this by rating these advisers as more likable, despite the advice being less honest and less accurate (Study 2). The desire to avoid disappointment may lead to inequities if there are differences in expectations across social groups. In Study 3, we examine a setting in which men expect to perform better than women. We show that advisers take into account these expectations, leading to systematically different advice for men and women even when their gender is unknown to advisers. Advisers' efforts to avoid disappointment may thus contribute to systematic gender disparities in advice, with implications for downstream decision-making.
   
-keywords: [Gender difference, Advice, Interpresonal relationship]
+keywords: [advice, interpersonal relationship, discrimination, gender bias]
 bibliography: bibliography.bib
 floatsintext: true
 mask: false
