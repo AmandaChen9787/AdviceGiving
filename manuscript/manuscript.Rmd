@@ -76,17 +76,16 @@ among those with similar qualifications. One source of such differences
 may be the advice that people receive. Prior work has documented that
 men receive more aspirational advice and women more risk-averse advice,
 which may explain why women are less likely to apply for and ultimately
-obtain more rewarding positions (Kanze et al., 2018). Research on gender
-discrimination has focused on the role of unconscious bias (Greenwald et
-al., 2009; Greenwald & Banaji, 1995), but interventions that try to
-reduce this bias have been largely unsuccessful (Chang et al., 2019;
-Paluck & Green, 2009). Recent work has proposed cognitive, rather than
+obtain more rewarding positions [@Kanze2018]. Research on gender
+discrimination has focused on the role of unconscious bias [@Greenwald2009; @Greenwald1995], but interventions that try to
+reduce this bias have been largely unsuccessful [@Chang2019;
+@Paluck2009]. Recent work has proposed cognitive, rather than
 unconscious, biases that can lead to gender discrimination through the
-formation of false beliefs (Hagmann et al., 2024). Here, we propose a
+formation of false beliefs [@Hagmann2024]. Here, we propose a
 novel source of differences in advice by drawing on recent work on
-belief-based utility, expectation-based reference points (Köszegi, 2006;
-Kőszegi & Rabin, 2009), and the hedonic consequences of information
-(Golman et al., 2017).
+belief-based utility, expectation-based reference points [@Koszegi2006;
+@Koszegi2009], and the hedonic consequences of information
+[@Golman2017].
 
 Advice figures prominently in workplace and personal decision-making,
 shaping choices about promotions, career paths, and everyday dilemmas

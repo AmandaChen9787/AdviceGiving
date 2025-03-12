@@ -19,9 +19,9 @@ author:
 # author-note:
   # disclosures:
     # gratitude: The authors are grateful to XXX for their helpful comments.
-abstract: Good advice improves decision quality but often requires delivering unpleasant truths that may disappoint advisees. Across three pre-registered and incentivized experiments involving real adviser-advisee interactions (N = 3,900), we show that advisers prioritize avoiding disappointment at the expense of accuracy and their own earnings. In Study 1, advisers financially rewarded for accuracy still tailor recommendations to aspirational goals expressed by advisees, resulting in worse advice. When incentivized to be liked, advisers provide even more flattering advice, and advisees reward this by rating these advisers as more likable, despite the advice being less honest and less accurate (Study 2). The desire to avoid disappointment may lead to inequities if there are differences in expectations across social groups. In Study 3, we examine a setting in which men expect to perform better than women. We show that advisers take into account these expectations, leading to systematically different advice for men and women even when their gender is unknown to advisers. Advisers' efforts to avoid disappointment may thus contribute to systematic gender disparities in advice, with implications for downstream decision-making.
+abstract: Advice that improves decision-making does not always feel good. While advice has the potential to improve decision-making by helping advisees more accurately assess feasibility and predict potential outcomes, it can also lead to disappointment when it challenges the advisee’s overly optimistic expectations. Across three pre-registered and incentivized experiments involving real adviser-advisee interactions (N = 3,900), we show that advisers prioritize avoiding disappointment at the expense of accuracy and their own earnings. In study 1, advisers use flattering advice to create more positive impressions, and advisees reward this by rating these advisers as more likable, despite the advice being less honest and less accurate. Even advisers incentivised for accuracy still tailor recommendations to aspirational goals expressed by advisees, resulting in financial loss for them and the advisees (Study 2). The concern for interpersonal consequences may lead to inequities if there are differences in expectations across social groups. In Study 3, we examine a setting in which men expect to perform better than women. We show that advisers take into account these expectations, leading to systematically different advice for men and women even when their gender is unknown to advisers. Advisers' efforts to avoid disappointment may thus contribute to systematic gender disparities in advice, with implications for downstream decision-making.
   
-keywords: [advice, interpersonal relationship, discrimination, gender bias]
+keywords: [Advice, Interpresonal relationship, Gender difference]
 bibliography: bibliography.bib
 floatsintext: true
 mask: false
@@ -53,81 +53,197 @@ library(dplyr)
 knitr::opts_chunk$set(fig.width = 8, fig.height = 4, cache = F, echo = F,
                       fig.align = 'center',warning = FALSE, message = FALSE)
 
-
-study1_time1 <- readRDS(here::here("Data/Study1_time1.Rds"))
-study1_ability50 <- read.csv(here::here("Data/Cleaned Data/S1_Ability50_clean.csv"))
-study1_time2_giver <- readRDS(here::here("Data/Study1_time2_giver.Rds"))
-study1_time2_advice <- readRDS(here::here("Data/Study1_time2_advice.Rds"))
-study1_time3 <- readRDS(here::here("Data/Study1_time3.Rds"))
-
 ```
+
+<!--# Amanda: I replaced all 'advisers' with 'adviser' for consistency. -->
 
 # Introduction
 
-Career trajectories for men and women often differ substantially, even
-among those with similar qualifications. One source of such differences
-may be the advice that people receive. Prior work has documented that
-men receive more aspirational advice and women more risk-averse advice,
-which may explain why women are less likely to apply for and ultimately
-obtain more rewarding positions [@Kanze2018]. Research on gender
-discrimination has focused on the role of unconscious bias
-[@Greenwald2009; @Greenwald1995], but interventions that try to reduce
-this bias have been largely unsuccessful [@Chang2019; @Paluck2009].
-Recent work has proposed cognitive, rather than unconscious, biases that
-can lead to gender discrimination through the formation of false beliefs
-[@Hagmann2024]. Here, we propose a novel source of differences in advice
-by drawing on recent work on belief-based utility, expectation-based
-reference points [@Koszegi2006; @Koszegi2009], and the hedonic
-consequences of information [@Golman2017].
-
 Advice figures prominently in workplace and personal decision-making,
 shaping choices about promotions, career paths, and everyday dilemmas
-[@Gino2007; @Harvey1997; @Soll2009]. Its fundamental premise is to
-improve outcomes by enabling decision-makers to learn from others'
-expertise. However, while honest advice can lead to better decisions, it
-can also lead to disappointment when it suggests a desired outcome is
-unlikely to materialize. Advisers may be motivated to offer flattering
-recommendations that align with advisees' hopes, sparing them the
-disappointment of a more sobering forecast.
+[@Gino2007; @Harvey1997; @Soll2009]. While others can provide
+information in the form of opinions [@Trouche2018], feedback
+[@Kluger1996], or personal observations [@Yoon2021] to influence the
+decision-maker, this project focuses specifically on advice—defined as
+"information that is perceived as intended to help an advisee deal with
+their issue of deliberation" [@Milyavsky2024]. Advice is distinct from
+other forms of input because its primary purpose is to improve
+decision-making by leveraging others' expertise.
 
-Advice with the potential for disappointment appears in diverse
-organizational settings: supervisors deliver feedback on employee
-performance, lawyers convey likely outcomes of litigation to their
-clients, and academics offer thoughts on colleagues' manuscripts.
-Ideally, honest information would help people identify their strengths
-and weaknesses, make informed decisions about whether to pursue legal
-cases, and strengthen papers prior to submission to academic journals,
-thus improving long-term outcomes. In practice, however, interpersonal
-considerations may prevent candor. When someone's expectations are (too)
-high, an adviser might hesitate to deliver information that undermines
-it---particularly if doing so risks negative interpersonal
-repercussions.
+Advice has the power to enhance decisions, yet it also carries the risk
+of disappointment. For example, a career consultant might advise an
+employee to enroll in a management program to strengthen their skill set
+before competing for a leadership role. Ideally, such honest advice
+helps the employee identify areas for personal growth. In practice,
+however, the employee might feel overlooked and frustrated that their
+ambitions are not immediately supported. As a result, advisers may be
+inclined to offer flattering recommendations that align with—or even
+exceed—advisees' hopes, such as encouraging the employee to pursue the
+leadership role despite concerns about their readiness. In this way,
+interpersonal dynamics may discourage full candor in giving advice.
 
-While much of the literature on advice assumes that advisers aim to provide
-the most helpful advice, thier motivations are often more complex [@Yaniv2012;@Dalal2010; @Rader2017]. 
-Advisers are not only concerned with the accuracy and usefulness of their advice 
-but also with their relationships with advisees. Interpersonal concerns—such
-as maintaining a positive image, avoiding conflict, or preserving social 
-harmony—can shape the way advice is delivered [@Van2009; @Schaerer2018; @Chentsova2012].
-In particular, advisers may strategically soften their messages or withhold 
-unfavorable information to manage how they are perceived or to prevent discomfort
-for both themselves and the advisee [@Sniezek2001;@Levine2020]. These interpersonal dynamics 
-suggest that advice is not always optimized for the recipient’s best interest but
-is instead filtered through social and psychological considerations.
+The objective of this research is to examine the dilemma advisers face:
+Should they provide accurate but potentially painful advice, or soften
+their recommendations to preserve the advisee's mood and protect their
+own standing? Given that advisees tend to prefer advisers who withhold
+bad news [@Shalvi2019] nd penalize those who deliver it [@John2019],
+advisers may reasonably avoid full candor—especially when they bear no
+cost for the advisee’s mistakes. Specifically, when someone's
+expectations are (too) high, an adviser may hesitate to provide advice
+that challenges them, particularly if doing so risks straining the
+relationship or causing negative interpersonal consequences.
 
-Just as advisers may hesitate to provide unwelcome truths, advisees themselves are often 
-resistant to hearing them. People often go to great lengths to avoid unpleasant information,
-deriving belief-based utility from maintaining favorable views of
-themselves [@Golman2017; @Ho2018; @Loewenstein2018]. Moreover, they
-often prefer advisers who withhold bad news from them [@Shalvi2019] and
-punish those who communicate bad news [@John2019]. Advisers,
-anticipating these preferences and consequences face a dilemma: Should
-they provide the accurate but potentially painful truth, or shade their
-recommendations to preserve the advisee's mood and the adviser's own
-standing? Advisers who fear they will be blamed or disliked for
-undermining someone's confidence may reasonably avoid candid feedback,
+Our research contributes to the growing literature on advisers' motives
+and intentions in advice-giving. This line of work examines how
+advisers' perceived dishonesty or helping intentions influence advice
+utilization [@Haran2020; @Mackinger2017; @Milyavsky2024; @Van2009]. By
+examining advice within its interactional and communicative context, we
+extend this research by incorporating another dimension of advisers'
+motives—interpersonal concerns. We demonstrate that advisers adjust
+their recommendations to avoid hurting the advisee’s feelings and
+self-image. Second, we contribute to the belief-based utility
+literature, which suggests that individuals derive satisfaction from
+their beliefs about the world and themselves [@Loewenstein2018]. We show
+that advisers also place value on preserving advisees' self-perceptions,
+often tailoring their advice to align with the advisee’s expectations.
+Furthermore, we reveal that this advice-giving strategy has unintended
+consequences—it transforms the confidence gap [where women tend to be
+less confident than men; @Lundeberg1994] into an advice gap, in which
+women are less likely than men to receive advice to aim higher, thereby
+reinforcing existing gender inequalities.
+
+## The Motives Behind Advice-Giving
+
+While much of the literature on advice assumes that advisers aim to
+provide the most helpful advice, their motivations are often more
+complex [@Yaniv2012; @Dalal2010; @Rader2017]. Other than the accuracy
+and usefulness of the advice, interpersonal concerns—such as maintaining
+a positive image, avoiding conflict, or preserving social harmony—can
+shape what advice is delivered and how [@Sniezek2001; @Levine2020]. For
+example, research has shown how people often avoid providing negative
+feedback directly, opting instead for ambiguity or indirect phrasing to
+minimize discomfort [@Levine2020]. These interpersonal dynamics suggest
+that advice is not always optimized for the recipient’s best interest
+but is instead filtered through social and psychological considerations.
+
+In particular, advisers may strategically soften their messages or
+withhold unfavorable evaluations to manage how they are perceived or to
+prevent discomfort for both themselves and the advisee [@Van2009;
+@Schaerer2018; @Chentsova2012]. When advisers anticipate disagreement or
+resistance, they may soften their recommendations or frame them more
+diplomatically, sometimes at the expense of accuracy. This suggests that
+advice is not merely a means of sharing information but also a tool for
+managing social interactions and reducing potential friction [@Van2009].
+These interpersonal considerations become even more pronounced when
+there is a power imbalance between the adviser and advisee, as
+lower-power advisers may be more hesitant to offer direct or critical
+guidance to avoid negative repercussions [@Schaerer2018].
+
+Just as advisers may hesitate to provide unwelcome truths, advisees
+themselves are often resistant to hearing them. People often go to great
+lengths to avoid unpleasant information, deriving belief-based utility
+from maintaining favorable views of themselves [@Golman2017; @Ho2018;
+@Loewenstein2018]. Moreover, they often prefer advisers who withhold bad
+news from them [@Shalvi2019] and punish those who communicate bad news
+[@John2019]. Advisers who fear they will be blamed or disliked for
+undermining someone's confidence may reasonably avoid candid advice,
 particularly if they don't incur a cost when the advisee makes a
 mistake.
+
+Providing flattering advice, however, should not be seen as maliciously
+misleading the advisee. Rather than being irrational, it tends to be
+more optimistic, and this optimism is not necessarily misplaced. Often,
+the advisee possesses insights about themselves—such as their motivation
+and past experiences—that the adviser may overlook or have no access to.
+Take, for example, an employee deciding whether to compete for a
+leadership role. While the adviser might focus on the employee’s lack of
+management knowledge, the employee may have strong leadership
+characteristics, excellent communication skills, and persuasive
+abilities. In this way, flattering advice can encourage the advisee to
+set ambitious goals, fostering a self-fulfilling prophecy where
+confidence drives success [@Jussim1986; @Locke2006].
+
+Of course, if the advice is overly inflated, it may become unhelpful.
+However, this is unlikely to happen, as advisers typically aim to boost
+the advisee’s confidence while maintaining credibility. Suggesting an
+unrealistic option—such as encouraging an entry-level employee to
+compete for a CEO position—would come across as insincere or even
+mocking rather than flattering.
+
+Beyond protecting the advisee's beliefs and fostering their confidence
+and motivation, advisers may also offer flattering advice to shield
+themselves from blame if the ultimate decision leads to a poor outcome.
+Although both the adviser and advisee recognize the inherent uncertainty
+between the advice, the decision, and the final outcome, people tend to
+attribute poor outcomes to the adviser [@Weiner1985; @Palmeira2015].
+However, research suggests that people differentiate between errors made
+intentionally—such as those driven by insufficient knowledge or
+deliberate bias—and those made unintentionally, with harsher penalties
+imposed on advisers perceived to have deliberately undermined the
+decision [@Haran2020]. Flattering advice, even when ultimately
+unhelpful, may reduce the likelihood of blame because advisees are less
+likely to suspect ill intent from an adviser who appears supportive.
+Advisees may instead interpret the poor outcome as an unintended error
+rather than deliberate misguidance, particularly because they view the
+adviser positively and believe the adviser genuinely holds them in high
+regard [@Palmeira2015; @Haran2020]. Even when advisees recognize that
+flattering advice was intended to boost their confidence, research shows
+that people tend to appreciate such misplaced good intentions, as they
+strengthen social bonds by making the gift-giver feel socially closer
+[@Zhang2012].
+
+Advisers may choose to inflate their advice for different reasons,
+depending on their relationship with the advisee and the stakes of the
+decision. For instance, advisers might offer flattering advice to
+strangers out of politeness, provide inflated encouragement to friends
+to offer emotional support [@Dalal2010], or use their recommendations to
+motivate individuals with particularly ambitious or competitive
+personalities. We recognize that multiple motives may simultaneously
+drive this behavior, and their relative influence—as well as advisers'
+overall tendency to inflate advice—may vary across situations. However,
+in this project, we focus specifically on whether advisers intentionally
+inflate their advice and explore the potential consequences of doing so.
+
+One downstream consequence of giving flattering advice is the potential
+to reinforce gender differences — specifically, men are more likely to
+receive such inflated advice. Prior work has documented that men receive
+more aspirational advice and women more risk-averse advice, which may
+explain why women are less likely to apply for and ultimately obtain
+more rewarding positions [@Kanze2018]. Research on gender discrimination
+has focused on the role of unconscious bias [@Greenwald2009;
+@Greenwald1995], but interventions that try to reduce this bias have
+been largely unsuccessful [@Chang2019; @Paluck2009]. Recent work has
+proposed cognitive, rather than unconscious, biases that can lead to
+gender discrimination through the formation of false beliefs
+[@Hagmann2024]. Here, we propose that one overlooked mechanism driving
+gender disparities in career outcomes may lie in the differential
+provision of flattering advice, shaped by the advisee's
+self-expectations.
+
+Specifically, when advisers aim to make their advice appear flattering,
+they may rely less on an objective evaluation of the advisee's
+competence and instead anchor their advice on the advisee’s
+self-expectations. Drawing on the literature on belief-based utility and
+expectation-based reference points [@Koszegi2006; @Koszegi2009], we
+suggest that advisers may align their advice with how ambitious or
+confident the advisee appears, so that they give optimistic but not
+entirely unrealistic recommendations. This dynamic may inadvertently
+disadvantage women. Research shows that men generally hold higher
+self-expectations or are more likely to display confidence, while women
+tend to exhibit more modest self-assessments despite comparable
+competence [@Kanze2018]. As a result, advisers may unintentionally offer
+men more ambitious and aspirational advice, encouraging them to pursue
+higher-rewarding opportunities, while offering women more cautious,
+conservative advice that aligns with their lower expressed
+self-expectations. This differential treatment, though seemingly
+well-intentioned, can have profound downstream consequences. By
+tailoring advice to match the advisee's perceived self-expectations,
+advisers may subtly nudge men toward risk-taking, leadership roles, or
+competitive opportunities, while directing women toward safer, less
+ambitious paths — ultimately reinforcing existing gender disparities in
+career outcomes.
+
+# Overview of studies
 
 In our experiments, however, advisees have no opportunity to punish the
 adviser, and advisers' financial incentives are linked to the decisions
@@ -137,12 +253,11 @@ of disappointing news. As a result, they may similarly incur a hedonic
 cost for delivering unpleasant information that they anticipate may
 distress the advisee. Thus, even in the anonymized context of an online
 experiment, we hypothesize (and find) that advisers are relucant to
-disappoint advisees and advice is thus biased upward, away from accuracy. 
-We show that this reduces the
-disappoint advisees and advice is thus biased upward, away from accuracy
-and toward confirming advisees' priors. We show that this reduces the
-quality of advice—but that advisees nonetheless view flattering advisers
-more favorably.
+disappoint advisees and advice is thus biased upward, away from
+accuracy. We show that this reduces the disappoint advisees and advice
+is thus biased upward, away from accuracy and toward confirming
+advisees' priors. We show that this reduces the quality of advice—but
+that advisees nonetheless view flattering advisers more favorably.
 
 We present the results of three preregistered experiments in which
 participants are paired anonymously as advisers and advisees. Advisers
@@ -152,7 +267,7 @@ advisees can communicate their expectations to an adviser, and
 experimentally manipulate whether advisers observe this expectation. Our
 design simulates organizational contexts where mentors and managers
 often have some sense of an employee's confidence or aspirations and
-thus could adjust their feedback to avoid disappointing them.
+thus could adjust their advice to avoid disappointing them.
 Interpersonal considerations would likely be stronger in situations in
 which the adviser and advisee have an existing relationship and when the
 advice is delivered face-to-face. Moreover, advisers usually do not
@@ -165,20 +280,38 @@ have happened under a counterfactual.[^1]
     give overoptimistic advice may be viewed as less trustworthy in the
     long run.
 
-In Study 1, we nudge advisees into a preference for competing against
+Across all three studies, we use a three-stage design. In Stage 1, we
+measure the advisee’s performance and their self-expectations. In Stage
+2, we show the measured performance to the adviser and ask them to
+provide advice on how the advisee can maximize their chances of earning
+a bonus. Half of the advisers also receive information about the
+advisee’s self-expectations. Importantly, this expectation information
+is objectively irrelevant to the task, as the bonus is solely based on
+the advisee’s performance, which is already measured. While in real
+life, self-expectations might contain useful insights (such as
+unobservable skills or motivation), in our setup, self-expectations
+serve no informative value. Moreover, flattering advice provided in this
+setup cannot be justified as a motivational boost (like a pep talk)
+because the performance has already been fixed. Finally, in Stage 3, we
+re-invite the advisees from Stage 1, show them the advice they received,
+and observe how they make their final decisions.
+
+In Study 1, we ask advisees to upload photos of themselves and advisers
+rank them on their attractiveness. Advisers then recommend which rank
+the advisee should bet on, receiving an incentive either for the
+advisee's accuracy or for being evaluated favorably. Both groups of
+advisers recommend a rank that is more attractive than what they
+themselves have evaluated the advisee, and those incentivized for
+likability further inflate the ranking. Advisees evaluate advisers more
+favorably when they recommend betting on a more attractive rank,
+including viewing them as more trustworthy.
+
+In Study 2, we nudge advisees into a preference for competing against
 either a group of top-performers or a group of low-performers, through
 the use of a default option. Advisers who observe the actual performance
 of advisees and therefore have the relevant information needed to make a
 recommendation nonetheless take into account the initial preference when
-recommending which group they should compete against. In Study 2, we ask
-advisees to upload photos of themselves and advisers rank them on their
-attractiveness. Advisers then recommend which rank the advisee should
-bet on, receiving an incentive either for the advisee's accuracy or for
-being evaluated favorably. Both groups of advisers recommend a rank that
-is more attractive than what they themselves have evaluated the advisee,
-and those incentivized for likability further inflate the ranking.
-Advisees evaluate advisers more favorably when they recommend betting on
-a more attractive rank, including viewing them as more trustworthy.
+recommending which group they should compete against.
 
 In Study 3, we examine a setting in which participants report their
 expected performance on a mathematics quiz. Advisers observe the
@@ -206,7 +339,414 @@ Framework
 
 # Study 1
 
-We first examine whether advisers take into account the expectations of
+We first examine if advisers believe that flattering advice will improve
+how they are perceived, and if so, whether this perception is true. We
+do this by manipulating the incentives for advisers, who receive a bonus
+either based on how they are evaluated by an advisee, or a bonus for the
+advisee's accuracy.
+
+The study takes place in three stages. First, a group of advisees upload
+photos of themselves ("selfies") and are grouped with nine other
+participants of the same sex. We then recruit participants of the
+opposing sex to rank them from most to least attractive and to provide
+advice. Specifically, they advise the participant they ranked as the 7th
+most attractive (i.e., 4th least attractive) on what rank they should
+bet they were ranked by a larger group of raters. Advisers were randomly
+assigned to two treatments, receiving a bonus payment either if the
+advisee guessed their rank accurately or if the advisee evaluated the
+adviser as likeable as measured by a scale response. We hypothesize that
+advisers incentivized to be liked will recommend betting on a lower
+rank, i.e. that the advisee is more attractive.
+
+```{r}
+
+study1_time1 <- readRDS(here::here("Data/Study1_time1.Rds"))
+study1_time1_200 <- readRDS(here::here("Data/Study1_time1_200.Rds"))
+study1_time2 <- readRDS(here::here("Data/Study1_time2.Rds"))
+study1_finalRank <- readRDS(here::here("Data/Study1_finalRank.Rds"))
+study1_time3 <- readRDS(here::here("Data/Study1_time3.Rds"))
+
+```
+
+## Methods
+
+We recruit 300 participants from Prolific and, after asking demographic
+questions, invite them to upload photos of themselves (selfies) to be
+rated by other participants on attractiveness. We obtain selfies from
+`r scales::comma(dim(study1_time1[study1_time1$gender == 'Male',])[1])`
+men and
+`r scales::comma(dim(study1_time1[study1_time1$gender == 'Female',])[1])`
+women adhering to our instructions (e.g., did not include other people).
+In line with our preregistration, we select the first 100 photos from
+women to arrive at a gender-balanced sample ($M_{\text{Age}}$ =
+`r mean(study1_time1_200$age)` years). Participants are informed that
+their selfies will be randomly grouped with those of nine other
+participants of their sex and ranked in terms of attractiveness by a
+group of new Prolific participants of the opposite sex. They then make
+an unincentivized guess of their rank.
+
+Next, we recruit `r scales::comma(dim(study1_time2)[1])` participants
+from Prolific for the role of advisers ($M_{\text{Age}}$ =
+`r round(mean(study1_time2$age),2)` years;
+`r round(mean(study1_time2$gender == "Female")*100, 2)`% Female). We
+first collect demographic information, then match them to a group of the
+opposite sex. They rank selfies of ten participants from most to least
+attractive by entering their rankings into a text box next to each
+picture. Because of a limitation with the survey software, we could not
+validate that each rank is given only once, and we remove 115
+participants who failed to follow instructions and did not provide a
+complete ranking.[^2]
+
+[^2]: Moreover, we could not collect data from any participant who did
+    not select any participant as the 7th most attractive participant,
+    as that image would be shown on subsequent pages.
+
+After submitting their ratings, participants see the photo of the
+participant they ranked as the 7th most attractive (i.e., the 4th least
+attractive). We remind them of the rank they have just given to that
+person and inform them that this participant will be invited back and
+can earn a \$1 bonus if they correctly guess their rank. The rank is
+determined by the aggregate ratings of all participants who have ranked
+this group. Because the participant does not observe the other nine
+people in the group, they would depend on the adviser's recommendation
+along with their own assessment. We randomly assign advisers to one of
+two incentivization schemes. In the "Accuracy" treatment, they receive a
+bonus identical to the advisee: \$1 if they guess their rank correctly.
+In the "Likeability" treatment, we inform them that the advisee will
+rate them on a 5-point Likert scale on how likeable they thought they
+are. Each point on the scale would translate to a bonus of 20 cents.
+Advisers then select a rank (from 1 to 10) that they recommend the
+advisee to bet on.
+
+Finally, we invite participants from Stage 1 who were ranked as the 7th
+most attractive participant by at least one adviser (so that they
+received advice) back for the follow-up survey. Following our
+preregistration, we keep the survey open for 7 days. In total,
+`r scales::comma(dim(study1_time3)[1])` participants
+(`r scales::comma(dim(study1_time3[study1_time3$gender == 'Male',])[1])`
+men,
+`r scales::comma(dim(study1_time3[study1_time3$gender == 'Female',])[1])`
+women) complete the follow-up survey. We remind them of the selfie they
+uploaded in Stage 1 and that a group of 10 selfies, including theirs,
+had been rated by other participants from Prolific. They then see the
+advice from a randomly selected adviser and make their own guess with a
+\$1 incentive for accuracy. Finally, they rate the adviser's likability,
+warmth, friendliness, good-naturedness, trustworthiness, and sincerity
+on 5-point Likert scales [adapted from @Fiske2007].
+
+## Results
+
+```{r}
+#| include: false
+library(dplyr)
+
+TargetsUnique <- study1_time2 %>%
+  dplyr::select(Target) %>%
+  unique()
+
+
+TargetsUnique <- merge(TargetsUnique,study1_finalRank, by.x = 'Target', by.y = 'QID7_Id')
+
+```
+
+```{r}
+#| label: fig-study1advice-old
+#| fig-cap: "Advisers were asked to suggest what rank to bet on for someone they ranked as the 7th most attractive out of ten people. When incentivized for accuracy, most of them advised betting on 7, which was based on their evaluation of the recipient's attractiveness. However, when incentivized for likability, many participants gave flattering advice by suggesting betting on higher ranks that imply a higher evaluation of attractiveness."
+#| eval: false
+
+library(ggplot2)
+library(ggridges)
+
+study1_time2 <- study1_time2 %>% dplyr::mutate(Advice = as.numeric(Advice))
+
+ggplot(study1_time2, aes(x = Advice, y = Condition, fill = Condition)) +
+    # Reduce vertical spacing with rel_min_height and scale
+    geom_density_ridges(scale = 1.0, rel_min_height = 0.01, alpha = 0.7) +
+    
+    # Shading the left side of x = 7 in light grey
+    geom_rect(aes(xmin = 7, xmax = Inf, ymin = -Inf, ymax = Inf), fill = "gray95", alpha = 0.01) +
+    
+    # Add the dashed line at x = 7
+    geom_vline(xintercept = 7, col = 'black', linetype = 'dashed', linewidth = 0.7) +
+    
+    # Add the text "Flattering" on the left of the line
+    annotate("text", x = 5, y = 0.6, label = "Flattering Ranks", hjust = 1, size = 8, fontface = "bold") +
+    
+    # Manual fill colors
+    scale_fill_manual(values = c("#2A629A", '#FF7F3E'), labels = c("Accurate", "Likable")) +
+    
+    # X-axis adjustments
+    scale_x_continuous(name = "Advised Rank", breaks = seq(1, 10)) +
+    
+    # Theme adjustments
+    theme_bw() +
+  coord_flip() +
+    theme(panel.grid = element_blank(),
+          panel.border = element_blank(),
+          axis.line = element_line(colour = "black"),
+          legend.position = "none",
+          legend.title = element_blank(),
+          legend.key.size = unit(1.2, "lines"),
+          legend.text = element_text(size = 12),
+          plot.title = element_text(hjust = 0.5, size = 20),
+          axis.text.x = element_text(size = 14),  # X-axis text size
+          axis.text.y = element_text(size = 14),
+          axis.title.x = element_text(size = 16, face = "bold"),  # X-axis title size
+          axis.title.y = element_text(size = 16, face = "bold"))
+
+
+
+```
+
+```{r}
+#| label: fig-study1advice
+#| fig-cap: "Participants in Study 2 give advice to the person they rank 7th most attractive out of 10. When incentivized for accuracy, the majority recommends betting on that rank. However, when incentivized for likeability, participants inflate their advice to flatter the recipient as more attractive."
+
+study1_time2 <- study1_time2 %>% dplyr::mutate(Advice = as.numeric(Advice))
+
+study1_time2 %>%
+  dplyr::group_by(Condition) %>%
+  dplyr::mutate(total_per_condition = dplyr::n()) %>%
+  dplyr::group_by(Condition, Advice, total_per_condition) %>%
+  dplyr::summarize(n = dplyr::n()) %>%
+  dplyr::mutate(pct = ifelse(Condition == "Accurate", -n/total_per_condition, n/total_per_condition),
+                Advice = factor(Advice)) %>%
+  ggplot(aes(x = pct, y = Advice, fill = Condition)) +
+  geom_col() +
+  scale_x_continuous("Share of Advice",
+                     limits = c(-0.6, 0.6),
+                     labels = \(x) scales::percent(abs(x))) +
+  scale_y_discrete(limits = rev) +
+  # Dashed 'horizontal' line at Advice = 7
+  geom_hline(yintercept = 4, col = 'black', linetype = 'dashed', linewidth = 0.7) +
+  # Example text annotation (adjust x/y for positioning)
+  annotate("text", x = -0.3, y = 9, label = "Accuracy Incentive", hjust = 1, size = 4, fontface = "bold") +
+  annotate("text", x = 0.6, y = 9, label = "Likeable Incentive", hjust = 1, size = 4, fontface = "bold") +
+  # scale_y_continuous(name = "Advised Rank", breaks = seq(1, 10)) +
+  scale_fill_manual(values = c("#2A629A", "#FF7F3E")) +
+  papaja::theme_apa() +
+  theme(
+    legend.position  = "none",
+    axis.text.x  = element_text(size = 14),
+    axis.text.y  = element_text(size = 14),
+    axis.title.x = element_text(size = 16, face = "bold"),
+    axis.title.y = element_text(size = 16, face = "bold")
+  )
+```
+
+We begin by examining the prior beliefs of advisees who uploaded their
+selfies. On average, men guess they rank
+`r round(mean(study1_time1[study1_time1$gender == "Male",]$Guess),2)` in
+their group of 10 and women guess that they rank
+`r round(mean(study1_time1[study1_time1$gender == "Female",]$Guess),2)`
+(`r papaja::apa_print(t.test(Guess ~ gender, data = study1_time1, var.equal = T))$statistic`).
+Notably, people's self-perceptions correlate strongly with the aggregate
+ratings of the advisers
+(`r round(cor(study1_finalRank$Guess, study1_finalRank$finalRank),2)`,
+`r papaja::apa_print(cor.test(study1_finalRank$Guess, study1_finalRank$finalRank))$statistic`).
+However, there is substantial heterogeneity in perceptions of
+attractiveness. Of the 200 participants,
+`r length(unique(study1_time2$Target))` are ranked as 7th most
+attractive by at least one adviser. On average, men in this subset
+estimate they rank
+`r round(mean(TargetsUnique[TargetsUnique$gender == 'Male',]$Guess),2)`th
+and women estimate they rank
+`r round(mean(TargetsUnique[TargetsUnique$gender == 'Female',]$Guess),2)`th
+(`r papaja::apa_print(t.test(Guess ~ gender, data = TargetsUnique, var.equal = T))$statistic`).
+
+Next, we turn our attention to the advisers (see @fig-study1advice). In
+the Accuracy condition, those uploading selfies are on average advised
+to bet on rank
+`r round(mean(study1_time2[study1_time2$Condition == "Accurate",]$Advice),2)`.
+Notably, this is significantly more attractive than the 7th rank those
+advisers had themselves guessed just on the prior screen
+(`r papaja::apa_print(t.test(study1_time2[study1_time2$Condition == "Accurate",]$Advice, mu = 7, var.equal = T))$statistic`).
+This suggests that even when incentivized for accuracy, participants
+offer flattering advice.[^3] Importantly, and as predicted, we find that
+advisers in the Likeable treatment recommend betting on a lower rank,
+communicating that they think the participant in the selfie is more
+attractive
+(`r round(mean(study1_time2[study1_time2$Condition == "Likable",]$Advice),2)`,
+`r papaja::apa_print(t.test(Advice ~ Condition, data = study1_time2, var.equal = T))$statistic`).
+This suggests that advisers infer flattering someone with pleasant
+advice would make the adviser appear more likeable. The distribution
+shown in @fig-study1advice shows that participants do not simply tell
+participants that they are the most attractive person in the group. They
+may infer that flattering advise needs to be somewhat realistic to be
+believable. We return to this in the general discussion.
+
+[^3]: This shading could be due to concerns of avoiding disappointment.
+    However, it could also be that advisers are uncertain about the
+    rankings they have given and make a recommendation that combines
+    their own belief with a uniform prior. Therefore, our analyses focus
+    on the difference between the two conditions.
+
+<!-- David: Making a note here that we should be sure to discuss this at the end -->
+
+<!-- as something for future research. -->
+
+<!-- David: We should also report something on accuracy of the advice given across -->
+
+<!-- the treatments. Even if no difference. -->
+
+```{r}
+#| label: tbl-study1regs
+#| tbl-cap: "When individuals receive advice that implies a high level of attractiveness (lower rank), they tend to perceive the advice giver as more likable (Column 1), warm (Column 2). Column 3 shows that advisers are rated as more trustworthy when they advice lower ranks, but this relationship is only directional."
+#| after-caption-space: 0pt
+
+modelsummary::modelsummary(list(`(1)` = lm(likable ~ Advice, data = study1_time3),
+                                `(2)` = lm(warmAvg ~ Advice, data = study1_time3),
+                                `(3)` = lm(trustAvg ~ Advice, data = study1_time3)),
+                           vcov = c("classical", "classical", "classical"),
+                           coef_map = c("Advice" = "Advised Rank",
+                                        "(Intercept)" = "Constant"),
+                           stars = T,
+                           gof_map = list(list('raw' = 'nobs', 'clean' = 'N', 'fmt' = 0)))
+
+```
+
+Finally, we examine whether flattering advice indeed leads to more
+positive evaluations of advisers, or whether flattering advice is
+dismissed as insencere. Following our preregistration, we average the
+ratings on likeability, warmth, friendliness, and good-naturedness to
+create a scale of likeability ($\alpha$ =
+`r round(cronbach.alpha(study1_time3[, 5:8])$alpha,2)`); and we create a
+scale of trustworthiness by averaging the ratings of trustworthiness and
+sincerity ($\alpha$ =
+`r round(cronbach.alpha(study1_time3[, 9:10])$alpha,2)`).
+
+```{r}
+#| label: fig-study1rating
+#| fig-cap: "Participants tend to rate advisers who suggest betting on a higher rank (implying greater attractiveness) as more likable and warm."
+
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+study1_time3 <- study1_time3 %>% dplyr::mutate(Advice = as.numeric(Advice))
+
+
+
+# Reshape the data to long format
+study1_long <- study1_time3 %>%
+  pivot_longer(cols = c(likable, warmAvg), 
+               names_to = "Evaluation", 
+               values_to = "Value")
+
+# Create the plot
+ggplot(study1_long, aes(x = Advice, y = Value, color = Evaluation)) +  
+  # Add points for each observation
+  geom_point(size = 2, alpha = 0.7,
+             position = position_jitter()) +  
+  
+  # Add linear regression lines for each metric
+  geom_smooth(method = "lm", se = TRUE, aes(fill = Evaluation), alpha = 0.2, show.legend = FALSE) +  
+  
+  # Customize axis labels
+  scale_y_continuous(name = "Evaluation",limits = c(0.9, 5.1)) +  
+  scale_x_continuous(name = "Advised Rank",limits = c(1, 10), breaks = c(1,2,3,4,5,6,7,8,9,10)) +  
+  
+  # Apply a theme
+  theme_bw() +  
+  theme(panel.grid = element_blank(),
+        panel.border = element_blank(),
+        axis.line = element_line(colour = "grey"),
+        legend.position = "right",
+        plot.title = element_text(hjust = 0.5, size = 20)) + 
+  
+  # Set custom colors for each metric
+  scale_color_manual(values = c("#FF7F3E", "#2A629A"), 
+                     labels = c("Likability", "Warm")) + 
+  scale_fill_manual(values = c("#FF7F3E", "#2A629A"))
+
+```
+
+```{r}
+#| label: fig-study1ratingByGroup
+#| fig-cap: "After participants receive advice that suggests betting on a rank that was lower than, equal to, or higher than their own guess, they evaluate advisers based on their likability and warmth. Participants rate advisers who give flattering advice and deliver a high evaluation of their attractiveness as more likable and warm than those whose advice implied a lower evaluation of their attractiveness."
+
+library(dplyr)
+library(ggplot2)
+library(reshape2)
+
+study1_time3 <- study1_time3 %>% dplyr::mutate(Guess = as.numeric(Guess), Advice = as.numeric(Advice)) %>%
+  dplyr::mutate(HorL = ifelse(Guess == Advice,0, ifelse(Guess > Advice, 1,-1))) %>%
+  dplyr::mutate(HorL = as.factor(HorL)) %>% 
+  dplyr::mutate(bonus = ifelse(bet == `Final Rank`,1,0)) %>%
+  dplyr::mutate(accuracy = `Final Rank`-Advice)
+
+ratings <- study1_time3 %>%
+  group_by(HorL) %>%
+  summarise(like = round(mean(likable),2), warmth = round(mean(warmAvg),2))
+
+rating_table <- matrix(c(ratings$like,ratings$warmth), nrow = 2, byrow = TRUE, dimnames = list( c("Likable",'Warm'),c("Lower than", "Equal to", "Higher than")))
+
+rating_df = as.data.frame.table(rating_table) %>%
+  dplyr::rename( 'Condition'='Var1', 'Advice' ='Var2') %>%
+  dplyr::mutate(Freq = round(Freq,2))
+
+# Create a data frame similar to your structure
+data <- rating_df
+
+# Reshape the data to wide format for the heatmap
+heatmap_data <- dcast(data, Condition ~ Advice, value.var = "Freq")
+
+# Melt the data for ggplot
+melted_data <- melt(heatmap_data, id.vars = "Condition", variable.name = "Advice", value.name = "Rating")
+
+# Create the heatmap
+ggplot(melted_data, aes(x = Advice, y = Condition, fill = Rating)) +
+  geom_tile(color = "white") +
+  scale_fill_gradient(low = "darkblue", high = "orange", name = "Rating") +  # Grey gradient from light to dark
+  geom_text(aes(label = sprintf("%.2f", Rating)), color = "white", size = 8) +
+  theme_minimal() +
+  labs(x = "Attractiveness (Advice Relative to Self-Expectations)", y = "Evaluation") +
+  theme(
+    axis.text.x = element_text(size = 12),  # X-axis text size
+          axis.text.y = element_text(size = 12),
+          axis.title.x = element_text(size = 12),  # X-axis title size
+          axis.title.y = element_text(size = 12))
+  
+```
+
+As seen in @fig-study1rating, we advisers who suggested that the advisee
+was more attractive (lower rank) were indeed rated as more likeable and
+warm (b = -0.109, p \< .05; b = -0.133, p \< .001, respectively; See
+Columns 1 and 2 of @tbl-study1regs). When using their own initial guess
+as a reference point, advisers who suggest a worse rank are perceived as
+less likable and warm (see @fig-study1ratingByGroup). Interestingly,
+these benefits are not at the cost of sincerity; advisers who recommend
+a more favorable rank are viewed as no less trustworthy (Column 3 of
+@tbl-study1regs).
+
+We are not powered to do a comparison across the two experimental groups
+and did not preregister such a difference. Indeed, we find no difference
+in likeability and warmth across the two treatments
+(`r papaja::apa_print(t.test(likable ~ Condition, data = study1_time3, var.equal = T))$statistic`,
+and
+`r papaja::apa_print(t.test(warmAvg ~ Condition, data = study1_time3, var.equal = T))$statistic`,
+respectively). We also assess the quality of advice by measuring the
+discrepancy between the advised rank and the correct rank. We find no
+difference in accuracy across the advice treatments
+(`r papaja::apa_print(t.test(accuracy ~ Condition, data = study1_time3, var.equal = T))$statistic`).
+
+## Discussion
+
+When advice communicates ego-relevant information (here, people's
+attractiveness), we find that the advice people give is contingent on
+their incentives. Specifically, when they get rewarded for being more
+likeable, they recommend that the advisee bet on a more favorable rank
+than when they are incentivized for accuracy. People understand that the
+advice they give can influence how others perceive them and often use
+flattering advice as a tool to boost their likeablity. Importantly,
+advisees do not discount flattering advice and instead evaluate people
+who advise them to bet on a more attractive rank as warmer and more
+likeable. These gains to interpersonal perceptions do not come at the
+cost of trustworthiness, even when the advice is inflated.
+
+# Study 2
+
+We next examine whether advisers take into account the expectations of
 advisees when providing a recommendation. A group of participants
 ("Advisees") complete a quiz consisting of ten questions that draw on
 ego-relevant domains. They then express a non-binding preference to
@@ -221,8 +761,19 @@ against this high group when Advisers observed their non-binding choice.
 
 ## Methods
 
+```{r}
+
+study2_time1 <- readRDS(here::here("Data/Study2_time1.Rds"))
+study2_ability50 <- read.csv(here::here("Data/Cleaned Data/S2_Ability50_clean.csv"))
+study2_time2_giver <- readRDS(here::here("Data/Study2_time2_giver.Rds"))
+study2_time2_advice <- readRDS(here::here("Data/Study2_time2_advice.Rds"))
+study2_time3 <- readRDS(here::here("Data/Study2_time3.Rds"))
+
+
+```
+
 In a preliminary stage, we recruited
-`r scales::comma(dim(study1_ability50)[1])` participants from Prolific
+`r scales::comma(dim(study2_ability50)[1])` participants from Prolific
 and gave them five minutes to complete a quiz consisting of ten items.
 The quiz included word puzzles, identifying emotions from photos, and
 selecting the best responses for hypothetical scenarios. These questions
@@ -234,7 +785,7 @@ each correctly answered question. We then ranked them based on their
 score and label the 20 participants with the lowest (highest) scores as
 the Low (High) Performer Group.
 
-Next, we recruited `r scales::comma(dim(study1_time1)[1])` participants
+Next, we recruited `r scales::comma(dim(study2_time1)[1])` participants
 for the role of Advisees. They completed the same 10-item quiz, also
 earning five cents for each correct answer. We then asked them to
 express a non-binding preference for whether they would like to compete
@@ -249,10 +800,10 @@ Group and outperformed a randomly selected member of that group, they
 could earn a bonus of 20 cents. If their score was lower in this
 comparison, they would not earn an additional bonus. We randomized which
 of the two groups (High or Low Performers) was selected by default, and
-Advisees were free to select the other group. The survey concluded 
-with basic demographic questions.
+Advisees were free to select the other group. The survey concluded with
+basic demographic questions.
 
-We then recruited `r scales::comma(dim(study1_time2_giver)[1])`
+We then recruited `r scales::comma(dim(study2_time2_giver)[1])`
 participants for the role of Advisers, and the focal part of our
 experiment. They were informed of the ability quiz that the Advisees had
 completed, how the Low Performer Group and High Performer Groups were
@@ -272,20 +823,19 @@ demographic questions.
 
 Finally, we invited Advisees back for the follow-up survey. Following
 our preregistration, we kept the survey open for 7 days. In total,
-`r scales::comma(dim(study1_time3)[1])` Advisees returned. The short
+`r scales::comma(dim(study2_time3)[1])` Advisees returned. The short
 survey reminded them of the task they completed in the previous survey,
 informed them that other participants from Prolific had observed their
-real score and given them advice on which group to compete against, and, 
-finally, reminded them of their initial choice of comparison group. 
-They were not informed of their true score or the
-score of the groups they could compete against. Participants then
-observed the advice from a randomly selected adviser and made their
-decision.
+real score and given them advice on which group to compete against, and,
+finally, reminded them of their initial choice of comparison group. They
+were not informed of their true score or the score of the groups they
+could compete against. Participants then observed the advice from a
+randomly selected adviser and made their decision.
 
 ## Results
 
 ```{r}
-contingency_table <- table(study1_time1$Guess, study1_time1$default)
+contingency_table <- table(study2_time1$Guess, study2_time1$default)
 
 chi_test <- chisq.test(contingency_table)
 
@@ -296,34 +846,34 @@ Because our default treatment takes place after participants completed
 the ability quiz, we do not expect a difference in performance across
 the Low and High Default treatments. Indeed, the two groups score no
 different from one another
-(`r papaja::printnum(round(mean(study1_time1[study1_time1$default == "Low",]$Score),2))`
+(`r papaja::printnum(round(mean(study2_time1[study2_time1$default == "Low",]$Score),2))`
 and
-`r round(mean(study1_time1[study1_time1$default == "High",]$Score),2)`
+`r round(mean(study2_time1[study2_time1$default == "High",]$Score),2)`
 for the Low Default and High Default treatments, respectively,
-`r papaja::apa_print(t.test(Score ~ default, data = study1_time1, var.equal = T))$statistic`).
+`r papaja::apa_print(t.test(Score ~ default, data = study2_time1, var.equal = T))$statistic`).
 As expected, the default manipulation changes their initial choices. In
 the "Low Default" treatment, only
-`r round(mean(study1_time1[study1_time1$default == "Low",]$Guess),2)*100`%
+`r round(mean(study2_time1[study2_time1$default == "Low",]$Guess),2)*100`%
 of participants prefer to compete against the High Performer Group,
 compared to
-`r round(mean(study1_time1[study1_time1$default == "High",]$Guess),2)*100`%
+`r round(mean(study2_time1[study2_time1$default == "High",]$Guess),2)*100`%
 of participants in the "High Default" treatment ($\chi^2$(1, n = 201) =
 36.62, p \< .001).
 
 \linespread{1}
 
 ```{r}
-#| label: tbl-study1regs
+#| label: tbl-study2regs
 #| tbl-cap: "Advice to compete against the High Performer Group in Study 1. Displaying the non-binding choice of those for whom the Low Performer Group was selected by default makes it less likely that they are advised to compete against the High Performer Group (Column 1). Column 2 restricts the analysis to advisers who observe advisees' initial non-binding choice and controls for advisees' score on the quiz. Standard errors are clustered at the adviser level."
 #| after-caption-space: 0pt
 
-study1_advice <- study1_time2_advice %>%
+study2_advice <- study2_time2_advice %>%
   dplyr::mutate(Treatment = factor(Treatment, levels = c('Low', 'High'))) %>%
   dplyr::mutate(ExpShow = ifelse(Condition == 'E', 1, 0))
 
 modelsummary::modelsummary(
-  list(`All Advice` = lm(Advice ~ ExpShow * Treatment, data = study1_advice), 
-       `Expectations Shown` = lm(Advice ~ Treatment + Score, data = study1_advice %>% dplyr::filter(ExpShow == 1))),
+  list(`All Advice` = lm(Advice ~ ExpShow * Treatment, data = study2_advice), 
+       `Expectations Shown` = lm(Advice ~ Treatment + Score, data = study2_advice %>% dplyr::filter(ExpShow == 1))),
   vcov = ~GiverID,
   coef_map = c(
     "TreatmentHigh" = "High Default",
@@ -348,7 +898,7 @@ High Performer Group, we use our Default treatment as an instrument that
 reflect higher expectations. We show linear probability models for the
 decision of the Advisers, which is equal to 1 if they recommend
 competing against the High Performer Group and 0 if they recommend the
-Low Performer Group. In Column 1 of @tbl-study1regs, we show our main
+Low Performer Group. In Column 1 of @tbl-study2regs, we show our main
 specificiation with the experimental assignment for Advisees (High
 Performer Default vs. Low Performer Default) and Advisers (Expectation
 Shown vs. Expectation Hidden), as well as their interaction. Because
@@ -363,19 +913,19 @@ advice did not differ based on whether their expectations were shown or
 hidden. We reported a linear probability model on advising to compete
 against the High Performer group for advisers in the "Expectations"
 treatment, controlling for the true performance of the advisee in Column
-2 of @tbl-study1regs. We observe a significant main effect of the
+2 of @tbl-study2regs. We observe a significant main effect of the
 default treatment, where a high default increased the likelihood of
 receiving flattering advice. It is worth noting that, since only
-`r round(mean(study1_time1[study1_time1$default == "High",]$Guess),2)*100`
+`r round(mean(study2_time1[study2_time1$default == "High",]$Guess),2)*100`
 % of advisees in the high default group actually stuck with their
 default choice, this represents a conservative test of the effect of
 high expectations on the likelihood of receiving flattering advice.
 
 ```{r}
-#| label: fig-study1Advice
-#| fig-cap: "Advice given in Study 1. Advisees who were nudged to express high expectations were more likely to receive advice to compete against the High Performer Group."
+#| label: fig-study2Advice
+#| fig-cap: "Advice given in Study 2. Advisees who were nudged to express high expectations were more likely to receive advice to compete against the High Performer Group."
 
-study1_time2_advice %>%
+study2_time2_advice %>%
   mutate(Treatment=factor(Treatment, levels=c('High','Low'), labels = c('High default', 'Low default'))) %>%
   group_by(Condition, Treatment) %>%
   summarize(avg_count = mean(Advice), ci = qnorm(0.975)*sd(Advice)/sqrt(dplyr::n())) %>%
@@ -417,414 +967,13 @@ belief utility of the advisee and prefer to avoid disappointing them, we
 find that providing information about expectations makes a difference.
 Specifically, advisees who expressed a preference for stronger
 competitors were more likely to receive flattering advice, encouraging
-them to pursue that option. This occurs even though advisers are
-incentivized to give good advice.
+them to pursue that option. This occurs even though advisers share the
+potential costs of recommending a more challenging competition.
 
-# Study 2
-
-We next examine if advisers believe that flattering advice will improve
-how they are perceived, and if so, whether this perception is true. We
-do this by manipulating the incentives for advisers, who receive a bonus
-either based on how they are evaluated by an advisee, or a bonus for the
-advisee's accuracy.
-
-The study takes place in three stages. First, a group of advisees upload
-photos of themselves ("selfies") and are grouped with nine other
-participants of the same sex. We then recruit participants of the
-opposing sex to rank them from most to least attractive and to provide
-advice. Specifically, they advise the participant they ranked as the 7th
-most attractive (i.e., 4th least attractive) on what rank they should
-bet they were ranked by a larger group of raters. Advisers were randomly
-assigned to two treatments, receiving a bonus payment either if the
-advisee guessed their rank accurately or if the advisee evaluated the
-adviser as likeable as measured by a scale response. We hypothesize that
-advisers incentivized to be liked will recommend betting on a lower
-rank, i.e. that the advisee is more attractive.
-
-```{r}
-#| include: false
-
-study2_time1 <- readRDS(here::here("Data/Study2_time1.Rds"))
-study2_time1_200 <- readRDS(here::here("Data/Study2_time1_200.Rds"))
-study2_time2 <- readRDS(here::here("Data/Study2_time2.Rds"))
-study2_finalRank <- readRDS(here::here("Data/Study2_finalRank.Rds"))
-study2_time3 <- readRDS(here::here("Data/Study2_time3.Rds"))
-
+```{=html}
+<!-- Amanda: I try to avoid using the term "good advice" or bring in risk.
+-->
 ```
-
-
-## Methods
-
-We recruit 300 participants from Prolific and, after asking demographic
-questions, invite them to upload photos of themselves (selfies) to be
-rated by other participants on attractiveness. We obtain selfies from
-`r scales::comma(dim(study2_time1[study2_time1$gender == 'Male',])[1])`
-men and
-`r scales::comma(dim(study2_time1[study2_time1$gender == 'Female',])[1])`
-women adhering to our instructions (e.g., did not include other people).
-In line with our preregistration, we select the first 100 photos from
-women to arrive at a gender-balanced sample ($M_{\text{Age}}$ =
-`r mean(study2_time1_200$age)` years). Participants are informed that
-their selfies will be randomly grouped with those of nine other
-participants of their sex and ranked in terms of attractiveness by a
-group of new Prolific participants of the opposite sex. They then make
-an unincentivized guess of their rank.
-
-Next, we recruit `r scales::comma(dim(study2_time2)[1])` participants
-from Prolific for the role of advisers ($M_{\text{Age}}$ =
-`r round(mean(study2_time2$age),2)` years;
-`r round(mean(study2_time2$gender == "Female")*100, 2)`% Female). We
-first collect demographic information, then match them to a group of the
-opposite sex. They rank selfies of ten participants from most to least 
-attractive by entering their rankings into a text box next to each picture. 
-Because of a limitation with the survey software, we could not validate that each
-rank is given only once, and we remove 115 participants who failed to
-follow instructions and did not provide a complete ranking.[^2]
-
-[^2]: Moreover, we could not collect data from any participant who did
-    not select any participant as the 7th most attractive participant,
-    as that image would be shown on subsequent pages.
-
-After submitting their ratings, participants see the photo of the
-participant they ranked as the 7th most attractive (i.e., the 4th least
-attractive). We remind them of the rank they have just given to that
-person and inform them that this participant will be invited back and
-can earn a \$1 bonus if they correctly guess their rank. The rank is
-determined by the aggregate ratings of all participants who have ranked
-this group. Because the participant does not observe the other nine
-people in the group, they would depend on the adviser's recommendation
-along with their own assessment. We randomly assign advisers to one of
-two incentivization schemes. In the "Accuracy" treatment, they receive a
-bonus identical to the advisee: \$1 if they guess their rank correctly.
-In the "Likeability" treatment, we inform them that the advisee will
-rate them on a 5-point Likert scale on how likeable they thought they
-are. Each point on the scale would translate to a bonus of 20 cents.
-Advisers then select a rank (from 1 to 10) that they recommend the
-advisee to bet on.
-
-Finally, we invite participants from Stage 1 who were ranked as the 7th
-most attractive participant by at least one adviser (so that they
-received advice) back for the follow-up survey. Following our
-preregistration, we keep the survey open for 7 days. In total,
-`r scales::comma(dim(study2_time3)[1])` participants
-(`r scales::comma(dim(study2_time3[study2_time3$gender == 'Male',])[1])`
-men,
-`r scales::comma(dim(study2_time3[study2_time3$gender == 'Female',])[1])`
-women) complete the follow-up survey. We remind them of the selfie they
-uploaded in Stage 1 and that a group of 10 selfies, including theirs,
-had been rated by other participants from Prolific. They then see the
-advice from a randomly selected adviser and make their own guess with a
-\$1 incentive for accuracy. Finally, they rate the adviser's likability,
-warmth, friendliness, good-naturedness, trustworthiness, and sincerity
-on 5-point Likert scales [adapted from @Fiske2007].
-
-## Results
-
-```{r}
-#| include: false
-library(dplyr)
-
-TargetsUnique <- study2_time2 %>%
-  dplyr::select(Target) %>%
-  unique()
-
-
-TargetsUnique <- merge(TargetsUnique,study2_finalRank, by.x = 'Target', by.y = 'QID7_Id')
-
-```
-
-```{r}
-#| label: fig-study2advice-old
-#| fig-cap: "Advisers were asked to suggest what rank to bet on for someone they ranked as the 7th most attractive out of ten people. When incentivized for accuracy, most of them advised betting on 7, which was based on their evaluation of the recipient's attractiveness. However, when incentivized for likability, many participants gave flattering advice by suggesting betting on higher ranks that imply a higher evaluation of attractiveness."
-#| eval: false
-
-library(ggplot2)
-library(ggridges)
-
-study2_time2 <- study2_time2 %>% dplyr::mutate(Advice = as.numeric(Advice))
-
-ggplot(study2_time2, aes(x = Advice, y = Condition, fill = Condition)) +
-    # Reduce vertical spacing with rel_min_height and scale
-    geom_density_ridges(scale = 1.0, rel_min_height = 0.01, alpha = 0.7) +
-    
-    # Shading the left side of x = 7 in light grey
-    geom_rect(aes(xmin = 7, xmax = Inf, ymin = -Inf, ymax = Inf), fill = "gray95", alpha = 0.01) +
-    
-    # Add the dashed line at x = 7
-    geom_vline(xintercept = 7, col = 'black', linetype = 'dashed', linewidth = 0.7) +
-    
-    # Add the text "Flattering" on the left of the line
-    annotate("text", x = 5, y = 0.6, label = "Flattering Ranks", hjust = 1, size = 8, fontface = "bold") +
-    
-    # Manual fill colors
-    scale_fill_manual(values = c("#2A629A", '#FF7F3E'), labels = c("Accurate", "Likable")) +
-    
-    # X-axis adjustments
-    scale_x_continuous(name = "Advised Rank", breaks = seq(1, 10)) +
-    
-    # Theme adjustments
-    theme_bw() +
-  coord_flip() +
-    theme(panel.grid = element_blank(),
-          panel.border = element_blank(),
-          axis.line = element_line(colour = "black"),
-          legend.position = "none",
-          legend.title = element_blank(),
-          legend.key.size = unit(1.2, "lines"),
-          legend.text = element_text(size = 12),
-          plot.title = element_text(hjust = 0.5, size = 20),
-          axis.text.x = element_text(size = 14),  # X-axis text size
-          axis.text.y = element_text(size = 14),
-          axis.title.x = element_text(size = 16, face = "bold"),  # X-axis title size
-          axis.title.y = element_text(size = 16, face = "bold"))
-
-
-
-```
-
-```{r}
-#| label: fig-study2advice
-#| fig-cap: "Participants in Study 2 give advice to the person they rank 7th most attractive out of 10. When incentivized for accuracy, the majority recommends betting on that rank. However, when incentivized for likeability, participants inflate their advice to flatter the recipient as more attractive."
-
-study2_time2 <- study2_time2 %>% dplyr::mutate(Advice = as.numeric(Advice))
-
-study2_time2 %>%
-  dplyr::group_by(Condition) %>%
-  dplyr::mutate(total_per_condition = dplyr::n()) %>%
-  dplyr::group_by(Condition, Advice, total_per_condition) %>%
-  dplyr::summarize(n = dplyr::n()) %>%
-  dplyr::mutate(pct = ifelse(Condition == "Accurate", -n/total_per_condition, n/total_per_condition),
-                Advice = factor(Advice)) %>%
-  ggplot(aes(x = pct, y = Advice, fill = Condition)) +
-  geom_col() +
-  scale_x_continuous("Share of Advice",
-                     limits = c(-0.6, 0.6),
-                     labels = \(x) scales::percent(abs(x))) +
-  scale_y_discrete(limits = rev) +
-  # Dashed 'horizontal' line at Advice = 7
-  geom_hline(yintercept = 4, col = 'black', linetype = 'dashed', linewidth = 0.7) +
-  # Example text annotation (adjust x/y for positioning)
-  annotate("text", x = -0.3, y = 9, label = "Accuracy Incentive", hjust = 1, size = 4, fontface = "bold") +
-  annotate("text", x = 0.6, y = 9, label = "Likeable Incentive", hjust = 1, size = 4, fontface = "bold") +
-  # scale_y_continuous(name = "Advised Rank", breaks = seq(1, 10)) +
-  scale_fill_manual(values = c("#2A629A", "#FF7F3E")) +
-  papaja::theme_apa() +
-  theme(
-    legend.position  = "none",
-    axis.text.x  = element_text(size = 14),
-    axis.text.y  = element_text(size = 14),
-    axis.title.x = element_text(size = 16, face = "bold"),
-    axis.title.y = element_text(size = 16, face = "bold")
-  )
-```
-
-We begin by examining the prior beliefs of advisees who uploaded their
-selfies. On average, men guess they rank
-`r round(mean(study2_time1[study2_time1$gender == "Male",]$Guess),2)` in
-their group of 10 and women guess that they rank
-`r round(mean(study2_time1[study2_time1$gender == "Female",]$Guess),2)`
-(`r papaja::apa_print(t.test(Guess ~ gender, data = study2_time1, var.equal = T))$statistic`).
-Notably, people's self-perceptions correlate strongly with the aggregate
-ratings of the advisers
-(`r round(cor(study2_finalRank$Guess, study2_finalRank$finalRank),2)`,
-`r papaja::apa_print(cor.test(study2_finalRank$Guess, study2_finalRank$finalRank))$statistic`).
-However, there is substantial heterogeneity in perceptions of
-attractiveness. Of the 200 participants,
-`r length(unique(study2_time2$Target))` are ranked as 7th most
-attractive by at least one adviser. On average, men in this subset
-estimate they rank
-`r round(mean(TargetsUnique[TargetsUnique$gender == 'Male',]$Guess),2)`th
-and women estimate they rank
-`r round(mean(TargetsUnique[TargetsUnique$gender == 'Female',]$Guess),2)`th
-(`r papaja::apa_print(t.test(Guess ~ gender, data = TargetsUnique, var.equal = T))$statistic`).
-
-Next, we turn our attention to the advisers (see @fig-study2advice). In
-the Accuracy condition, those uploading selfies are on average advised
-to bet on rank
-`r round(mean(study2_time2[study2_time2$Condition == "Accurate",]$Advice),2)`.
-Notably, this is significantly more attractive than the 7th rank those
-advisers had themselves guessed just on the prior screen
-(`r papaja::apa_print(t.test(study2_time2[study2_time2$Condition == "Accurate",]$Advice, mu = 7, var.equal = T))$statistic`).
-This suggests that even when incentivized for accuracy, participants
-offer flattering advice.[^3] Importantly, and as predicted, we find that
-advisers in the Likeable treatment recommend betting on a lower rank,
-communicating that they think the participant in the selfie is more
-attractive
-(`r round(mean(study2_time2[study2_time2$Condition == "Likable",]$Advice),2)`,
-`r papaja::apa_print(t.test(Advice ~ Condition, data = study2_time2, var.equal = T))$statistic`).
-This suggests that advisers infer flattering someone with pleasant
-advice would make the adviser appear more likeable. The distribution
-shown in @fig-study2advice shows that participants do not simply tell
-participants that they are the most attractive person in the group. They
-may infer that flattering advise needs to be somewhat realistic to be
-believable. We return to this in the general discussion.
-
-[^3]: This shading could be due to concerns of avoiding disappointment.
-    However, it could also be that advisers are uncertain about the
-    rankings they have given and make a recommendation that combines
-    their own belief with a uniform prior. Therefore, our analyses focus
-    on the difference between the two conditions.
-
-<!-- David: Making a note here that we should be sure to discuss this at the end -->
-
-<!-- as something for future research. -->
-
-<!-- David: We should also report something on accuracy of the advice given across -->
-
-<!-- the treatments. Even if no difference. -->
-
-```{r}
-#| label: tbl-study2regs
-#| tbl-cap: "When individuals receive advice that implies a high level of attractiveness (lower rank), they tend to perceive the advice giver as more likable (Column 1), warm (Column 2). Column 3 shows that advisors are rated as more trustworthy when they advice lower ranks, but this relationship is only directional."
-#| after-caption-space: 0pt
-
-modelsummary::modelsummary(list(`(1)` = lm(likable ~ Advice, data = study2_time3),
-                                `(2)` = lm(warmAvg ~ Advice, data = study2_time3),
-                                `(3)` = lm(trustAvg ~ Advice, data = study2_time3)),
-                           vcov = c("classical", "classical", "classical"),
-                           coef_map = c("Advice" = "Advised Rank",
-                                        "(Intercept)" = "Constant"),
-                           stars = T,
-                           gof_map = list(list('raw' = 'nobs', 'clean' = 'N', 'fmt' = 0)))
-
-```
-
-Finally, we examine whether flattering advice indeed leads to more
-positive evaluations of advisers, or whether flattering advice is
-dismissed as insencere. Following our preregistration, we average the
-ratings on likeability, warmth, friendliness, and good-naturedness to
-create a scale of likeability ($\alpha$ =
-`r round(cronbach.alpha(study2_time3[, 5:8])$alpha,2)`); and we create a scale of
-trustworthiness by averaging the ratings of trustworthiness and
-sincerity ($\alpha$ = `r round(cronbach.alpha(study2_time3[, 9:10])$alpha,2)`).
-
-```{r}
-#| label: fig-study2rating
-#| fig-cap: "Participants tend to rate advisors who suggest betting on a higher rank (implying greater attractiveness) as more likable and warm."
-
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-
-study2_time3 <- study2_time3 %>% dplyr::mutate(Advice = as.numeric(Advice))
-
-
-
-# Reshape the data to long format
-study2_long <- study2_time3 %>%
-  pivot_longer(cols = c(likable, warmAvg), 
-               names_to = "Evaluation", 
-               values_to = "Value")
-
-# Create the plot
-ggplot(study2_long, aes(x = Advice, y = Value, color = Evaluation)) +  
-  # Add points for each observation
-  geom_point(size = 2, alpha = 0.7,
-             position = position_jitter()) +  
-  
-  # Add linear regression lines for each metric
-  geom_smooth(method = "lm", se = TRUE, aes(fill = Evaluation), alpha = 0.2, show.legend = FALSE) +  
-  
-  # Customize axis labels
-  scale_y_continuous(name = "Evaluation",limits = c(0.9, 5.1)) +  
-  scale_x_continuous(name = "Advised Rank",limits = c(1, 10), breaks = c(1,2,3,4,5,6,7,8,9,10)) +  
-  
-  # Apply a theme
-  theme_bw() +  
-  theme(panel.grid = element_blank(),
-        panel.border = element_blank(),
-        axis.line = element_line(colour = "grey"),
-        legend.position = "right",
-        plot.title = element_text(hjust = 0.5, size = 20)) + 
-  
-  # Set custom colors for each metric
-  scale_color_manual(values = c("#FF7F3E", "#2A629A"), 
-                     labels = c("Likability", "Warm")) + 
-  scale_fill_manual(values = c("#FF7F3E", "#2A629A"))
-
-```
-
-```{r}
-#| label: fig-study2ratingByGroup
-#| fig-cap: "After participants receive advice that suggests betting on a rank that was lower than, equal to, or higher than their own guess, they evaluate advisors based on their likability and warmth. Participants rate advisors who give flattering advice and deliver a high evaluation of their attractiveness as more likable and warm than those whose advice implied a lower evaluation of their attractiveness."
-
-library(dplyr)
-library(ggplot2)
-library(reshape2)
-
-study2_time3 <- study2_time3 %>% dplyr::mutate(Guess = as.numeric(Guess), Advice = as.numeric(Advice)) %>%
-  dplyr::mutate(HorL = ifelse(Guess == Advice,0, ifelse(Guess > Advice, 1,-1))) %>%
-  dplyr::mutate(HorL = as.factor(HorL)) %>% 
-  dplyr::mutate(bonus = ifelse(bet == `Final Rank`,1,0)) %>%
-  dplyr::mutate(accuracy = `Final Rank`-Advice)
-
-ratings <- study2_time3 %>%
-  group_by(HorL) %>%
-  summarise(like = round(mean(likable),2), warmth = round(mean(warmAvg),2))
-
-rating_table <- matrix(c(ratings$like,ratings$warmth), nrow = 2, byrow = TRUE, dimnames = list( c("Likable",'Warm'),c("Lower than", "Equal to", "Higher than")))
-
-rating_df = as.data.frame.table(rating_table) %>%
-  dplyr::rename( 'Condition'='Var1', 'Advice' ='Var2') %>%
-  dplyr::mutate(Freq = round(Freq,2))
-
-# Create a data frame similar to your structure
-data <- rating_df
-
-# Reshape the data to wide format for the heatmap
-heatmap_data <- dcast(data, Condition ~ Advice, value.var = "Freq")
-
-# Melt the data for ggplot
-melted_data <- melt(heatmap_data, id.vars = "Condition", variable.name = "Advice", value.name = "Rating")
-
-# Create the heatmap
-ggplot(melted_data, aes(x = Advice, y = Condition, fill = Rating)) +
-  geom_tile(color = "white") +
-  scale_fill_gradient(low = "darkblue", high = "orange", name = "Rating") +  # Grey gradient from light to dark
-  geom_text(aes(label = sprintf("%.2f", Rating)), color = "white", size = 8) +
-  theme_minimal() +
-  labs(x = "Attractiveness (Advice Relative to Self-Expectations)", y = "Evaluation") +
-  theme(
-    axis.text.x = element_text(size = 12),  # X-axis text size
-          axis.text.y = element_text(size = 12),
-          axis.title.x = element_text(size = 12),  # X-axis title size
-          axis.title.y = element_text(size = 12))
-  
-```
-
-As seen in @fig-study2rating, we advisers who suggested that the advisee
-was more attractive (lower rank) were indeed rated as more likeable and
-warm (b = -0.109, p \< .05; b = -0.133, p \< .001, respectively; See
-Columns 1 and 2 of @tbl-study2regs). When using their own initial guess
-as a reference point, advisers who suggest a worse rank are perceived as
-less likable and warm (see @fig-study2ratingByGroup). Interestingly,
-these benefits are not at the cost of sincerity; advisers who recommend
-a more favorable rank are viewed as no less trustworthy (Column 3 of
-@tbl-study2regs).
-
-We are not powered to do a comparison across the two experimental groups
-and did not preregister such a difference. Indeed, we find no difference
-in likeability and warmth across the two treatments
-(`r papaja::apa_print(t.test(likable ~ Condition, data = study2_time3, var.equal = T))$statistic`,
-and
-`r papaja::apa_print(t.test(warmAvg ~ Condition, data = study2_time3, var.equal = T))$statistic`,
-respectively). We also assess the quality of advice by measuring the
-discrepancy between the advised rank and the correct rank. We find no
-difference in accuracy across the advice treatments
-(`r papaja::apa_print(t.test(accuracy ~ Condition, data = study2_time3, var.equal = T))$statistic`).
-
-## Discussion
-
-In another context where advice communicates ego-relevant information
-(here, people's attractiveness), we find that the advice people give is
-contingent on their incentives. Specifically, when they get rewarded for
-being more likeable, they recommend that the advisee bet on a more
-favorable rank than when they are incentivized for accuracy.
-Importantly, advisees do not discount flattering advice and instead
-evaluate people who advise them to bet on a more attractive rank as
-warmer and more likeable. These gains to interpersonal perceptions do
-not come at the cost of trustworthiness, even when the advice is
-inflated.
 
 # Study 3
 
@@ -1008,7 +1157,7 @@ confident in their performance than are women, as we had expected.
 
 ```{r}
 #| label: tbl-study3regs
-#| tbl-cap: "Column 1 displays the advice given to compete against a High Performance group based on whether the advisees were primed with low or high expectations and the expectation level shown to the advisor. Column 2 displays the advice given to compete against a High Performance group based on the gender of the targets and the expectation level shown to the advisor. Column 3 displays the expected bonus of the advice received based on the gender of the targets and the expectation level shown to the advisor. All standard errors clustered at the level of the advisor."
+#| tbl-cap: "Column 1 displays the advice given to compete against a High Performance group based on whether the advisees were primed with low or high expectations and the expectation level shown to the adviser. Column 2 displays the advice given to compete against a High Performance group based on the gender of the targets and the expectation level shown to the adviser. Column 3 displays the expected bonus of the advice received based on the gender of the targets and the expectation level shown to the adviser. All standard errors clustered at the level of the adviser."
 #| after-caption-space: 0pt
 
 study3_advice <- study3_advice %>% dplyr::mutate(Treatment = factor(Treatment, levels = c('Low', 'High'))) %>%
@@ -1188,9 +1337,9 @@ they compete more as a result of flattering advice.
 Our findings suggest that attempts to avoid disappointment can be a
 novel source of gender differences in advice. Women underestimate their
 mathematics test scores more than men. When these expectations are shown
-to advisors, they are more likely to tell men to compete against high
+to advisers, they are more likely to tell men to compete against high
 performers than women. Notably, this turns out to be poor advice: men
-whose advisors are aware of their expectations receive worse advice. Our
+whose advisers are aware of their expectations receive worse advice. Our
 findings suggest that men with the same scores as their female
 counterparts end up earning less, although this result is only
 directional. This discrepancy may be due to men receiving more favorable
@@ -1200,7 +1349,7 @@ outcomes.
 # General Discussion
 
 Advice has the potential to shape people's career and personal outcomes.
-Honest feedback, however, may be painful to learn if it falls short of
+Honest advice, however, may be painful to learn if it falls short of
 one's expectations. As prior work notes, this may motivate people to
 avoid information and avoid seeking help [@Benabou2022; @Golman2017;
 @Jaroszewicz2022]. We present evidence from three experiments that
@@ -1215,19 +1364,69 @@ to take into account the expectations of the advisee. We document that
 men are more optimistic about their performance than women are. As a
 result, they receive more flattering advice and are more likely to be
 told to aim higher. Notably, in the context of our experiment, this
-turns out to be bad advice ex post.
+turns out to lead to lower bonus compared to more conservative advice.
+While we focus on gender groups here, our findings may extend to other
+social groups where differences in expectations exist. This dynamic may
+create a reinforcing cycle — individuals with higher confidence are more
+likely to receive encouragement and positive reinforcement, further
+boosting their confidence. In contrast, individuals with lower
+confidence have fewer opportunities to receive such encouragement,
+despite potentially needing it the most.
+
+<!--# I tried to replace "bad advice". -->
 
 Our findings have implications for organizational practice, where
-mentoring and advice-giving may take into account an employees'
-expectation. We document this as a novel source of gender bias.
-Organizations could reduce this bias by calibrating employees'
-expectations to reduce overconfidence.
+mentoring and advice-giving often consider employees' expectations. On
+one hand, offering flattering advice may enhance relationships between
+mentors and mentees, enhancing trust and communication, which are
+crucial for collaboration and long-term organizational success. However,
+flattering advice may also lead to talent misallocation, as employees
+are more likely to be encouraged to pursue career paths aligned with
+their stated preferences and less likely to be recommended to explore
+alternative directions that might better match their potential.
+Additionally, when advisers hold significantly more power than advisees,
+interpersonal concerns may diminish [@Schaerer2018], resulting in advice
+that is more blunt or even harsh. As a result, advisees may seek
+flattering advice from peers or subordinates instead, missing out on
+valuable expertise from their supervisors. Lastly, we identify
+flattering advice as a novel source of gender bias, as women may receive
+less ambitious advice due to lower expressed confidence. Organizations
+could reduce this bias by calibrating employees' expectations to curb
+overconfidence and/or compensate for a lack of confidence.
 
-Participants in our experiment were paired anonymously. Even so, we
-document this desire to avoid disappointment. We anticipate that advice
-would be more flattering in face-to-face communication and without
-anonymity. Moreover, existing relationships might make it even more
-difficult for advisers to be honest.
+Participants in our experiment were paired online and remained
+anonymous. Even so, we document this desire to avoid disappointment.
+Given that communications mediated by computer tends to be less
+emotionally rich [@Kiesler1985], and that anonymity reduces the
+psychological burden of responsibility for the advisee's feelings, as it
+cannot be traced back to the adviser. We anticipate that advice would be
+more flattering in face-to-face communication and without anonymity.
+
+Moreover, existing relationships might make it even harder for advisers
+to be fully honest. Advisers tend to feel more concerned and emotionally
+attached to how friends, family, or colleagues feel compared to how a
+stranger would feel, which may increase their motivation to provide
+flattering advice. Conversetly, advisees also tend to value the
+emotional support embedded in advice from their friends, even when it
+lacks informational utility. Moreover, people generally prefer their
+close ones to demonstrate benevolence toward them rather than apply
+impartial integrity during interactions [@Levine2020]. In response to
+these expectations, advisers might intentionally inflate their advice to
+strengthen their bond with the advisee and protect them from discomfort.
+
+The closeness of the relationship may moderate the tendency to provide
+flattering advice. On one hand, advisers may prioritize the advisee’s
+best interests above other considerations when offering advice to
+someone they have a close and strong relationship with, making them more
+willing to provide the most helpful advice, even if it is unflattering.
+Advisers may also feel more confident that a close relationship is
+resilient enough to withstand any immediate disappointment the advisee
+may experience if the advice falls short of their self-expectations. On
+the other hand, closer relationships may also strengthed the adviser’s
+motivation to protect the advisee’s feelings, increasing the likelihood
+of offering flattering advice. Future research could explore how
+relationship closeness influences the balance between providing
+flattering versus candid advice.
 
 In our experiments, participants only received advice once and did not
 evaluate the adviser after observing the outcome of their decision. For
@@ -1239,7 +1438,8 @@ task. Future research could examine whether people return to those who
 gave them flattering advice, or if they prefer someone who gave them the
 honest (but unpleasant) truth.
 
-Advice has long been studied from the perspective of the receiver.
+Advice has long been studied from the perspective of the receiver
+[@Rader2017; @yaniv2004receiving; @bonaccio2006Review; @Milyavsky2024].
 Similarly, research on belief utility has examined how recipients
 respond to the valence of the information they receive. Here, we show
 that advisers, too, take into account the psychological impact of the
