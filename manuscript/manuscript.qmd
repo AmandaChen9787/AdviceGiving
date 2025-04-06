@@ -19,7 +19,7 @@ author:
 # author-note:
   # disclosures:
     # gratitude: The authors are grateful to XXX for their helpful comments.
-abstract: Advice can improve decisions when it offers an unbiased evaluation of information, but the painful truth can disappoint an advisee's overoptimistic expectations. Across three pre-registered and incentivized experiments involving real adviser-advisee interactions (N = 3,900), we show that advisers avoid such disappointment at the expense of accuracy and their own earnings. Participants inflate the attractiveness of advisees and do so to a greater extent when incentivized to be viewed as likeable. Advisers who provide flattering advice are rated as more likable and trustworthy, even as their advice is less honest and accurate (Study 1). When advisers observe an advisee's quiz performance along with a signal expressing a preference for competing against a group of low or higher performers, the (uninformative) signal influences their advice (Study 2). Finally, in a context where men expect to do better than women, advisers who observe expectations (but not gender) on top of actual performance are more likely to tell men to enter a tougher (but potentially more rewarding) competition. Advisers' efforts to avoid disappointment may thus contribute to systematic gender disparities in advice.
+abstract: Advice can improve decisions when it offers an unbiased evaluation of information, but the painful truth can disappoint an advisee's expectations. Across three pre-registered and incentivized experiments involving real adviser-advisee interactions (N = 3,900), we show that advisers avoid delivering such disappointment at the expense of accuracy and their own earnings. Participants inflate the attractiveness of advisees and do so to a greater extent when incentivized to be viewed as likeable. Advisers who provide flattering advice are indeed rated as more likable and trustworthy, even as their advice is less honest and accurate (Study 1). When advisers observe an advisee's quiz performance along with a signal expressing a preference for competing against a group of low or higher performers, the (uninformative) signal influences the advice they give (Study 2). Finally, in a context where men expect to do better than women, advisers who observe expectations (but not gender) on top of actual performance are more likely to tell men to enter a tougher (but potentially more rewarding) competition. Advisers' efforts to avoid disappointment may thus contribute to systematic gender disparities in advice and outcomes.
   
 keywords: [advice, belief-based utility, interpersonal relationships, gender, discrimination]
 bibliography: bibliography.bib
@@ -59,28 +59,112 @@ knitr::opts_chunk$set(fig.width = 8, fig.height = 4, cache = F, echo = F,
 
 # Introduction
 
-Advice figures prominently in workplace and personal decision-making,
-shaping choices about promotions, career paths, and everyday dilemmas
-[@Gino2007; @Harvey1997; @Soll2009]. While others can provide
-information in the form of opinions [@Trouche2018], feedback
-[@Kluger1996], or personal observations [@Yoon2021] to influence the
-decision-maker, this project focuses specifically on advice—defined as
-"information that is perceived as intended to help an advisee deal with
-their issue of deliberation" [@Milyavsky2024]. Advice is distinct from
-other forms of input because its primary purpose is to improve
-decision-making by leveraging others' expertise.
+Advice figures prominently in professional and personal life,
+shaping choices about career paths, promotions, and everyday dilemmas
+[@Gino2007; @Harvey1997; @Soll2009].
+An extensive body of research has examined the behavior and beliefs of those
+receiving advice, including how willing they are to seek advice [@Heikensten2019], 
+whom they want to get advice from [@Hur2020], and how much they revise their beliefs 
+in response to advice [@Bailey2023].
+In this paper, we shift the focus to the behavior of advisers. Prior work 
+assumes that they (absent conflicts of interest) are motivated 
+to help someone else make a better decision, even defining advice as being 
+intended to help another decision-maker [@Milyavsky2024 -- David Q: is this a right interpretation of the previous quote here?].
+We propose that advisers are not merely concerned about the outcome of the action
+they recommend, however, but also consider the hedonic impact of the advice itself.
+Across three experiments, we show that advisers are responsive to the expectations
+of an advisee and tailor their recommendations to avoid disappointing them,
+even when doing so leads to worse advice and is costly for both parties.
 
-Advice has the power to enhance decisions, yet it also carries the risk
-of disappointment. For example, a career consultant might advise an
-employee to enroll in a management program to strengthen their skill set
-before competing for a leadership role. Ideally, such honest advice
-helps the employee identify areas for personal growth. In practice,
-however, the employee might feel overlooked and frustrated that their
-ambitions are not immediately supported. As a result, advisers may be
-inclined to offer flattering recommendations that align with—or even
-exceed—advisees' hopes, such as encouraging the employee to pursue the
-leadership role despite concerns about their readiness. In this way,
-interpersonal dynamics may discourage full candor in giving advice.
+In many situations, people turn to those who are better informed to advise them
+on what actions to take. For example, an employee may discuss career
+opportunities with a supervisor or mentor to see if they should apply for a
+promotion or take on a risky project. Ideally, they would receive an unbiased
+assessment based on the adviser's experience and impression of the advice-seeker,
+taking into account the potential costs (e.g., opportunity costs) and benefits
+(e.g., promotion chances and compensation). Indeed, in an experimental context, 
+advisers are helpful in encouraging
+high-performers to enter competitions and discouraging low-performers from doing so
+[@Brandts2015]. However, people often reveal their expectations along with a
+request for advice. For example, someone may express a desire to take on more
+challenging projects before asking for advice on whether to do so. In such cases,
+honest advice may discourage someone from an action they intended to take,
+frustrating and disappointing them in the process. An adviser who is concerned
+about the hedonic impact of information on the recipient, for example because
+they recognize the psychological cost of disappointment [@Gul1991; @Golman2017]
+or do not want to be blamed for delivering bad news [@John2019], 
+may give advice that makes the recipient feel good in the moment, even if they 
+expect it to lead to a bad outcome. We refer to such advice as "flattering"
+because it communicates a more favorable belief about the recipient than the
+sender in fact holds.
+
+In the workplace, prior research has documented stark gender differences in what
+kind of advice employees receive. In particular, men receive more critical 
+performance feedback than women, which although
+painful in the moment, facilitates learning and leads to better performance
+in the future (CITE). While such differences
+are often attributed to unconscious biases, we propose that avoiding disappointment
+may be another, belief-based contributing factor. Prior work has found that
+men are more confident in their performance than equally well-performing
+women [@Exley2024; @Lundeberg1994; @Mobius2022]. As a result,
+women are less likely to enter into competitions and less likely to apply for 
+more challenging (but better compensated) work [@Niederle2007; @Coffman2024].
+We propose that in addition to self-selection, confidence may also impact the
+advice men and women receive. An adviser who is motivated to avoid disappointment
+will take into account how someone *expects* to perform, even when they are
+fully informed about how that individual *actually* performs. Thus, people
+who are more (over)confident receive more flattering advice, leading to gender
+differences driven by differences in expectations.
+
+We present results from three preregistered and incentivized experiments involving
+advisers and advisees. Each study consists of three asynchronous stages with a group of
+participants performing an initial task, a second group of participants providing
+advice, and the original participants returning to receive the advice and make
+a decision. Advisers have a financial incentive for the advisee to make a good
+decision, except in one treatment in Study 1 where they are incentivized to be
+viewed as likeable.
+
+In the first study, participants upload photos of themselves and
+are matched with nine other participants of the same gender. A new group of
+participants of the opposite gender then rank the selfies and provide advice
+to one participant (whom they ranked low on attractiveness) on what rank they
+should bet on. The original participants return, receive advice, bet on
+how attractive other participants ranked them, and evaluate the adviser on
+measures such as likeability and trustworthiness. Advisers who receive an
+incentive for being rated as likeable advise the other participant to bet that
+they are more attractive, relative to those incentivized for accuracy and relative
+to their own assessment. Advisees, moreover, evaluate those who flatter them as
+more likeable and more trustworthy, even as they receive less honest and less
+accurate advice.
+
+In Study 2, participants complete a quiz assessing different personally relevant
+skills (problem-solving,
+emotional intelligence, and communications) and make a non-binding decision about
+whether they would like to compete against a group that did well on this quiz
+or a group that did poorly. Competing against high performers offers the opportunity
+of a higher payment, but requires a higher score. We randomly assign participants
+to have one of the two groups selected by default. Advisers then observe a
+participant's real score on the quiz and, in one treatment, also which of the
+two groups they had selected. We show that participants' random assignment to
+a default influences the advice they receive when their choice (but not the
+random assignment) is visible.
+
+Finally, we look at a setting in which we expect gender differences in confidence.
+Participants complete a mathematics quiz and make an (unincentivized) guess about
+their score. Advisers then observe the actual quiz score and, in one treatment,
+also the unincentivized guess. They then advise the participant whether to
+compete against a group of high performers or a group of low performers. As 
+expected, men are more confident in their performance than are women, holding
+fixed their actual performance. Importantly, we show that when participants' 
+guesses are shown to advisers, men are more likely than women to be advised to
+compete against the strong group.
+
+The remainder of this paper is organized as follows. Section 2 provides an
+overview of the literature on advice and disappointment aversion. Section 3
+presents results from three preregistered and incentivized experiments
+involving adviser-advisee pairs. Section 4 concludes.
+
+# Literature Review
 
 The objective of this research is to examine the dilemma advisers face:
 Should they provide accurate but potentially painful advice, or soften
@@ -243,7 +327,35 @@ competitive opportunities, while directing women toward safer, less
 ambitious paths — ultimately reinforcing existing gender disparities in
 career outcomes.
 
-# Overview of studies
+
+## Disappointment Aversion
+Information, including advice, has traditionally been seen as valuable when 
+(and to the extent that) it leads to better decisions [@Stigler1961]. However, 
+even information that is available at no economic cost can be unpleasant and 
+thus impose a psychological cost [@Golman2017; @Ho2021; @Loewenstein2018]. One reason
+for why information can be painful to receive is because it leads to disappointment
+[@Gul1991]. Disappointment is costly if it suggests that a desired outcome is
+not realized, but also because it provides information about future consumption
+[@Koszegi2010]. Someone receiving advice against applying for a promotion, for
+example, would not only learn that they are not as competitive as they had
+believed, but also has to update their beliefs about their future income stream.
+
+@Bell1985 shows that disappointment aversion implies providing good news
+immediately, but breaking bad news piecewise to adjust expectations---and 
+observes that this is indeed how people inform others. Notably, this is assuming
+delivering the bad news is unavoidable. In the context of advice, however,
+people can elect not to deliver the bad news at all and instead shade their
+evaluation to meet expectations and flatter the recipient.
+
+## Gender Differences in Advice and Expectations
+
+
+
+
+[A few sentences summarizing the literature review and tying it closely to the experiments.]
+
+
+# Experiments
 
 In our experiments, however, advisees have no opportunity to punish the
 adviser, and advisers' financial incentives are linked to the decisions
@@ -328,7 +440,7 @@ men and women differs, and men are more often advised to compete against
 the group of high performers. Notably, this leads to worse advice for
 men than for women.
 
-# Open Science Statement
+## Open Science Statement
 
 We report all manipulations, measures, and data exclusion in our
 experiments. The preregistration reports, screenshots of all
@@ -337,7 +449,7 @@ statistical analyses and figures are available on the Open Science
 Framework
 (<https://osf.io/8r3d4/?view_only=5ad7bafcd16b4d4ba08bb28b0e2bd02d>).
 
-# Study 1
+## Study 1
 
 We first examine if advisers believe that flattering advice will improve
 how they are perceived, and if so, whether this perception is true. We
@@ -368,7 +480,7 @@ study1_time3 <- readRDS(here::here("Data/Study1_time3.Rds"))
 
 ```
 
-## Methods
+### Methods
 
 We recruit 300 participants from Prolific and, after asking demographic
 questions, invite them to upload photos of themselves (selfies) to be
@@ -434,7 +546,7 @@ advice from a randomly selected adviser and make their own guess with a
 warmth, friendliness, good-naturedness, trustworthiness, and sincerity
 on 5-point Likert scales [adapted from @Fiske2007].
 
-## Results
+### Results
 
 ```{r}
 #| include: false
@@ -730,7 +842,7 @@ discrepancy between the advised rank and the correct rank. We find no
 difference in accuracy across the advice treatments
 (`r papaja::apa_print(t.test(accuracy ~ Condition, data = study1_time3, var.equal = T))$statistic`).
 
-## Discussion
+### Discussion
 
 When advice communicates ego-relevant information (here, people's
 attractiveness), we find that the advice people give is contingent on
@@ -744,7 +856,7 @@ who advise them to bet on a more attractive rank as warmer and more
 likeable. These gains to interpersonal perceptions do not come at the
 cost of trustworthiness, even when the advice is inflated.
 
-# Study 2
+## Study 2
 
 We next examine whether advisers take into account the expectations of
 advisees when providing a recommendation. A group of participants
@@ -759,7 +871,7 @@ had selected. We predicted that Advisees who were nudged toward the high
 performer group would be more likely to receive advice to compete
 against this high group when Advisers observed their non-binding choice.
 
-## Methods
+### Methods
 
 ```{r}
 
@@ -832,7 +944,7 @@ were not informed of their true score or the score of the groups they
 could compete against. Participants then observed the advice from a
 randomly selected adviser and made their decision.
 
-## Results
+### Results
 
 ```{r}
 contingency_table <- table(study2_time1$Guess, study2_time1$default)
@@ -958,7 +1070,7 @@ study2_time2_advice %>%
 
 ```
 
-## Discussion
+### Discussion
 
 When an adviser knows an outcome that an advisee can only estimate,
 learning this estimate should not change the advice that is given.
@@ -975,7 +1087,7 @@ potential costs of recommending a more challenging competition.
 -->
 ```
 
-# Study 3
+## Study 3
 
 ```{r}
 #| include: false
@@ -1001,7 +1113,7 @@ known to advisers, men will be advised to compete against High
 Performers more than women, even when advisers do not know gender and
 expectations are uninformative.
 
-## Methods
+### Methods
 
 ```{r}
 #| include: false
@@ -1112,7 +1224,7 @@ of their true score or the score of the groups they could compete
 against. Participants then observe the advice from a randomly selected
 adviser and make their decision.
 
-## Results
+### Results
 
 We begin by examining the performance of the Stage 1 participants.
 Because our treatment takes place after participants complete the
@@ -1332,7 +1444,7 @@ consequences. Furthermore, our research indicates that because men are
 more likely to follow such advice (see Column 4 of @tbl-study3time3),
 they compete more as a result of flattering advice.
 
-## Discussion
+### Discussion
 
 Our findings suggest that attempts to avoid disappointment can be a
 novel source of gender differences in advice. Women underestimate their
@@ -1346,7 +1458,7 @@ directional. This discrepancy may be due to men receiving more favorable
 advice, being more likely to follow it, and ultimately facing worse
 outcomes.
 
-# General Discussion
+# Discussion
 
 Advice has the potential to shape people's career and personal outcomes.
 Honest advice, however, may be painful to learn if it falls short of
